@@ -1,2 +1,48 @@
 # husnabot
-A very simple Telegram bot that made just for fun. All credit go to Hüsna Yılmaz
+### A very simple Telegram bot that made just for fun. All credits go to [Hüsna Yılmaz](https://github.com/arfias)
+
+---
+**b0t.php** is the file developed and customized for contributors to easily add new features to the bot.
+
+Here's a basic template:
+
+```php
+$husnab0t->addCommand("word","function_name_to_call");
+/* first thing to do is register command to listener */
+```
+```php
+function function_name_to_call()
+{
+        global $husnab0t;
+        $husnab0t->sendMessage("good job!");
+}
+/* after calling addCommand with the parameters above, bot automatically calls the given function each time it encounters the "word"
+```
+
+To make it clear, here's a working example:
+
+```php
+/* fotoad Function STARTS */
+$husnab0t->addCommand("fotoad","fotoadFunc");
+function fotoadFunc(){
+        global $husnab0t;
+        $ch = curl_init();
+        $url = "http://www.funcage.com/?";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $result = "";
+        preg_match_all('/src="([^"]+)"/',$response, $result);
+        $sonhal = "http://www.funcage.com".$result[1][1];
+        $husnab0t->sendPhoto($sonhal);
+}
+/* fotoad Function ENDS */
+```
+
+**That's it!**
+
+When some say "fotoad" in a chat with husnab0t, fotoadFunc() will be automatically called.
+---
+
+More information coming soon!
