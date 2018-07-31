@@ -6,7 +6,7 @@ require_once("b0t.class.php");
 $data = file_get_contents('php://input');
 $data = json_decode($data, TRUE);
 
-     
+
 $husnab0t = new husna($data);
 
 
@@ -97,7 +97,21 @@ function fotoadFunc(){
 
 /* PUT NEW FEATURES BELOW */
 
+$husnab0t->addCommand("yemekad","yemekteNeVar");
 
+function yemekteNeVar() {
+        global $husnab0t;
+        $ch = curl_init();
+        $url = "http://kafeterya.metu.edu.tr/";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        preg_match_all("/<div class=\"yemek\">(.*?)<span>(.*?)<img src=\"(.*?)\" alt=\"(.*?)\"\/><\/span>(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-->/msi", $response, $output);
+        $yemekler = "Yemekte şunlar varmış hojam: \n\nÖğle yemeği\n".$output[4][0]."\n".$output[4][1]."\n".$output[4][2]."\n".$output[4][3]."\n\nAkşam yemeği\n".$output[4][4]."\n".$output[4][5]."\n".$output[4][6]."\n".$output[4][7]."\n\nAfiyet olsun hojam!";
+        $husnab0t->sendMessage($yemekler);
+
+}
 
 
 
