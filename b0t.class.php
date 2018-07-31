@@ -7,7 +7,7 @@ class husna extends settings
     private $senderLastName;
     private $message;
     private $firstWord;
-    private $otherWords; 
+    private $otherWords;
     private $messageId;
     private $chatId;
     private $userEnter;
@@ -29,7 +29,7 @@ class husna extends settings
         $this->userExit = ($data["message"]["left_chat_participant"]["username"]) ? $data["message"]["left_chat_participant"]["username"] : 0;
         $this->groupOrPrivate = ($data["message"]["chat"]["type"] == "private") ? 0 : 1; // 0 = private message, 1 = group message
         $this->reqUrl = "https://api.telegram.org/bot".$this->getBotToken() . "/";
-        $this->whoamI = 
+        $this->whoamI =
         "ben hüsna b0t\n
         bilgiad yazarsan sana harika bilgiler getiririm
         \n####\n
@@ -40,6 +40,8 @@ class husna extends settings
         mizahyab yazarsan senin için birbirinden eĞLenCeLi fıkralarımdan birisini anlatırım.
         \n####\n
         fotoad yazarsan senin için internetin derinliklerinden elde ettiğim görsellerimden birisini paylaşırım
+        \n####\n
+				yemekad yazarsan senin için yemekhanede bugün ne olduğunu söylerim.
         \n####\n
         henüz yeni sayılırım mazur gör hoja";
 
@@ -67,7 +69,7 @@ class husna extends settings
     }
 
     /*
-        sendMessage function takes 
+        sendMessage function takes
         $message : text of the message to be sent
         $reply_to_message (optional, default 0) : sends messages as reply if <> 0
     */
@@ -75,13 +77,13 @@ class husna extends settings
 
     public function sendMessage($message,$reply_to_message = 0) {
         $reply = ($reply_to_message != 0) ? "&reply_to_message_id=".$this->getMessageId(): "";
-        $url = "sendMessage?chat_id=".$this->getChatId()."&text=".urlencode($message).$reply;
+        $url = "sendMessage?chat_id=".$this->getChatId()."&text=".urlencode($message).$reply."&parse_mode=markdown";
         $this->requEst($url);
         return;
     }
 
     /*
-        sendPhoto function takes 
+        sendPhoto function takes
         $photoUrl : image file link, any common extension(gif,jpeg,png etc.)
         $caption (optional, default 0) : image message caption, 0-200 characters
         $reply_to_message (optional, default 0) : sends messages as reply if <> 0
@@ -93,10 +95,10 @@ class husna extends settings
         $reply = ($reply_to_message != 0) ? "&reply_to_message_id=".$this->getMessageId(): "";
         $caption = ($caption !== "") ? "&caption=" . urlencode(substr($caption,0,200)) : "";
         $url = "sendPhoto?chat_id=".$this->getChatId()."&photo=".urlencode($photoUrl). $caption . $reply;
-        $this->requEst($url);    
+        $this->requEst($url);
     }
     /*
-        sendVoiceMessage function takes 
+        sendVoiceMessage function takes
         $voice : sound file link, only ogg extension is allowed
         $caption (optional) : voice message caption, 0-200 characters
         $reply_to_message (optional, default 0): sends messages as reply if <> 0
@@ -124,10 +126,10 @@ class husna extends settings
     private function requEst($url){
 
         $output =  $this->getReqUrl() . $url;
- 
+
         $ac = fopen("reqs.txt","a+");
         fwrite($ac,$output."\n");
-        
+
         fclose($ac);
 
 
@@ -204,7 +206,7 @@ class husna extends settings
 
     /**
      * Get the value of messageId
-     */ 
+     */
     public function getMessageId()
     {
         return $this->messageId;
@@ -214,7 +216,7 @@ class husna extends settings
      * Set the value of commands
      *
      * @return  self
-     */ 
+     */
     public function addCommand($command,$function_name)
     {
         $this->commands += array($command=>$function_name);
@@ -223,7 +225,7 @@ class husna extends settings
 
     /**
      * Get the value of reqUrl
-     */ 
+     */
     public function getReqUrl()
     {
         return $this->reqUrl;
@@ -231,7 +233,7 @@ class husna extends settings
 
     /**
      * Get the value of whoamI
-     */ 
+     */
     public function getWhoamI()
     {
         return $this->whoamI;
@@ -239,7 +241,7 @@ class husna extends settings
 
     /**
      * Get the value of commands
-     */ 
+     */
     public function getCommands()
     {
         return $this->commands;
@@ -247,7 +249,7 @@ class husna extends settings
 
     /**
      * Get the value of firstWord
-     */ 
+     */
     public function getFirstWord()
     {
         return $this->firstWord;
@@ -255,7 +257,7 @@ class husna extends settings
 
     /**
      * Get the value of otherWords
-     */ 
+     */
     public function getOtherWords()
     {
         return $this->otherWords;
