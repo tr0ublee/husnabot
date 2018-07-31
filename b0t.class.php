@@ -21,7 +21,7 @@ class husna extends settings
         $this->senderUsername = $data["message"]["from"]["username"];
         $this->senderFirstName = $data["message"]["from"]["first_name"];
         $this->senderLastName = $data["message"]["from"]["last_name"];
-        $this->message = $data["message"]["text"];
+        $this->message = mb_strtolower($data["message"]["text"]);
         $this->firstWord = explode(" ",$this->message,2)[0];
         $this->otherWords = explode(" ",$this->message,2)[1];
         $this->chatId = $data["message"]["chat"]["id"];
