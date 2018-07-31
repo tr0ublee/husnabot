@@ -6,14 +6,7 @@ require_once("b0t.class.php");
 $data = file_get_contents('php://input');
 $data = json_decode($data, TRUE);
 
-        $output = print_r($data, true);
- 
-        $ac = fopen("logx.txt","a+");
-        fwrite($ac,$output."\n");
-        
-        fclose($ac);
-
-global $husnab0t;
+     
 $husnab0t = new husna($data);
 
 
