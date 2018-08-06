@@ -123,10 +123,8 @@ function dolaradFunc() {
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$response = curl_exec($ch);
 	curl_close($ch);
-	$regex = "/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"USDTRY Curncy\">(\d,\d*)<\/span>/";
-	$resultRegex = "";
-	preg_match_all($regex, $response, $resultRegex);
-	$message = "dolar şu an:\n*".$resultRegex[0][0]."* TL hojam.";
+	preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"USDTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
+	$message = "dolar şu an:\n*".$resultRegex[1][0]."* TL hojam.";
 	$husnab0t->sendMessage($message);
 }
 
