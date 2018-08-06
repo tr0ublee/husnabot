@@ -124,7 +124,7 @@ function dolaradFunc() {
 	$response = curl_exec($ch);
 	curl_close($ch);
 	preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"USDTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
-	$message = "dolar şu an:\n*".$resultRegex[1][0]."* TL hojam.";
+	$message = "\xF0\x9F\x92\xB5 dolar şu an: *".$resultRegex[1][0]."* TL hojam. \xF0\x9F\x92\xB8";
 	$husnab0t->sendMessage($message);
 }
 
