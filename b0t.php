@@ -127,7 +127,7 @@ function dolaradFunc() {
 	$resultRegex = "";
 	preg_match_all($regex, $response, $resultRegex);
 	$message = "dolar şu an:\n*".$resultRegex[0][0]."* TL hojam.";
-	$husnab0t->sendMessage($yemekler);
+	$husnab0t->sendMessage($message);
 }
 
 
