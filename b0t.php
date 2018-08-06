@@ -108,7 +108,16 @@ function yemekteNeVar() {
         $response = curl_exec($ch);
         curl_close($ch);
         preg_match_all("/<div class=\"yemek\">(.*?)<span>(.*?)<img src=\"(.*?)\" alt=\"(.*?)\"\/><\/span>(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-->/msi", $response, $output);
-        $yemekler = "Yemekte şunlar varmış hojam: \n\n*Öğle yemeği*\n".$output[4][0]."\n".$output[4][1]."\n".$output[4][2]."\n".$output[4][3]."\n\n*Akşam yemeği*\n".$output[4][4]."\n".$output[4][5]."\n".$output[4][6]."\n".$output[4][7]."\n\nAfiyet olsun hojam!";
+				if(date("N") > 5) {
+					$yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
+				}
+				else {
+        	$yemekler = "\xF0\x9F\x8D\xB4 Yemekte şunlar varmış hojam: \n\n*Öğle yemeği*\n".$output[4][0]."\n".$output[4][1]."\n".$output[4][2]."\n".$output[4][3]."\n\n";
+					if(strlen($output[4][4]) > 2) {
+						$yemekler .= "*Akşam yemeği*\n".$output[4][4]."\n".$output[4][5]."\n".$output[4][6]."\n".$output[4][7]."\n\n";
+					}
+					$yemekler .= "Afiyet olsun hojam!";
+				}
         $husnab0t->sendMessage($yemekler);
 
 }
@@ -124,7 +133,7 @@ function dolaradFunc() {
 	$response = curl_exec($ch);
 	curl_close($ch);
 	preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"USDTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
-	$message = "\xF0\x9F\x92\xB5 dolar şu an: *".$resultRegex[1][0]."* TL hojam. \xF0\x9F\x92\xB8";
+	$message = "\xF0\x9F\x92\xB5 dolar şu an *".$resultRegex[1][0]."* TL hojam. \xF0\x9F\x92\xB8";
 	$husnab0t->sendMessage($message);
 }
 
