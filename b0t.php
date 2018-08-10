@@ -101,6 +101,7 @@ $husnab0t->addCommand("yemekad","yemekteNeVar");
 
 function yemekteNeVar() {
         global $husnab0t;
+				date_default_timezone_set('Europe/Istanbul');
         $ch = curl_init();
         $url = "http://kafeterya.metu.edu.tr/";
         curl_setopt($ch, CURLOPT_URL, $url);
