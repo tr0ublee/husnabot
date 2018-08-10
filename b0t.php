@@ -101,7 +101,7 @@ $husnab0t->addCommand("yemekad","yemekteNeVar");
 
 function yemekteNeVar() {
         global $husnab0t;
-				date_default_timezone_set('Europe/Istanbul');
+        date_default_timezone_set('Europe/Istanbul');
         $ch = curl_init();
         $url = "http://kafeterya.metu.edu.tr/";
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -109,16 +109,16 @@ function yemekteNeVar() {
         $response = curl_exec($ch);
         curl_close($ch);
         preg_match_all("/<div class=\"yemek\">(.*?)<span>(.*?)<img src=\"(.*?)\" alt=\"(.*?)\"\/><\/span>(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-->/msi", $response, $output);
-				if(date("N") > 5) {
-					$yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
-				}
-				else {
-        	$yemekler = "\xF0\x9F\x8D\xB4 Yemekte şunlar varmış hojam: \n\n*Öğle yemeği*\n".$output[4][0]."\n".$output[4][1]."\n".$output[4][2]."\n".$output[4][3]."\n\n";
-					if(strlen($output[4][4]) > 2) {
-						$yemekler .= "*Akşam yemeği*\n".$output[4][4]."\n".$output[4][5]."\n".$output[4][6]."\n".$output[4][7]."\n\n";
-					}
-					$yemekler .= "Afiyet olsun hojam!";
-				}
+        if(date("N") > 5) {
+          $yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
+        }
+        else {
+          $yemekler = "\xF0\x9F\x8D\xB4 Yemekte şunlar varmış hojam: \n\n*Öğle yemeği*\n".$output[4][0]."\n".$output[4][1]."\n".$output[4][2]."\n".$output[4][3]."\n\n";
+          if(strlen($output[4][4]) > 2) {
+          $yemekler .= "*Akşam yemeği*\n".$output[4][4]."\n".$output[4][5]."\n".$output[4][6]."\n".$output[4][7]."\n\n";
+          }
+          $yemekler .= "Afiyet olsun hojam!";
+        }
         $husnab0t->sendMessage($yemekler);
 
 }
