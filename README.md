@@ -40,6 +40,6 @@ function fotoadFunc(){
 When some say "fotoad" in a chat with husnab0t, fotoadFunc() will be automatically called.
 ---
 
-You can use husnaCurl($url) function to make CURL requests within functions.
+You can use husnaCurl($url) function to make cURL requests within functions.
 
 More information coming soon!
