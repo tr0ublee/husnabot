@@ -119,7 +119,7 @@ function dolaradFunc() {
 
 /* dolarad Function ENDS */
 
-$husnab0t->addCommand("helb",$this->getWhoamI()); 
+$husnab0t->addCommand("helb",$husnab0t->getWhoamI()); 
 
 /* PUT NEW FEATURES BELOW */
 
