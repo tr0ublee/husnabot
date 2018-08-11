@@ -120,7 +120,6 @@ function dolaradFunc() {
 /* dolarad Function ENDS */
 
 $husnab0t->addCommand("helb","helber"); 
-$husnab0t->addCommand("help@HusnaBot","helber"); 
 
 function helber(){
 	global $husnab0t;
