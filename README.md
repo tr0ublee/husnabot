@@ -26,12 +26,7 @@ To make it clear, here's a working example:
 $husnab0t->addCommand("fotoad","fotoadFunc");
 function fotoadFunc(){
         global $husnab0t;
-        $ch = curl_init();
-        $url = "http://www.funcage.com/?";
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
+        $response = husnaCurl("http://www.funcage.com/?");
         $result = "";
         preg_match_all('/src="([^"]+)"/',$response, $result);
         $sonhal = "http://www.funcage.com".$result[1][1];
@@ -44,5 +39,7 @@ function fotoadFunc(){
 
 When some say "fotoad" in a chat with husnab0t, fotoadFunc() will be automatically called.
 ---
+
+You can use husnaCurl($url) function to make CURL requests within functions.
 
 More information coming soon!
