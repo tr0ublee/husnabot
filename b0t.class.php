@@ -29,21 +29,15 @@ class husna extends settings
         $this->userExit = ($data["message"]["left_chat_participant"]["username"]) ? $data["message"]["left_chat_participant"]["username"] : 0;
         $this->groupOrPrivate = ($data["message"]["chat"]["type"] == "private") ? 0 : 1; // 0 = private message, 1 = group message
         $this->reqUrl = "https://api.telegram.org/bot".$this->getBotToken() . "/";
-        $this->whoamI =
-        "ben hüsna b0t\n
-        bilgiad yazarsan sana harika bilgiler getiririm
-        \n####\n
-        allambilgiat {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi bulurum
-        \n####\n
-        getirhoca {id}|{ad-soyad} yazarsan senin için okulda o öğrenciyi ararım
-        \n####\n
-        mizahyab yazarsan senin için birbirinden eĞLenCeLi fıkralarımdan birisini anlatırım.
-        \n####\n
-        fotoad yazarsan senin için internetin derinliklerinden elde ettiğim görsellerimden birisini paylaşırım
-        \n####\n
-				yemekad yazarsan senin için yemekhanede bugün ne olduğunu söylerim.
-        \n####\n
-        henüz yeni sayılırım mazur gör hoja";
+        $this->whoamI = "ben hüsna b0t\n
+ · *bilgiad* yazarsan sana harika bilgiler getiririm\n
+ · *allambilgiad* {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi bulurum\n
+ · *getirhoca* {id}|{ad-soyad} yazarsan senin için okulda o öğrenciyi ararım\n
+ · *mizahyab* yazarsan senin için birbirinden eĞLenCeLi fıkralarımdan birisini anlatırım\n
+ · *fotoad* yazarsan senin için internetin derinliklerinden elde ettiğim görsellerimden birisini paylaşırım\n
+ · *yemekad* yazarsan senin için yemekhanede bugün ne olduğunu söylerim\n
+ · *dolarad* yazarsan 1 amerikan doları kaç tl imiş onu söyler ve seninle üzülürüm\n
+henüz yeni sayılırım mazur gör hoja!";
 
 
     }
