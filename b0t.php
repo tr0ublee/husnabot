@@ -28,7 +28,7 @@ function array_value_recursive($key, array $arr){
 function bilgiadFunc(){
         global $husnab0t;
         $ch = curl_init();
-        $thread=$husnabot->getOtherWords();
+        $thread=$husnab0t->getOtherWords();
         if(strlen($thread) > 0) {
           $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=".urlencode($thread);
         }
