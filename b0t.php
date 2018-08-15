@@ -27,8 +27,8 @@ function array_value_recursive($key, array $arr){
 
 function bilgiadFunc(){
         global $husnab0t;
-        /*$ch = curl_init();
-        $url = "https://tr.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
+        $ch = curl_init();
+        $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 900);
@@ -38,8 +38,7 @@ function bilgiadFunc(){
         curl_close($ch);
         $husnab0t->sendMessage(array_value_recursive('title', $response));
 	$husnab0t->sendMessage(array_value_recursive('extract', $response));
-        */
-        $husnab0t->sendMessage("bilgiad ve allambilgiad fonksiyonlarımız hükümetimizin politikaları gereği geçici olarak kullanım dışıdır.");
+        /*$husnab0t->sendMessage("bilgiad ve allambilgiad fonksiyonlarımız hükümetimizin politikaları gereği geçici olarak kullanım dışıdır.");*/
 }
 /* bilgiad Function ENDS */
 
@@ -119,14 +118,14 @@ function dolaradFunc() {
 
 /* dolarad Function ENDS */
 
-$husnab0t->addCommand("helb","helber"); 
+$husnab0t->addCommand("helb","helber");
 
 function helber(){
 	global $husnab0t;
-	
+
  $husnab0t->sendMessage($husnab0t->getWhoamI());
 
-}		
+}
 
 /* PUT NEW FEATURES BELOW */
 
