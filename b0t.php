@@ -15,7 +15,7 @@ function husnaCurl($url) {
   return $response;
 }
 
-/* bilgiad Function STARTS DOES NOT WORK BECAUSE OF WIKIPEDIA */
+/* bilgiad Function STARTS */
 $husnab0t->addCommand("bilgiad","bilgiadFunc");
 function array_value_recursive($key, array $arr){
         $val = array();
@@ -28,7 +28,13 @@ function array_value_recursive($key, array $arr){
 function bilgiadFunc(){
         global $husnab0t;
         $ch = curl_init();
-        $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
+        $thread=$husnabot->getOtherWords();
+        if(strlen($thread) > 0) {
+          $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=".urlencode($thread);
+        }
+        else {
+          $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
+        }
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 900);
@@ -36,8 +42,14 @@ function bilgiadFunc(){
         $response = curl_exec($ch);
         $response = json_decode($response, TRUE);
         curl_close($ch);
-        $husnab0t->sendMessage(array_value_recursive('title', $response));
-	$husnab0t->sendMessage(array_value_recursive('extract', $response));
+
+        if (!array_value_recursive('extract', $response)) {
+          $husnab0t->sendMessage("hojam boj yabmayın");
+        } else {
+          $husnab0t->sendMessage("*".array_value_recursive('title', $response)."*");
+          $husnab0t->sendMessage(array_value_recursive('extract', $response));
+        }
+
         /*$husnab0t->sendMessage("bilgiad ve allambilgiad fonksiyonlarımız hükümetimizin politikaları gereği geçici olarak kullanım dışıdır.");*/
 }
 /* bilgiad Function ENDS */
