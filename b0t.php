@@ -29,6 +29,7 @@ function bilgiadFunc(){
         global $husnab0t;
         $ch = curl_init();
         $caller=$husnab0t->getFirstWord();
+        $thread='';
         if($caller == "allambilgiad") {
           $thread=trim($husnab0t->getOtherWords());
         }
