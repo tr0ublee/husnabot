@@ -28,7 +28,7 @@ function array_value_recursive($key, array $arr){
 function bilgiadFunc(){
         global $husnab0t;
         $ch = curl_init();
-        $thread=$husnab0t->getOtherWords();
+        $thread=trim($husnab0t->getOtherWords());
         if(strlen($thread) > 0) {
           $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=".urlencode($thread);
         }
@@ -44,7 +44,7 @@ function bilgiadFunc(){
         curl_close($ch);
 
         if (!array_value_recursive('extract', $response)) {
-          $husnab0t->sendMessage("hojam boj yabmayın");
+          $husnab0t->sendMessage("hojam boj yabmayın",1);
         } else {
           $husnab0t->sendMessage("*".array_value_recursive('title', $response)."*");
           $husnab0t->sendMessage(array_value_recursive('extract', $response));
