@@ -24,6 +24,7 @@ class husna extends settings
         $this->message = mb_strtolower($data["message"]["text"]);
         $this->firstWord = explode(" ",$this->message,2)[0];
         $this->otherWords = explode(" ",$this->message,2)[1];
+	$this->messageId = $data["message"]["message_id"];
         $this->chatId = $data["message"]["chat"]["id"];
         $this->userEnter = ($data["message"]["new_chat_member"]["username"]) ? $data["message"]["new_chat_member"]["username"] : 0;
         $this->userExit = ($data["message"]["left_chat_participant"]["username"]) ? $data["message"]["left_chat_participant"]["username"] : 0;
