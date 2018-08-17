@@ -5,7 +5,7 @@ $data = file_get_contents('php://input');
 $data = json_decode($data, TRUE);
 
 $husnab0t = new husna($data);
-
+require_once("priv8.php");
 function husnaCurl($url) {
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
