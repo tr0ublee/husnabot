@@ -16,6 +16,7 @@ class husna extends settings
     private $reqUrl;
     private $commands = array();
     private $whoamI;
+	private $groupName;
     public function __construct($data)
     {
         $this->senderUsername = $data["message"]["from"]["username"];
@@ -29,6 +30,7 @@ class husna extends settings
         $this->userEnter = ($data["message"]["new_chat_member"]["username"]) ? $data["message"]["new_chat_member"]["username"] : 0;
         $this->userExit = ($data["message"]["left_chat_participant"]["username"]) ? $data["message"]["left_chat_participant"]["username"] : 0;
         $this->groupOrPrivate = ($data["message"]["chat"]["type"] == "private") ? 0 : 1; // 0 = private message, 1 = group message
+		$this->groupName = ($this->groupOrPrivate === 1) ? $data["message"]["chat"]["title"] : $this->senderUsername;
         $this->reqUrl = "https://api.telegram.org/bot".$this->getBotToken() . "/";
         $this->whoamI = "ben hüsna b0t\n
  · *bilgiad* yazarsan sana harika bilgiler getiririm\n
@@ -118,7 +120,7 @@ henüz yeni sayılırım mazur gör hoja!";
     private function sayBye(){
         $this->sendVoiceMessage("https://kursat.blog/b0t/audio/seriuzgunad.ogg","@".$this->getUserExit(). " gitti. artık bir eksiğiz...");
     }
-    private function requEst($url){
+    public function requEst($url){
 
         $output =  $this->getReqUrl() . $url;
 
@@ -256,6 +258,14 @@ henüz yeni sayılırım mazur gör hoja!";
     public function getOtherWords()
     {
         return $this->otherWords;
+    }
+	
+	/**
+     * Get the value of groupName
+     */
+    public function getGroupName()
+    {
+        return $this->groupName;
     }
 }
 
