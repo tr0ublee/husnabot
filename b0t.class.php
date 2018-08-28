@@ -40,7 +40,7 @@ class husna extends settings
  · *fotoad* yazarsan senin için internetin derinliklerinden elde ettiğim görsellerimden birisini paylaşırım\n
  · *yemekad* yazarsan senin için yemekhanede bugün ne olduğunu söylerim\n
  · *dolarad* yazarsan 1 amerikan doları kaç tl imiş onu söyler ve seninle üzülürüm\n
- · *avroad* veya *euroad* yazarsan 1 eurp kaç tl imiş onu söyler ve seninle üzülürüm\n
+ · *avroad* veya *euroad* yazarsan 1 avro kaç tl imiş onu söyler ve seninle üzülürüm\n
  · *egonomiad* yazarsan senin için en güncel iktisadi verileri bir araya getirir güçlü egonomimizin ne kadar iyi olduğundan dem vururum\n
 henüz yeni sayılırım mazur gör hoja!";
 
