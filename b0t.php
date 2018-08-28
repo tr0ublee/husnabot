@@ -126,13 +126,55 @@ $husnab0t->addCommand("dolarad","dolaradFunc");
 
 function dolaradFunc() {
           global $husnab0t;
-          $response = husnaCurl("https://www.bloomberght.com/doviz/dolar");
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"USDTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
+          $response = husnaCurl("https://www.bloomberght.com/doviz");
+          preg_match_all("/<span class=\"LastPrice\" data-type=\"son_fiyat\" data-secid=\"USDTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
           $message = "\xF0\x9F\x92\xB5 dolar şu an *".$resultRegex[1][0]."* TL hojam. \xF0\x9F\x92\xB8";
           $husnab0t->sendMessage($message);
 }
 
 /* dolarad Function ENDS */
+
+/* dolarad Function STARTS */
+
+$husnab0t->addCommand("avroad","avroadFunc");
+$husnab0t->addCommand("euroad","avroadFunc");
+
+function avroadFunc() {
+          global $husnab0t;
+          $response = husnaCurl("https://www.bloomberght.com/doviz");
+          preg_match_all("/<span class=\"LastPrice\" data-type=\"son_fiyat\" data-secid=\"EURTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
+          $message = "\xF0\x9F\x92\xB6 avro şu an *".$resultRegex[1][0]."* TL hojam. \xF0\x9F\x92\xB6";
+          $husnab0t->sendMessage($message);
+}
+
+/* dolarad Function ENDS */
+
+/* egonomiad Function STARTS */
+
+$husnab0t->addCommand("egonomiad","egonomiadFunc");
+
+function egonomiadFunc() {
+          global $husnab0t;
+          $response = husnaCurl("https://www.bloomberght.com/doviz");
+          preg_match_all("/<span class=\"LastPrice\" data-type=\"son_fiyat\" data-secid=\"USDTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
+          $message = "\xF0\x9F\x92\xB5 dolar şu an *".$resultRegex[1][0]."* TL. \xF0\x9F\x92\xB8";
+          preg_match_all("/<span class=\"LastPrice\" data-type=\"son_fiyat\" data-secid=\"EURTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
+          $message = $message."\n"."\xF0\x9F\x92\xB6 avro şu an *".$resultRegex[1][0]."* TL. \xF0\x9F\x92\xB6";
+          preg_match_all("/<span class=\"LastPrice\" data-type=\"son_fiyat\" data-secid=\"XU100 Index\">(.*?)<\/span>/msi", $response, $resultRegex);
+          $message = $message."\n"."\xF0\x9F\x93\x88 borsa endeksi şu an *".$resultRegex[1][0]."*. \xF0\x9F\x93\x88";
+          preg_match_all("/<span class=\"LastPrice\" data-type=\"son_fiyat\" data-secid=\"EURUSD Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
+          $message = $message."\n"."\xF0\x9F\x8F\xA7 avro/dolar paritesi şu an *".$resultRegex[1][0]."*. \xF0\x9F\x8F\xA7";
+          preg_match_all("/<span class=\"LastPrice\" data-type=\"son_fiyat\" data-secid=\"IECM2Y Index\">(.*?)<\/span>/msi", $response, $resultRegex);
+          $message = $message."\n"."faiz şu an *".$resultRegex[1][0]."*%.";
+          preg_match_all("/<span class=\"LastPrice\" data-type=\"son_fiyat\" data-secid=\"XAU Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
+          $message = $message."\n"."altın/ons şu an *".$resultRegex[1][0]."*% TL.";
+          preg_match_all("/<span class=\"LastPrice\" data-type=\"son_fiyat\" data-secid=\"CO1 Comdty\">(.*?)<\/span>/msi", $response, $resultRegex);
+          $message = $message."\n"."brent şu an *".$resultRegex[1][0]."*% TL.";
+          $message = $message."\n\n"."egonomi çoh iyi hojam.";
+          $husnab0t->sendMessage($message);
+}
+
+/* egonomiad Function ENDS */
 
 $husnab0t->addCommand("helb","helber");
 
