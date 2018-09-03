@@ -2,15 +2,14 @@
 ### A very simple Telegram bot that made just for fun. All credits go to [Hüsna Yılmaz](https://github.com/arfias)
 
 ---
-**b0t.php** and **b0t.functions.php** are the files developed and customized for contributors to easily add new features to the bot.
+**b0t.php** is the file developed and customized for contributors to easily add new features to the bot.
 
 Here's a basic template:
-**b0t.php**
+
 ```php
 $husnab0t->addCommand("word","function_name_to_call");
 /* first thing to do is register command to listener */
 ```
-**b0t.functions.php**
 ```php
 function function_name_to_call()
 {
@@ -22,14 +21,9 @@ function function_name_to_call()
 
 To make it clear, here's a working example:
 
-**b0t.php**
-```php
-$husnab0t->addCommand("fotoad","fotoadFunc");
-```
-
-**b0t.functions.php**
 ```php
 /* fotoad Function STARTS */
+$husnab0t->addCommand("fotoad","fotoadFunc");
 function fotoadFunc(){
         global $husnab0t;
         $response = husnaCurl("http://www.funcage.com/?");
