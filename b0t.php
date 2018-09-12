@@ -16,6 +16,7 @@ $husnab0t->addCommand("dolarad","dolaradFunc");
 $husnab0t->addCommand("avroad","avroadFunc");
 $husnab0t->addCommand("euroad","avroadFunc");
 $husnab0t->addCommand("egonomiad","egonomiadFunc");
+$husnab0t->addCommand("havadurumuad","havadurumuadFunc");
 $husnab0t->addCommand("helb","helber");
 
 /* PUT NEW COMMANDS BELOW */
