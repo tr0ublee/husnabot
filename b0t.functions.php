@@ -168,7 +168,7 @@ function havadurumuadFunc() {
           $temperature = intval(strip_tags($temptemp[0][0]))."°";
           $phrase = strip_tags($phrase[0][0]);
 
-          $message = $lastUpdated." itibariyle hava ".$phrase." ve sıcaklık " . $temperature.".";
+          $message = $lastUpdated." itibariyle hava *".$phrase."* ve sıcaklık *" . $temperature."*.";
           $message = $message."\n\n"."hava çoh iyi hojam.";
           $husnab0t->sendMessage($message);
 }
