@@ -158,7 +158,19 @@ function helber(){
 /* havadurumuad Function BEGINS*/
 function havadurumuadFunc() {
           global $husnab0t;
-          $response = husnaCurl("https://weather.com/tr-TR/kisisel/bugun/l/TUXX0002:1:TU");
+	  
+	  $city = trim($husnab0t->getOtherWords());
+	  if(strlen($city) == 0) {
+	  	$city = "Ankara";
+	  }
+	  $city = strtolower($city);
+	  $city = ucfirst($city);
+	
+	  $codes = husnaCurl("https://weather.codes/turkey/");
+	  //TODO get city code from $codes
+	  preg_match_all('<dt>(.*?)</dt><dd>".$city."</dd>', $response, $cityCode); 
+	
+          $response = husnaCurl("https://weather.com/tr-TR/kisisel/bugun/l/".$cityCode.":1:TU");
           preg_match_all('#<p class="today_nowcard-timestamp">(.*?)</p>#si', $response, $lastUpdated);
           preg_match_all('#<div class="today_nowcard-temp">(.*?)</div>#si', $response, $temptemp);
           preg_match_all('#<div class="today_nowcard-phrase">(.*?)</div>#si', $response, $phrase);
