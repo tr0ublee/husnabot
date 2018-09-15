@@ -149,31 +149,19 @@ function egonomiadFunc() {
 }
 /* egonomiad Function ENDS */
 
-function helber(){
-	global $husnab0t;
-  $husnab0t->sendMessage($husnab0t->getWhoamI());
-}
-
-/* PUT NEW FEATURES BELOW */
 /* havadurumuad Function BEGINS*/
 function havadurumuadFunc() {
+
           global $husnab0t;
-	  
-	  $city = trim($husnab0t->getOtherWords());
-	  if(strlen($city) == 0) {
-	  	$city = "Ankara";
-	  }
-	  $city = strtolower($city);
-	  $city = ucfirst($city);
-	
-	  $codes = husnaCurl("https://weather.codes/turkey/");
-	  //TODO get city code from $codes
-	  preg_match_all('<dt>(.*?)</dt><dd>".$city."</dd>', $response, $cityCode); 
-	
-          $response = husnaCurl("https://weather.com/tr-TR/kisisel/bugun/l/".$cityCode.":1:TU");
-          preg_match_all('#<p class="today_nowcard-timestamp">(.*?)</p>#si', $response, $lastUpdated);
-          preg_match_all('#<div class="today_nowcard-temp">(.*?)</div>#si', $response, $temptemp);
-          preg_match_all('#<div class="today_nowcard-phrase">(.*?)</div>#si', $response, $phrase);
+          $city = trim($husnab0t->getOtherWords());
+          if(strlen($city) == 0) {
+            $city = "Ankara";
+          }
+
+          $response = husnaCurl("https://www.mgm.gov.tr/tahmin/il-ve-ilceler.aspx?il=".$city);
+          preg_match_all('#<span class="ad_time ng-binding" ng-bind="sondurum[0].veriZamani | meteorDateFormat">(.*?)</span>#si', $response, $lastUpdated);
+          preg_match_all('#<td class="hdst ng-binding" ng-bind="sondurum[0].hadiseAdi">(.*?)</td>#si', $response, $phrase);
+          preg_match_all('#<td class="temp ng-binding" ng-bind="sondurum[0].sicaklik | comma">(.*?)</td>#si', $response, $temptemp);
 
           $lastUpdated = explode(":", strip_tags($lastUpdated[0][0]));
           $lastUpdated = substr($lastUpdated[0], -2).":".substr($lastUpdated[1], 0, 2);
@@ -183,6 +171,14 @@ function havadurumuadFunc() {
           $message = $lastUpdated." itibariyle hava ".$phrase." ve sıcaklık "$temperature.".";
           $message = $message."\n\n"."hava çoh iyi hojam.";
           $husnab0t->sendMessage($message);
-}
+      }
 /* havadurumuad Function ENDS*/
+
+function helber(){
+	global $husnab0t;
+  $husnab0t->sendMessage($husnab0t->getWhoamI());
+}
+
+/* PUT NEW FEATURES BELOW */
+
 /* PUT NEW FEATURES ABOVE */
