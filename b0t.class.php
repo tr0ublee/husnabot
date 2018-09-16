@@ -83,13 +83,13 @@ henüz yeni sayılırım mazur gör hoja!";
         return;
     }
 	
-	public function sendMessage_w_markup($message, $reply_markup,$reply_to_message = 0) {
+	public function sendMessage_w_markup($message, $reply_markup) {
 
-	
         $content = array(
 			'chat_id' => $this->getChatId(),
 			'reply_markup' => $reply_markup,
-			'text' => "$message"
+			'text' => "$message",
+			'reply_to_message_id' => $this->getMessageId()
 		);
 		
         $this->requEst_post("sendMessage",$content);
