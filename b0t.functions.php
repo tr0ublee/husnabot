@@ -187,6 +187,18 @@ function helber(){
   $husnab0t->sendMessage($husnab0t->getWhoamI());
 }
 
+
+function komutad(){
+	global $husnab0t;
+	
+	$lista=array_chunk(array_keys($husnab0t->getCommands()), (ceil(count(array_keys($husnab0t->getCommands()))/3)));
+	$replyMarkup = array(
+    'keyboard' => $lista,
+	);
+	$encodedMarkup = json_encode($replyMarkup);
+	$husnab0t->sendMessage_w_markup("selam",$encodedMarkup);
+}
+
 /* PUT NEW FEATURES BELOW */
 
 /* PUT NEW FEATURES ABOVE */
