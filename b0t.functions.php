@@ -1,204 +1,315 @@
 <?php
+require_once("settings.php");
+class husna extends settings
+{
+    private $senderUsername;
+    private $senderFirstName;
+    private $senderLastName;
+    private $message;
+    private $firstWord;
+    private $otherWords;
+    private $messageId;
+    private $chatId;
+    private $userEnter;
+    private $userExit;
+    private $groupOrPrivate;
+    private $reqUrl;
+    private $commands = array();
+    private $whoamI;
+	private $groupName;
+    public function __construct($data)
+    {
+        $this->senderUsername = $data["message"]["from"]["username"];
+        $this->senderFirstName = $data["message"]["from"]["first_name"];
+        $this->senderLastName = $data["message"]["from"]["last_name"];
+        $this->message = mb_strtolower($data["message"]["text"]);
+        $this->firstWord = explode(" ",$this->message,2)[0];
+        $this->otherWords = explode(" ",$this->message,2)[1];
+	$this->messageId = $data["message"]["message_id"];
+        $this->chatId = $data["message"]["chat"]["id"];
+        $this->userEnter = ($data["message"]["new_chat_member"]["username"]) ? $data["message"]["new_chat_member"]["username"] : 0;
+        $this->userExit = ($data["message"]["left_chat_participant"]["username"]) ? $data["message"]["left_chat_participant"]["username"] : 0;
+        $this->groupOrPrivate = ($data["message"]["chat"]["type"] == "private") ? 0 : 1; // 0 = private message, 1 = group message
+		$this->groupName = ($this->groupOrPrivate === 1) ? $data["message"]["chat"]["title"] : $this->senderUsername;
+        $this->reqUrl = "https://api.telegram.org/bot".$this->getBotToken() . "/";
+        $this->whoamI = "ben hüsna b0t\n
+ · *bilgiad* yazarsan sana harika bilgiler getiririm\n
+ · *allambilgiad* {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi bulurum\n
+ · *getirhoca* {id}|{ad-soyad} yazarsan senin için okulda o öğrenciyi ararım\n
+ · *mizahyab* yazarsan senin için birbirinden eĞLenCeLi fıkralarımdan birisini anlatırım\n
+ · *fotoad* yazarsan senin için internetin derinliklerinden elde ettiğim görsellerimden birisini paylaşırım\n
+ · *yemekad* yazarsan senin için yemekhanede bugün ne olduğunu söylerim\n
+ · *dolarad* yazarsan 1 amerikan doları kaç tl imiş onu söyler ve seninle üzülürüm\n
+ · *avroad* veya *euroad* yazarsan 1 avro kaç tl imiş onu söyler ve seninle üzülürüm\n
+ · *egonomiad* yazarsan senin için en güncel iktisadi verileri bir araya getirir güçlü egonomimizin ne kadar iyi olduğundan dem vururum\n
+ · *havadurumuad* yazarsan senin için en güncel hava durumu verilerini getiririm\n
+henüz yeni sayılırım mazur gör hoja!";
 
 
-function husnaCurl($url) {
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, $url);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  $response = curl_exec($ch);
-  curl_close($ch);
-  return $response;
-}
-
-function array_value_recursive($key, array $arr){
-        $val = array();
-        array_walk_recursive($arr, function($v, $k) use($key, &$val){
-            if($k == $key) array_push($val, $v);
-        });
-        return count($val) > 1 ? $val : array_pop($val);
     }
 
-/* bilgiad Function STARTS */
-function bilgiadFunc(){
-        global $husnab0t;
-        $ch = curl_init();
-        $caller=$husnab0t->getFirstWord();
-        $thread='';
-        if($caller == "allambilgiad") {
-          $thread=trim($husnab0t->getOtherWords());
+    public function proccess(){
+        if($this->getUserEnter() !== 0)
+        {
+            $this->sayHi();
+            return;
         }
-        if(strlen($thread) > 0) {
-          $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=".urlencode($thread)."&redirects=1";
-        }
-        else {
-          $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
-        }
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 900);
-
-        $response = curl_exec($ch);
-        $response = json_decode($response, TRUE);
-        curl_close($ch);
-
-        if (!array_value_recursive('extract', $response)) {
-          $husnab0t->sendMessage("hojam boj yabmayın",1);
-        } else {
-          $husnab0t->sendMessage("*".array_value_recursive('title', $response)."*");
-          $husnab0t->sendMessage(array_value_recursive('extract', $response));
+        else if($this->getUserExit() !== 0)
+        {
+            $this->sayBye();
+            return;
         }
 
-}
-/* bilgiad Function ENDS */
-
-/* mizahyab Function STARTS */
-function mizahyabFunc()
-{
-        global $husnab0t;
-        $response = husnaCurl("http://fikra.gen.tr/index.php");
-        $result = "";
-        preg_match_all ("/<div class=fikra_body >([^`]*?)<\/div>/", $response, $result);
-        $ver = $result[1][0];
-        $ver =  mb_convert_encoding($ver,'UTF-8','ISO-8859-9');
-        $ver = str_replace("<br />", "", $ver);
-        if(trim($ver) == ""){
-                mizahyabFunc();
+        foreach ($this->getCommands() as $key => $value) {
+            if (strpos($this->message, $key) !== false) {
+                $value();
+            }
         }
-        if (strlen($ver) > 4000) {
-                $messageparts = str_split($ver, 4004);
-                foreach($messageparts as $parts){
-                $husnab0t->sendMessage($parts);
-                }
-        }
-        else{
-                $husnab0t->sendMessage($ver);
-        }
-}
-/* mizahyab Function ENDS */
+        die();
+    }
 
-/* fotoad Function STARTS */
-function fotoadFunc(){
-        global $husnab0t;
-        $response = husnaCurl("http://www.funcage.com/?");
-        $result = "";
-        preg_match_all('/src="([^"]+)"/',$response, $result);
-        $sonhal = "http://www.funcage.com".$result[1][1];
-        $husnab0t->sendPhoto($sonhal);
-}
-/* fotoad Function ENDS */
-
-/* yemekad Function STARTS */
-function yemekteNeVar() {
-        global $husnab0t;
-        date_default_timezone_set('Europe/Istanbul');
-        $response = husnaCurl("http://kafeterya.metu.edu.tr/");
-        preg_match_all("/<div class=\"yemek\">(.*?)<span>(.*?)<img src=\"(.*?)\" alt=\"(.*?)\"\/><\/span>(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-->/msi", $response, $output);
-        if(date("N") > 5) {
-          $yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
-        }
-        else {
-          $yemekler = "\xF0\x9F\x8D\xB4 Yemekte şunlar varmış hojam: \n\n*Öğle yemeği*\n · ".$output[4][0]."\n · ".$output[4][1]."\n · ".$output[4][2]."\n · ".$output[4][3]."\n\n";
-          if(strlen($output[4][4]) > 2) {
-          $yemekler .= "*Akşam yemeği*\n · ".$output[4][4]."\n · ".$output[4][5]."\n · ".$output[4][6]."\n · ".$output[4][7]."\n\n";
-          }
-          $yemekler .= "Afiyet olsun hojam!";
-        }
-        $husnab0t->sendMessage($yemekler);
-}
-/* yemekad Function ENDS */
-
-/* dolarad Function STARTS */
-function dolaradFunc() {
-          global $husnab0t;
-          $response = husnaCurl("https://www.bloomberght.com/doviz");
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"USDTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
-          $message = "\xF0\x9F\x92\xB5 dolar şu an *".$resultRegex[1][0]."* ₺ hojam. \xF0\x9F\x92\xB8";
-          $husnab0t->sendMessage($message);
-}
-/* dolarad Function ENDS */
-
-/* avroad Function STARTS */
-function avroadFunc() {
-          global $husnab0t;
-          $response = husnaCurl("https://www.bloomberght.com/doviz");
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"EURTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
-          $message = "\xF0\x9F\x92\xB6 avro şu an *".$resultRegex[1][0]."* ₺ hojam. \xF0\x9F\x92\xB6";
-          $husnab0t->sendMessage($message);
-}
-/* avroad Function ENDS */
-
-/* egonomiad Function STARTS */
-function egonomiadFunc() {
-          global $husnab0t;
-          $response = husnaCurl("https://www.bloomberght.com/doviz");
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"USDTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
-          $message = "\xF0\x9F\x92\xB5 dolar şu an *".$resultRegex[1][0]."* ₺. \xF0\x9F\x92\xB8";
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"EURTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
-          $message = $message."\n"."\xF0\x9F\x92\xB6 avro şu an *".$resultRegex[1][0]."* ₺. \xF0\x9F\x92\xB6";
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"XU100 Index\">(.*?)<\/span>/msi", $response, $resultRegex);
-          $message = $message."\n"."\xF0\x9F\x93\x88 borsa endeksi şu an *".$resultRegex[1][0]."*. \xF0\x9F\x93\x88";
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"EURUSD Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
-          $message = $message."\n"."\xF0\x9F\x8F\xA7 avro/dolar paritesi şu an *".$resultRegex[1][0]."*. \xF0\x9F\x8F\xA7";
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"IECM2Y Index\">(.*?)<\/span>/msi", $response, $resultRegex);
-          $message = $message."\n"."faiz şu an *%".$resultRegex[1][0]."*.";
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"XAU Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
-          $message = $message."\n"."altın/ons şu an *".$resultRegex[1][0]."* ₺.";
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"CO1 Comdty\">(.*?)<\/span>/msi", $response, $resultRegex);
-          $message = $message."\n"."brent şu an *".$resultRegex[1][0]."* \$.";
-          $message = $message."\n\n"."egonomi çoh iyi hojam.";
-          $husnab0t->sendMessage($message);
-}
-/* egonomiad Function ENDS */
-
-/* havadurumuad Function BEGINS*/
-function havadurumuadFunc() {
-
-          global $husnab0t;
-	  include('libs/turkeyweather.php');
-          $weather = new TurkeyWeather();
-
-          $obj1 = trim($husnab0t->getOtherWords());
-          $obj = explode(" ", $obj1);
-          
-          if(count($obj) == 1 && $obj[0] == "") {
-            $city = "Ankara";
-            $district = "Çankaya";
-          }
-          else if (count($obj) == 1 && $obj[0] != "") {
-            $city = $obj[0];
-            $district = null;
-          }
-          else {
-            $city = $obj[0];
-            $district = $obj[1];
-          }
-          $weather->province($city);
-          $weather->district($district);
-          $weather->getData();
-
-          $message = $weather->province()." ".$weather->district()."'da/de hava *".$weather->event()[turkish]."* ve sıcaklık *".$weather->temperature()."°*.";
-          $message = $message."\n\n"."hava çoh iyi hojam.";
-          $husnab0t->sendMessage($message);
-      }
-/* havadurumuad Function ENDS*/
-
-function helber(){
-	global $husnab0t;
-  $husnab0t->sendMessage($husnab0t->getWhoamI());
-}
+    /*
+        sendMessage function takes
+        $message : text of the message to be sent
+        $reply_to_message (optional, default 0) : sends messages as reply if <> 0
+    */
 
 
-function komutad(){
-	global $husnab0t;
+    public function sendMessage($message,$reply_to_message = 0) {
+        $reply = ($reply_to_message != 0) ? "&reply_to_message_id=".$this->getMessageId(): "";
+        $url = "sendMessage?chat_id=".$this->getChatId()."&text=".urlencode($message).$reply."&parse_mode=markdown";
+        $this->requEst($url);
+        return;
+    }
 	
-	$lista=array_chunk(array_keys($husnab0t->getCommands()), (ceil(count(array_keys($husnab0t->getCommands()))/3)));
-	$replyMarkup = array(
-    'keyboard' => $lista,
-	);
-	$encodedMarkup = json_encode($replyMarkup);
-	$husnab0t->sendMessage_w_markup("selam",$encodedMarkup);
+	public function sendMessage_w_markup($message, $reply_markup,$reply_to_message = 0) {
+
+	
+        $content = array(
+			'chat_id' => $this->getChatId(),
+			'reply_markup' => $reply_markup,
+			'text' => "$message"
+		);
+		
+        $this->requEst_post("sendMessage",$content);
+        return;
+    }
+	
+	
+
+    /*
+        sendPhoto function takes
+        $photoUrl : image file link, any common extension(gif,jpeg,png etc.)
+        $caption (optional, default 0) : image message caption, 0-200 characters
+        $reply_to_message (optional, default 0) : sends messages as reply if <> 0
+
+    */
+
+
+    public function sendPhoto ($photoUrl, $caption = "",$reply_to_message = 0) {
+        $reply = ($reply_to_message != 0) ? "&reply_to_message_id=".$this->getMessageId(): "";
+        $caption = ($caption !== "") ? "&caption=" . urlencode(substr($caption,0,200)) : "";
+        $url = "sendPhoto?chat_id=".$this->getChatId()."&photo=".urlencode($photoUrl). $caption . $reply;
+        $this->requEst($url);
+    }
+    /*
+        sendVoiceMessage function takes
+        $voice : sound file link, only ogg extension is allowed
+        $caption (optional) : voice message caption, 0-200 characters
+        $reply_to_message (optional, default 0): sends messages as reply if <> 0
+
+    */
+    public function sendVoiceMessage ($voice, $caption="",$reply_to_message = 0) {
+
+        $reply = ($reply_to_message != 0) ? "&reply_to_message_id=". $this->getMessageId()  : "";
+        $url = "sendVoice?chat_id=".$this->getChatId()."&voice=".urlencode($voice)."&caption=".urlencode(substr($caption,0,200)).$reply;
+        $this->requEst($url);
+    }
+
+
+    private function sayHi(){
+            if($this->getUserEnter() == "HusnaBot" ){
+                $this->sendVoiceMessage("https://kursat.blog/b0t/audio/selam.ogg","hey bitchezzz");
+                $this->sendMessage($this->getWhoamI());
+            }else{
+                $this->sendVoiceMessage("https://kursat.blog/b0t/audio/selam.ogg","@".$this->getUserEnter());
+            }
+    }
+    private function sayBye(){
+        $this->sendVoiceMessage("https://kursat.blog/b0t/audio/seriuzgunad.ogg","@".$this->getUserExit(). " gitti. artık bir eksiğiz...");
+    }
+    public function requEst($url){
+
+        $output =  $this->getReqUrl() . $url;
+
+        $ac = fopen("reqs.txt","a+");
+        fwrite($ac,$output."\n");
+
+        fclose($ac);
+
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $this->getReqUrl() . $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+		curl_exec($ch);
+		curl_close($ch);
+    }
+	public function requEst_post($url,$content){
+
+		$ch = curl_init();
+		$url= $this->getReqUrl() . $url;
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($content));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+		// receive server response ...
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$server_output = curl_exec ($ch);
+		curl_close ($ch);
+		var_dump($server_output);
+		
+		
+		
+		
+		$ac = fopen("logxxxxx.txt","a+");
+        fwrite($ac,$server_output."\n");
+
+        fclose($ac);
+    }
+
+    /**
+     * Get the value of senderUsername
+     */
+    public function getSenderUsername()
+    {
+        return $this->senderUsername;
+    }
+
+    /**
+     * Get the value of senderFirstName
+     */
+    public function getSenderFirstName()
+    {
+        return $this->senderFirstName;
+    }
+
+    /**
+     * Get the value of senderLastName
+     */
+    public function getSenderLastName()
+    {
+        return $this->senderLastName;
+    }
+
+    /**
+     * Get the value of message
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * Get the value of chatId
+     */
+    public function getChatId()
+    {
+        return $this->chatId;
+    }
+
+    /**
+     * Get the value of userEnter
+     */
+    public function getUserEnter()
+    {
+        return $this->userEnter;
+    }
+
+    /**
+     * Get the value of userExit
+     */
+    public function getUserExit()
+    {
+        return $this->userExit;
+    }
+
+    /**
+     * Get the value of groupOrPrivate
+     */
+    public function getGroupOrPrivate()
+    {
+        return $this->groupOrPrivate;
+    }
+
+    /**
+     * Get the value of messageId
+     */
+    public function getMessageId()
+    {
+        return $this->messageId;
+    }
+
+    /**
+     * Set the value of commands
+     *
+     * @return  self
+     */
+    public function addCommand($command,$function_name)
+    {
+        $this->commands += array($command=>$function_name);
+        return $this;
+    }
+
+    /**
+     * Get the value of reqUrl
+     */
+    public function getReqUrl()
+    {
+        return $this->reqUrl;
+    }
+
+    /**
+     * Get the value of whoamI
+     */
+    public function getWhoamI()
+    {
+        return $this->whoamI;
+    }
+
+    /**
+     * Get the value of commands
+     */
+    public function getCommands()
+    {
+        return $this->commands;
+    }
+
+    /**
+     * Get the value of firstWord
+     */
+    public function getFirstWord()
+    {
+        return $this->firstWord;
+    }
+
+    /**
+     * Get the value of otherWords
+     */
+    public function getOtherWords()
+    {
+        return $this->otherWords;
+    }
+	
+	/**
+     * Get the value of groupName
+     */
+    public function getGroupName()
+    {
+        return $this->groupName;
+    }
 }
 
-/* PUT NEW FEATURES BELOW */
-
-/* PUT NEW FEATURES ABOVE */
+?>
