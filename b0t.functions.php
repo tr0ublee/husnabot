@@ -196,7 +196,7 @@ function komutad(){
     'keyboard' => $lista,
 	);
 	$encodedMarkup = json_encode($replyMarkup);
-	$husnab0t->sendMessage_w_markup("selam",$encodedMarkup);
+	$husnab0t->sendMessage_w_markup("komut seç bro",$encodedMarkup);
 }
 
 /* PUT NEW FEATURES BELOW */
