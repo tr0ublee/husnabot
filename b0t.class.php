@@ -43,7 +43,6 @@ class husna extends settings
  · *avroad* veya *euroad* yazarsan 1 avro kaç tl imiş onu söyler ve seninle üzülürüm\n
  · *egonomiad* yazarsan senin için en güncel iktisadi verileri bir araya getirir güçlü egonomimizin ne kadar iyi olduğundan dem vururum\n
  · *havadurumuad* yazarsan senin için en güncel hava durumu verilerini getiririm\n
- . *komutad* yazarsan sana komutlara daha hızlı erişebilmen için menü hazırlarım
 henüz yeni sayılırım mazur gör hoja!";
 
 
@@ -82,6 +81,21 @@ henüz yeni sayılırım mazur gör hoja!";
         $this->requEst($url);
         return;
     }
+	
+	public function sendMessage_w_markup($message, $reply_markup,$reply_to_message = 0) {
+
+	
+        $content = array(
+			'chat_id' => $this->getChatId(),
+			'reply_markup' => $reply_markup,
+			'text' => "$message"
+		);
+		
+        $this->requEst_post("sendMessage",$content);
+        return;
+    }
+	
+	
 
     /*
         sendPhoto function takes
@@ -139,6 +153,31 @@ henüz yeni sayılırım mazur gör hoja!";
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
 		curl_exec($ch);
 		curl_close($ch);
+    }
+	public function requEst_post($url,$content){
+
+		$ch = curl_init();
+		$url= $this->getReqUrl() . $url;
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($content));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+		// receive server response ...
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$server_output = curl_exec ($ch);
+		curl_close ($ch);
+		var_dump($server_output);
+		
+		
+		
+		
+		$ac = fopen("logxxxxx.txt","a+");
+        fwrite($ac,$server_output."\n");
+
+        fclose($ac);
     }
 
     /**
