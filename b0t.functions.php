@@ -1,4 +1,5 @@
 <?php
+include('turkeyweather.php');
 
 function husnaCurl($url) {
   $ch = curl_init();
@@ -153,22 +154,28 @@ function egonomiadFunc() {
 function havadurumuadFunc() {
 
           global $husnab0t;
-          $city = trim($husnab0t->getOtherWords());
-          if(strlen($city) == 0) {
+          $weather = new TurkeyWeather();
+
+          $obj1 = trim($husnab0t->getOtherWords());
+          $obj = explode(" ", $obj1);
+          
+          if(count($obj) == 1 && $obj[0] == "") {
             $city = "Ankara";
+            $district = "Çankaya";
           }
+          else if (count($obj) == 1 && $obj[0] != "") {
+            $city = $obj[0];
+            $district = null;
+          }
+          else {
+            $city = $obj[0];
+            $district = $obj[1];
+          }
+          $weather->province($city);
+          $weather->district($district);
+          $weather->getData();
 
-          $response = husnaCurl("https://www.mgm.gov.tr/tahmin/il-ve-ilceler.aspx?il=".$city);
-          preg_match_all('#<span class="ad_time ng-binding" ng-bind="sondurum[0].veriZamani | meteorDateFormat">(.*?)</span>#si', $response, $lastUpdated);
-          preg_match_all('#<td class="hdst ng-binding" ng-bind="sondurum[0].hadiseAdi">(.*?)</td>#si', $response, $phrase);
-          preg_match_all('#<td class="temp ng-binding" ng-bind="sondurum[0].sicaklik | comma">(.*?)</td>#si', $response, $temptemp);
-
-          $lastUpdated = explode(":", strip_tags($lastUpdated[0][0]));
-          $lastUpdated = substr($lastUpdated[0], -2).":".substr($lastUpdated[1], 0, 2);
-          $temperature = intval(strip_tags($temptemp[0][0]))."°";
-          $phrase = strip_tags($phrase[0][0]);
-
-          $message = $lastUpdated." itibariyle hava *".$phrase."* ve sıcaklık *" . $temperature."*.";
+          $message = $weather->province()." ".$weather->district()."'da/de hava *".$weather->event()[turkish]."* ve sıcaklık *".$weather->temperature()."°*.";
           $message = $message."\n\n"."hava çoh iyi hojam.";
           $husnab0t->sendMessage($message);
       }
