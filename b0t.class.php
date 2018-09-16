@@ -142,11 +142,12 @@ henüz yeni sayılırım mazur gör hoja!";
     public function requEst($url){
 
         $output =  $this->getReqUrl() . $url;
-
+	/*
         $ac = fopen("reqs.txt","a+");
         fwrite($ac,$output."\n");
 
         fclose($ac);
+	*/
 
 
 		$ch = curl_init();
@@ -174,11 +175,12 @@ henüz yeni sayılırım mazur gör hoja!";
 		
 		
 		
-		
+		/*
 		$ac = fopen("logxxxxx.txt","a+");
-        fwrite($ac,$server_output."\n");
+       		fwrite($ac,$server_output."\n");
 
-        fclose($ac);
+        	fclose($ac);
+		*/
     }
 
     /**
