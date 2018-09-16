@@ -1,4 +1,5 @@
 <?php
+include('turkeyweather.php');
 
 function husnaCurl($url) {
   $ch = curl_init();
@@ -149,28 +150,42 @@ function egonomiadFunc() {
 }
 /* egonomiad Function ENDS */
 
+/* havadurumuad Function BEGINS*/
+function havadurumuadFunc() {
+
+          global $husnab0t;
+          $weather = new TurkeyWeather();
+
+          $obj1 = trim($husnab0t->getOtherWords());
+          $obj = explode(" ", $obj1);
+          
+          if(count($obj) == 1 && $obj[0] == "") {
+            $city = "Ankara";
+            $district = "Çankaya";
+          }
+          else if (count($obj) == 1 && $obj[0] != "") {
+            $city = $obj[0];
+            $district = null;
+          }
+          else {
+            $city = $obj[0];
+            $district = $obj[1];
+          }
+          $weather->province($city);
+          $weather->district($district);
+          $weather->getData();
+
+          $message = $weather->province()." ".$weather->district()."'da/de hava *".$weather->event()[turkish]."* ve sıcaklık *".$weather->temperature()."°*.";
+          $message = $message."\n\n"."hava çoh iyi hojam.";
+          $husnab0t->sendMessage($message);
+      }
+/* havadurumuad Function ENDS*/
+
 function helber(){
 	global $husnab0t;
   $husnab0t->sendMessage($husnab0t->getWhoamI());
 }
 
 /* PUT NEW FEATURES BELOW */
-/* havadurumuad Function BEGINS*/
-function havadurumuadFunc() {
-          global $husnab0t;
-          $response = husnaCurl("https://weather.com/tr-TR/kisisel/bugun/l/TUXX0002:1:TU");
-          preg_match_all('#<p class="today_nowcard-timestamp">(.*?)</p>#si', $response, $lastUpdated);
-          preg_match_all('#<div class="today_nowcard-temp">(.*?)</div>#si', $response, $temptemp);
-          preg_match_all('#<div class="today_nowcard-phrase">(.*?)</div>#si', $response, $phrase);
 
-          $lastUpdated = explode(":", strip_tags($lastUpdated[0][0]));
-          $lastUpdated = substr($lastUpdated[0], -2).":".substr($lastUpdated[1], 0, 2);
-          $temperature = intval(strip_tags($temptemp[0][0]))."°";
-          $phrase = strip_tags($phrase[0][0]);
-
-          $message = $lastUpdated." itibariyle hava *".$phrase."* ve sıcaklık *" . $temperature."*.";
-          $message = $message."\n\n"."hava çoh iyi hojam.";
-          $husnab0t->sendMessage($message);
-}
-/* havadurumuad Function ENDS*/
 /* PUT NEW FEATURES ABOVE */
