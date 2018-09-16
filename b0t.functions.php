@@ -1,5 +1,5 @@
 <?php
-include('turkeyweather.php');
+
 
 function husnaCurl($url) {
   $ch = curl_init();
@@ -154,6 +154,7 @@ function egonomiadFunc() {
 function havadurumuadFunc() {
 
           global $husnab0t;
+	  include('libs/turkeyweather.php');
           $weather = new TurkeyWeather();
 
           $obj1 = trim($husnab0t->getOtherWords());
