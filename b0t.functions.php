@@ -93,10 +93,10 @@ function yemekteNeVar() {
         $neZaman=trim($husnab0t->getOtherWords());
         date_default_timezone_set('Europe/Istanbul');
         if($neZaman == "yarın" || $neZaman == "yarin") {
-          $response = husnaCurl("http://kafeterya.metu.edu.tr/".date("d-m-Y", strtotime('tomorrow')));
+          $response = husnaCurl("http://kafeterya.metu.edu.tr/tarih/".date("d-m-Y", strtotime('tomorrow')));
         }
         else {
-          $response = husnaCurl("http://kafeterya.metu.edu.tr/tarih/");
+          $response = husnaCurl("http://kafeterya.metu.edu.tr/");
         }
 
         preg_match_all("/<div class=\"yemek\">(.*?)<span>(.*?)<img src=\"(.*?)\" alt=\"(.*?)\"\/><\/span>(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-->/msi", $response, $output);
