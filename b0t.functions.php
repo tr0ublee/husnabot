@@ -104,7 +104,11 @@ function yemekteNeVar() {
           $yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
         }
         else {
-          $yemekler = "\xF0\x9F\x8D\xB4 Yemekte şunlar varmış hojam: \n\n*Öğle yemeği*\n · ".$output[4][0]."\n · ".$output[4][1]."\n · ".$output[4][2]."\n · ".$output[4][3]."\n\n";
+          $yemekler = "\xF0\x9F\x8D\xB4 Y";
+          if($neZaman == "yarın") {
+            $yemekler .="arın y";
+          }
+          $yemekler .= "emekte şunlar varmış hojam: \n\n*Öğle yemeği*\n · ".$output[4][0]."\n · ".$output[4][1]."\n · ".$output[4][2]."\n · ".$output[4][3]."\n\n";
           if(strlen($output[4][4]) > 2) {
           $yemekler .= "*Akşam yemeği*\n · ".$output[4][4]."\n · ".$output[4][5]."\n · ".$output[4][6]."\n · ".$output[4][7]."\n\n";
           }
