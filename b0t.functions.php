@@ -90,8 +90,15 @@ function fotoadFunc(){
 /* yemekad Function STARTS */
 function yemekteNeVar() {
         global $husnab0t;
+        $neZaman=trim($husnab0t->getOtherWords());
         date_default_timezone_set('Europe/Istanbul');
-        $response = husnaCurl("http://kafeterya.metu.edu.tr/");
+        if($neZaman == "yarın") {
+          $response = husnaCurl("http://kafeterya.metu.edu.tr/");
+        }
+        else {
+          $response = husnaCurl("http://kafeterya.metu.edu.tr/tarih/".date("d-m-Y", strtotime('tomorrow')));
+        }
+
         preg_match_all("/<div class=\"yemek\">(.*?)<span>(.*?)<img src=\"(.*?)\" alt=\"(.*?)\"\/><\/span>(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-->/msi", $response, $output);
         if(date("N") > 5) {
           $yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
@@ -159,7 +166,7 @@ function havadurumuadFunc() {
 
           $obj1 = trim($husnab0t->getOtherWords());
           $obj = explode(" ", $obj1);
-          
+
           if(count($obj) == 1 && $obj[0] == "") {
             $city = "Ankara";
             $district = "Çankaya";
@@ -190,7 +197,7 @@ function helber(){
 
 function komutad(){
 	global $husnab0t;
-	
+
 	$lista=array_chunk(array_keys($husnab0t->getCommands()), (ceil(count(array_keys($husnab0t->getCommands()))/3)));
 	$replyMarkup = array(
     'keyboard' => $lista,
