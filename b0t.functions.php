@@ -98,9 +98,8 @@ function yemekteNeVar() {
         else {
           $response = husnaCurl("http://kafeterya.metu.edu.tr/");
         }
-
         preg_match_all("/<div class=\"yemek\">(.*?)<span>(.*?)<img src=\"(.*?)\" alt=\"(.*?)\"\/><\/span>(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-->/msi", $response, $output);
-        if(date("N") > 5) {
+        if(date("N") > 5 || (($neZaman == "yarın" || $neZaman == "yarin") && date("N") == 5)) {
           $yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
         }
         else {
