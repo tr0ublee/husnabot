@@ -92,19 +92,25 @@ function yemekteNeVar() {
         global $husnab0t;
         $neZaman=trim($husnab0t->getOtherWords());
         date_default_timezone_set('Europe/Istanbul');
+        $bak=date("N");
+        $tomo=0;
         if($neZaman == "yarın" || $neZaman == "yarin") {
+          $bak=(date("N")+1) % 7;
+          $tomo=1;
+        }
+        if($tomo) {
           $response = husnaCurl("http://kafeterya.metu.edu.tr/tarih/".date("d-m-Y", strtotime('tomorrow')));
         }
         else {
           $response = husnaCurl("http://kafeterya.metu.edu.tr/");
         }
         preg_match_all("/<div class=\"yemek\">(.*?)<span>(.*?)<img src=\"(.*?)\" alt=\"(.*?)\"\/><\/span>(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-->/msi", $response, $output);
-        if(date("N") > 5 || (($neZaman == "yarın" || $neZaman == "yarin") && date("N") == 5)) {
+        if($bak > 5) {
           $yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
         }
         else {
           $yemekler = "\xF0\x9F\x8D\xB4 Y";
-          if($neZaman == "yarın" || $neZaman == "yarin") {
+          if($tomo) {
             $yemekler .="arın y";
           }
           $yemekler .= "emekte şunlar varmış hojam: \n\n*Öğle yemeği*\n · ".$output[4][0]."\n · ".$output[4][1]."\n · ".$output[4][2]."\n · ".$output[4][3]."\n\n";
