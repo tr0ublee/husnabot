@@ -1,5 +1,5 @@
 <?php
-include('turkeyweather.php');
+
 
 function husnaCurl($url) {
   $ch = curl_init();
@@ -90,14 +90,30 @@ function fotoadFunc(){
 /* yemekad Function STARTS */
 function yemekteNeVar() {
         global $husnab0t;
+        $neZaman=trim($husnab0t->getOtherWords());
         date_default_timezone_set('Europe/Istanbul');
-        $response = husnaCurl("http://kafeterya.metu.edu.tr/");
+        $bak=date("N");
+        $tomo=0;
+        if($neZaman == "yarın" || $neZaman == "yarin") {
+          $bak=(date("N")+1) % 7;
+          $tomo=1;
+        }
+        if($tomo) {
+          $response = husnaCurl("http://kafeterya.metu.edu.tr/tarih/".date("d-m-Y", strtotime('tomorrow')));
+        }
+        else {
+          $response = husnaCurl("http://kafeterya.metu.edu.tr/");
+        }
         preg_match_all("/<div class=\"yemek\">(.*?)<span>(.*?)<img src=\"(.*?)\" alt=\"(.*?)\"\/><\/span>(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-->/msi", $response, $output);
-        if(date("N") > 5) {
+        if($bak > 5) {
           $yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
         }
         else {
-          $yemekler = "\xF0\x9F\x8D\xB4 Yemekte şunlar varmış hojam: \n\n*Öğle yemeği*\n · ".$output[4][0]."\n · ".$output[4][1]."\n · ".$output[4][2]."\n · ".$output[4][3]."\n\n";
+          $yemekler = "\xF0\x9F\x8D\xB4 Y";
+          if($tomo) {
+            $yemekler .="arın y";
+          }
+          $yemekler .= "emekte şunlar varmış hojam: \n\n*Öğle yemeği*\n · ".$output[4][0]."\n · ".$output[4][1]."\n · ".$output[4][2]."\n · ".$output[4][3]."\n\n";
           if(strlen($output[4][4]) > 2) {
           $yemekler .= "*Akşam yemeği*\n · ".$output[4][4]."\n · ".$output[4][5]."\n · ".$output[4][6]."\n · ".$output[4][7]."\n\n";
           }
@@ -154,11 +170,12 @@ function egonomiadFunc() {
 function havadurumuadFunc() {
 
           global $husnab0t;
+	  include('libs/turkeyweather.php');
           $weather = new TurkeyWeather();
 
           $obj1 = trim($husnab0t->getOtherWords());
           $obj = explode(" ", $obj1);
-          
+
           if(count($obj) == 1 && $obj[0] == "") {
             $city = "Ankara";
             $district = "Çankaya";
@@ -184,6 +201,18 @@ function havadurumuadFunc() {
 function helber(){
 	global $husnab0t;
   $husnab0t->sendMessage($husnab0t->getWhoamI());
+}
+
+
+function komutad(){
+	global $husnab0t;
+
+	$lista=array_chunk(array_keys($husnab0t->getCommands()), (ceil(count(array_keys($husnab0t->getCommands()))/3)));
+	$replyMarkup = array(
+    'keyboard' => $lista,
+	);
+	$encodedMarkup = json_encode($replyMarkup);
+	$husnab0t->sendMessage_w_markup("komut seç bro",$encodedMarkup);
 }
 
 /* PUT NEW FEATURES BELOW */

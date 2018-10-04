@@ -17,7 +17,7 @@ class TurkeyWeather{
 		}
 	}
 
-	private function getData(){ // Bilgileri mgm.gov.tr den getirir
+	public function getData(){ // Bilgileri mgm.gov.tr den getirir
 
 		// türkçe karakterleri her ihtimale karşı değiştiriyor
 		$province = str_replace(['Ç','ç','ı','İ','Ğ','ğ','Ö','ö','Ü','ü','ş','Ş','â','Â'], ['c','c','i','i','g','g','o','o','u','u','s','s','a','a'], $this->province_name);
