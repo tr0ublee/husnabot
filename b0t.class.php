@@ -42,7 +42,7 @@ class husna extends settings
  · *dolarad* yazarsan 1 amerikan doları kaç tl imiş onu söyler ve seninle üzülürüm\n
  · *avroad* veya *euroad* yazarsan 1 avro kaç tl imiş onu söyler ve seninle üzülürüm\n
  · *egonomiad* yazarsan senin için en güncel iktisadi verileri bir araya getirir güçlü egonomimizin ne kadar iyi olduğundan dem vururum\n
- · *havadurumuad* yazarsan senin için en güncel hava durumu verilerini getiririm
+ · *havadurumuad* {şehir} {ilçe} yazarsan senin için en güncel hava durumu verilerini getiririm
 
 henüz yeni sayılırım mazur gör hoja!";
 //*komutad* yazarsan sana komutlara daha hızlı erişebilmen için menü hazırlarım\n
