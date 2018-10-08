@@ -222,7 +222,7 @@ function yemeksepeti() {
           $restorantSec=rand(1,$restorantSay)-1;
           $restorant="https://www.yemeksepeti.com".$restorantlar[1][$restorantSec];
           $menuGetir=husnaCurl($restorant);
-          preg_match_all('/<h1 class="ys-h2">(.*?)<\/h1>/msi', $menuGetir, $restorantAdi);
+          preg_match_all('/<meta name="twitter:title" content="(.*?), Ankara Online/msi', $menuGetir, $restorantAdi);
 
           if($coksatan) {
             preg_match_all('/<div class="productName">(.*?)<a href="javascript\:void\(0\)\;" data-catalog-name="TR_ANKARA" class="getProductDetail" data-product-id="(.*?)" data-category-name="(.*?)" data-top-sold-product="true">(.*?)<\/a>(.*?)<\/div>(.*?)<span class="productInfo">(.*?)<p>(.*?)<\/p>(.*?)<\/span>(.*?)<span class="pull-right newPrice">(.*?)<\/span>/msi', $menuGetir, $yemekler);
@@ -246,7 +246,7 @@ function yemeksepeti() {
             $fiyat=$yemekler[12][$yemekSec];
           }
 
-          $sonuc="hojam bence *".utf8_decode($restorantAdi[1][0])."* mekanından *".$yemek."* yiyin. ";
+          $sonuc="hojam bence *".$restorantAdi[1][0]."* mekanından *".$yemek."* yiyin. ";
           if(len($icerik) > 0) {
             $sonuc.= "içinde *".$icerik."* var, ";
           }
