@@ -192,8 +192,13 @@ function havadurumuadFunc() {
           $weather->district($district);
           $weather->getData();
 
-          $message = $weather->province()." ".$weather->district()." konumunda hava *".$weather->event()[turkish]."* ve sıcaklık *".$weather->temperature()."°*.";
-          $message = $message."\n\n"."hava çoh iyi hojam.";
+          if(strlen($weather->province()) > 1) {
+            $message = $weather->province()." ".$weather->district()." konumunda hava *".$weather->event()[turkish]."* ve sıcaklık *".$weather->temperature()."°*.";
+            $message = $message."\n\n"."hava çoh iyi hojam.";
+          }
+          else {
+            $message = "öyle bir yer yok hojam.";
+          }
           $husnab0t->sendMessage($message);
       }
 /* havadurumuad Function ENDS*/
