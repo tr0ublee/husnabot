@@ -246,11 +246,12 @@ function yemeksepeti() {
             $fiyat=$yemekler[12][$yemekSec];
           }
 
-          $sonuc="hojam bence *".$restorantAdi[1][0]."* mekanından *".$yemek."* yiyin. ";
+          $sonuc="hojam bence *".$restorantAdi[1][0]."* mekanından *".iconv("ISO-8859-1", "UTF-8", $yemek)."* yiyin. ";
           if(strlen($icerik) > 0) {
-            $sonuc.= "içinde *".$icerik."* var, ";
+            $sonuc.= "içinde *".iconv("ISO-8859-1", "UTF-8", $icerik)."* var, ";
           }
           $sonuc.= "fiyatı da *".$fiyat."*, güzel bence. şuradan direkt sipariş verebilirsiniz: $restorant";
+
 
           $husnab0t->sendMessage($sonuc);
 
