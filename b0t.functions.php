@@ -197,7 +197,7 @@ function havadurumuadFunc() {
             $message = $message."\n\n"."hava çoh iyi hojam.";
           }
           else {
-            $message = "öyle bir yer yok hojam.";
+            $message = "$obj1 diye bi yer yok hojam.";
           }
           $husnab0t->sendMessage($message);
       }
