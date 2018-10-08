@@ -203,6 +203,58 @@ function havadurumuadFunc() {
       }
 /* havadurumuad Function ENDS*/
 
+/* yemeksepeti function BEGINS*/
+
+function yemeksepeti() {
+
+          global $husnab0t;
+
+          $kaliteMi=trim($husnab0t->getOtherWords());
+          $coksatan=0;
+          if($kaliteMi == "popi" || $kaliteMi == "popı" ) {
+            $coksatan == 1;
+          }
+
+          $kampusteki="https://www.yemeksepeti.com/ankara/orta-dogu-teknik-universitesi-odtu-kampusu#sof:2|sob:true";
+          $simdiAcik=husnaCurl($kampusteki);
+          preg_match_all('/<a class="restaurantName withTooltip" href="(.*?)" target="_parent">/msi', $simdiAcik, $restorantlar);
+          $restorantSay=count($restorantlar[1]);
+          $restorantSec=rand(1,$restorantSay)-1;
+          $restorant="https://www.yemeksepeti.com".$restorantlar[1][$restorantSec];
+          $menuGetir=husnaCurl($restorant);
+          preg_match_all('/<h1 class="ys-h2">(.*?)<\/h1>/msi', $menuGetir, $restorantAdi);
+
+          if($coksatan) {
+            preg_match_all('/<div class="productName">(.*?)<a href="javascript\:void\(0\)\;" data-catalog-name="TR_ANKARA" class="getProductDetail" data-product-id="(.*?)" data-category-name="(.*?)" data-top-sold-product="true">(.*?)<\/a>(.*?)<\/div>(.*?)<span class="productInfo">(.*?)<p>(.*?)<\/p>(.*?)<\/span>(.*?)<span class="pull-right newPrice">(.*?)<\/span>/msi', $menuGetir, $yemekler);
+            $menuSay=count($yemekler[4]);
+          }
+          else {
+            preg_match_all('/<div class="productName">(.*?)<a href="javascript\:void\(0\)\;" data-catalog-name="TR_ANKARA" class="getProductDetail" data-product-id="(.*?)" data-category-name="(.*?)" data-top-sold-product="(.*?)">(.*?)<\/a>(.*?)<\/div>(.*?)<span class="productInfo">(.*?)<p>(.*?)<\/p>(.*?)<\/span>(.*?)<span class="pull-right newPrice">(.*?)<\/span>/msi', $menuGetir, $yemekler);
+            $menuSay=count($yemekler[5]);
+          }
+
+          $yemekSec=rand(1,$menuSay)-1;
+
+          if($coksatan) {
+            $yemek=$yemekler[4][$yemekSec];
+            $icerik=$yemekler[8][$yemekSec];
+            $fiyat=$yemekler[11][$yemekSec];
+          }
+          else {
+            $yemek=$yemekler[5][$yemekSec];
+            $icerik=$yemekler[9][$yemekSec];
+            $fiyat=$yemekler[12][$yemekSec];
+          }
+
+          $sonuc="hojam bence *".$restorantAdi[1][0]."* mekanından *".$yemek."* yiyin. içinde *".$icerik."* var, fiyatı da *".$fiyat."*, güzel bence. şuradan direkt sipariş verebilirsiniz: $restorant";
+
+          $husnab0t->sendMessage($sonuc);
+
+}
+
+
+/* yemeksepeti function ENDS*/
+
 function helber(){
 	global $husnab0t;
   $husnab0t->sendMessage($husnab0t->getWhoamI());
