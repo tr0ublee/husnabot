@@ -42,7 +42,8 @@ class husna extends settings
  · *dolarad* yazarsan 1 amerikan doları kaç tl imiş onu söyler ve seninle üzülürüm\n
  · *avroad* veya *euroad* yazarsan 1 avro kaç tl imiş onu söyler ve seninle üzülürüm\n
  · *egonomiad* yazarsan senin için en güncel iktisadi verileri bir araya getirir güçlü egonomimizin ne kadar iyi olduğundan dem vururum\n
- · *havadurumuad* {şehir} {ilçe} yazarsan senin için en güncel hava durumu verilerini getiririm
+ · *havadurumuad* {şehir} {ilçe} yazarsan senin için en güncel hava durumu verilerini getiririm\n
+ · *neyesem* dersen sana yemeksepeti'nden yemek öneririm, hatta yanına popi eklersen popüler yemek öneririm
 
 henüz yeni sayılırım mazur gör hoja!";
 //*komutad* yazarsan sana komutlara daha hızlı erişebilmen için menü hazırlarım\n
@@ -82,7 +83,7 @@ henüz yeni sayılırım mazur gör hoja!";
         $this->requEst($url);
         return;
     }
-	
+
 	public function sendMessage_w_markup($message, $reply_markup) {
 
         $content = array(
@@ -91,12 +92,12 @@ henüz yeni sayılırım mazur gör hoja!";
 			'text' => "$message",
 			'reply_to_message_id' => $this->getMessageId()
 		);
-		
+
         $this->requEst_post("sendMessage",$content);
         return;
     }
-	
-	
+
+
 
     /*
         sendPhoto function takes
@@ -172,9 +173,9 @@ henüz yeni sayılırım mazur gör hoja!";
 		$server_output = curl_exec ($ch);
 		curl_close ($ch);
 		var_dump($server_output);
-		
-		
-		
+
+
+
 		/*
 		$ac = fopen("logxxxxx.txt","a+");
        		fwrite($ac,$server_output."\n");
@@ -305,7 +306,7 @@ henüz yeni sayılırım mazur gör hoja!";
     {
         return $this->otherWords;
     }
-	
+
 	/**
      * Get the value of groupName
      */
