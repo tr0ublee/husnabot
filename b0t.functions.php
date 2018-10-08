@@ -212,7 +212,7 @@ function yemeksepeti() {
           $kaliteMi=trim($husnab0t->getOtherWords());
           $coksatan=0;
           if($kaliteMi == "popi" || $kaliteMi == "popı" ) {
-            $coksatan == 1;
+            $coksatan = 1;
           }
 
           $kampusteki="https://www.yemeksepeti.com/ankara/orta-dogu-teknik-universitesi-odtu-kampusu#sof:2|sob:true";
@@ -247,7 +247,7 @@ function yemeksepeti() {
           }
 
           $sonuc="hojam bence *".$restorantAdi[1][0]."* mekanından *".$yemek."* yiyin. ";
-          if(len($icerik) > 0) {
+          if(strlen($icerik) > 0) {
             $sonuc.= "içinde *".$icerik."* var, ";
           }
           $sonuc.= "fiyatı da *".$fiyat."*, güzel bence. şuradan direkt sipariş verebilirsiniz: $restorant";
