@@ -170,7 +170,7 @@ function egonomiadFunc() {
 function havadurumuadFunc() {
 
           global $husnab0t;
-	  include('libs/turkeyweather.php');
+	        include('libs/turkeyweather.php');
           $weather = new TurkeyWeather();
 
           $obj1 = trim($husnab0t->getOtherWords());
@@ -192,7 +192,7 @@ function havadurumuadFunc() {
           $weather->district($district);
           $weather->getData();
 
-          $message = $weather->province()." ".$weather->district()."' konumunda hava *".$weather->event()[turkish]."* ve sıcaklık *".$weather->temperature()."°*.";
+          $message = $weather->province()." ".$weather->district()." konumunda hava *".$weather->event()[turkish]."* ve sıcaklık *".$weather->temperature()."°*.";
           $message = $message."\n\n"."hava çoh iyi hojam.";
           $husnab0t->sendMessage($message);
       }
