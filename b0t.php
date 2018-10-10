@@ -24,6 +24,9 @@ $husnab0t->addCommand("gunaydin","gunadyinFunc");
 $husnab0t->addCommand("günaydın","gunadyinFunc");
 $husnab0t->addCommand("boşyapıyolar","bojyabmaFunc");
 $husnab0t->addCommand("bojyapıyolar","bojyabmaFunc");
+$husnab0t->addCommand("bosyapiyolar","bojyabmaFunc");
+$husnab0t->addCommand("boşyapiyolar","bojyabmaFunc");
+$husnab0t->addCommand("bojyapiyolar","bojyabmaFunc");
 //$husnab0t->addCommand("komutad","komutad");
 
 /* PUT NEW COMMANDS BELOW */
