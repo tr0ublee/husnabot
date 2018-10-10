@@ -289,6 +289,17 @@ function gunadyinFunc(){
 
 /* gunaydin Function ENDS */
 
+/* bojyabmaFunc Function STARTS*/
+function bojyabmaFunc(){
+	global $husnab0t;
+	$husnab0t->sendPhoto(HusnaCurl("https://s2.eksiup.com/f4efffa4d670.jpeg"));
+}
+
+/* bojyabmaFunc Function ENDS */
+
+
+
+
 
 /* PUT NEW FEATURES BELOW */
 
