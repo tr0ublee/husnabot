@@ -246,6 +246,10 @@ function yemeksepeti() {
             $icerik=$yemekler[9][$yemekSec];
             $fiyat=$yemekler[12][$yemekSec];
           }
+          @preg_match_all('/<i class="ys-icons ys-icons-foto" data-imagepath="(.*?)" data-productname="(.*?)"><\/i>/msi', $yemek, $yemekozel);
+          if(strlen($yemekozel[2][0]) > 2) {
+            $yemek=$yemekozel[2][0];
+          }
           $yemek=html_entity_decode($yemek);
           $sonuc="hojam bence *".$restorantAdi[1][0]."* mekanından *".$yemek."* yiyin. ";
           if(strlen($icerik) > 0) {
