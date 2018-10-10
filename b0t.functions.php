@@ -311,7 +311,7 @@ function bilimsiz(){
 /* bilimsiz Function ENDS */
 
 /* java Function STARTS*/
-function java(){
+function jaava(){
 	global $husnab0t;
 	$husnab0t->sendPhoto("https://s3.eksiup.com/4aed51458925.jpg");
 }
