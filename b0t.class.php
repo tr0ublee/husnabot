@@ -45,7 +45,6 @@ class husna extends settings
  · *havadurumuad* {şehir} {ilçe} yazarsan senin için en güncel hava durumu verilerini getiririm\n
  · *neyesem* dersen sana yemeksepeti'nden yemek öneririm, hatta yanına *popi* eklersen popüler yemek öneririm\n
  · *gunaydin* yazarsan seni güne sıcacık başlatmaya çalışırım, çok korkuyorum, selam\n
-
 henüz yeni sayılırım mazur gör hoja!";
 //*komutad* yazarsan sana komutlara daha hızlı erişebilmen için menü hazırlarım\n
 
