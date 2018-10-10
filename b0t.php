@@ -6,7 +6,19 @@ $data = json_decode($data, TRUE);
 
 $husnab0t = new husna($data);
 require_once("b0t.functions.php");
-require_once("priv8.php");
+
+/*blocking too many wildcards*/
+$cagrici=$husnab0t->getFirstWord();
+if($cagrici == "getirhoca") {
+  $devam=trim($husnab0t->getOtherWords());
+  if(substr_count($devam, '%') > 1) {
+    $husnab0t->sendMessage("hojam botu spamlamayin",1);
+  }
+  else {
+    require_once("priv8.php");
+  }
+}
+
 
 $husnab0t->addCommand("bilgiad","bilgiadFunc");
 $husnab0t->addCommand("mizahyab","mizahyabFunc");
