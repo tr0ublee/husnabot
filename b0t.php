@@ -43,8 +43,6 @@ $husnab0t->addCommand("nasıl","beyle");
 $husnab0t->addCommand("nasil","beyle");
 $husnab0t->addCommand("java","jaava");
 $husnab0t->addCommand("bilimsiz","bilimsiz");
-$husnab0t->addCommand("bilimsizlik","bilimsiz");
-$husnab0t->addCommand("bilimsizliktir","bilimsiz");
 $husnab0t->addCommand("muazzam","muazzam");
 //$husnab0t->addCommand("komutad","komutad");
 
