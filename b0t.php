@@ -12,7 +12,7 @@ $cagrici=$husnab0t->getFirstWord();
 if($cagrici == "getirhoca") {
   $devam=trim($husnab0t->getOtherWords());
   if(substr_count($devam, '%') > 1) {
-    $husnab0t->sendMessage("hojam botu spamlamayin",1);
+    spamlamayin();
   }
   else {
     require_once("priv8.php");
