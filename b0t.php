@@ -23,6 +23,7 @@ $husnab0t->addCommand("neyesem","yemeksepeti");
 $husnab0t->addCommand("gunaydin","gunadyinFunc");
 $husnab0t->addCommand("günaydın","gunadyinFunc");
 $husnab0t->addCommand("boşyapıyolar","bojyabmaFunc");
+$husnab0t->addCommand("bojyapıyolar","bojyabmaFunc");
 //$husnab0t->addCommand("komutad","komutad");
 
 /* PUT NEW COMMANDS BELOW */
