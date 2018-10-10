@@ -76,6 +76,7 @@ function mizahyabFunc()
 }
 /* mizahyab Function ENDS */
 
+
 /* fotoad Function STARTS */
 function fotoadFunc(){
         global $husnab0t;
@@ -276,6 +277,18 @@ function komutad(){
 	$encodedMarkup = json_encode($replyMarkup);
 	$husnab0t->sendMessage_w_markup("komut seç bro",$encodedMarkup);
 }
+
+/* gunaydin Function STARTS	*/
+function gunadyinFunc(){
+	global $husnab0t;
+	$husnab0t->sendMessage("hepinize günaydınlar :)");
+	havadurumuadFunc();
+	yemekteNeVar();
+	egonomiadFunc();
+}
+
+/* gunaydin Function ENDS */
+
 
 /* PUT NEW FEATURES BELOW */
 
