@@ -20,6 +20,7 @@ $husnab0t->addCommand("havadurumuad","havadurumuadFunc");
 $husnab0t->addCommand("helb","helber");
 $husnab0t->addCommand("help","helber");
 $husnab0t->addCommand("neyesem","yemeksepeti");
+$husnab0t->addCommand("gunaydin","gunadyinFunc");
 //$husnab0t->addCommand("komutad","komutad");
 
 /* PUT NEW COMMANDS BELOW */
