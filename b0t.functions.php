@@ -292,7 +292,7 @@ function gunadyinFunc(){
 /* bojyabmaFunc Function STARTS*/
 function bojyabmaFunc(){
 	global $husnab0t;
-	$husnab0t->sendPhoto(husnaCurl("https://s2.eksiup.com/f4efffa4d670.jpeg"));
+	$husnab0t->sendPhoto("https://s2.eksiup.com/f4efffa4d670.jpeg");
 }
 
 /* bojyabmaFunc Function ENDS */

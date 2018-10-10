@@ -43,7 +43,7 @@ class husna extends settings
  · *avroad* veya *euroad* yazarsan 1 avro kaç tl imiş onu söyler ve seninle üzülürüm\n
  · *egonomiad* yazarsan senin için en güncel iktisadi verileri bir araya getirir güçlü egonomimizin ne kadar iyi olduğundan dem vururum\n
  · *havadurumuad* {şehir} {ilçe} yazarsan senin için en güncel hava durumu verilerini getiririm\n
- · *neyesem* dersen sana yemeksepeti'nden yemek öneririm, hatta yanına popi eklersen popüler yemek öneririm
+ · *neyesem* dersen sana yemeksepeti'nden yemek öneririm, hatta yanına *popi* eklersen popüler yemek öneririm\n
  · *gunaydin* yazarsan seni güne sıcacık başlatmaya çalışırım, çok korkuyorum, selam\n
 
 henüz yeni sayılırım mazur gör hoja!";
