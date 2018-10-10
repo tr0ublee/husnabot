@@ -246,10 +246,11 @@ function yemeksepeti() {
             $icerik=$yemekler[9][$yemekSec];
             $fiyat=$yemekler[12][$yemekSec];
           }
-
-          $sonuc="hojam bence *".$restorantAdi[1][0]."* mekanından *".html_entity_decode($yemek)."* yiyin. ";
+          $yemek=html_entity_decode($yemek);
+          $sonuc="hojam bence *".$restorantAdi[1][0]."* mekanından *".$yemek."* yiyin. ";
           if(strlen($icerik) > 0) {
-            $sonuc.= "içinde *".html_entity_decode($icerik)."* var, ";
+            $icerik=html_entity_decode($icerik);
+            $sonuc.= "içinde *".$icerik."* var, ";
           }
           $sonuc.= "fiyatı da *".$fiyat."*, güzel bence. şuradan direkt sipariş verebilirsiniz: $restorant";
 
