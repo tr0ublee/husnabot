@@ -292,35 +292,35 @@ function gunadyinFunc(){
 /* bojyabmaFunc Function STARTS*/
 function bojyabmaFunc(){
 	global $husnab0t;
-	$husnab0t->sendPhoto("https://s2.eksiup.com/f4efffa4d670.jpeg");
+	$husnab0t->sendPhoto("https://s2.eksiup.com/f4efffa4d670.jpeg","",1);
 }
 /* bojyabmaFunc Function ENDS */
 
 /* muazzam Function STARTS*/
 function muazzam(){
 	global $husnab0t;
-	$husnab0t->sendPhoto("https://s3.eksiup.com/66e49a926940.jpg");
+	$husnab0t->sendPhoto("https://s3.eksiup.com/66e49a926940.jpg","",1);
 }
 /* muazzam Function ENDS */
 
 /* bilimsiz Function STARTS*/
 function bilimsiz(){
 	global $husnab0t;
-	$husnab0t->sendPhoto("https://s3.eksiup.com/eb5ffea94370.jpg");
+	$husnab0t->sendPhoto("https://s3.eksiup.com/eb5ffea94370.jpg","",1);
 }
 /* bilimsiz Function ENDS */
 
 /* java Function STARTS*/
 function jaava(){
 	global $husnab0t;
-	$husnab0t->sendPhoto("https://s3.eksiup.com/4aed51458925.jpg");
+	$husnab0t->sendPhoto("https://s3.eksiup.com/4aed51458925.jpg","",1);
 }
 /* java Function ENDS */
 
 /* beyle Function STARTS*/
 function beyle(){
 	global $husnab0t;
-	$husnab0t->sendPhoto("https://s3.eksiup.com/fc55f421b312.jpg");
+	$husnab0t->sendPhoto("https://s3.eksiup.com/fc55f421b312.jpg","",1);
 }
 /* beyle Function ENDS */
 
