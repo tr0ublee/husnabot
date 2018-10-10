@@ -324,6 +324,12 @@ function beyle(){
 }
 /* beyle Function ENDS */
 
+/* spam Function STARTS*/
+function spamlamayin(){
+	global $husnab0t;
+	$husnab0t->sendMessage("hojam botu spamlamayin",1);
+}
+/* spam Function ENDS */
 
 
 
