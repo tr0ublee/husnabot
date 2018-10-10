@@ -27,6 +27,13 @@ $husnab0t->addCommand("bojyapıyolar","bojyabmaFunc");
 $husnab0t->addCommand("bosyapiyolar","bojyabmaFunc");
 $husnab0t->addCommand("boşyapiyolar","bojyabmaFunc");
 $husnab0t->addCommand("bojyapiyolar","bojyabmaFunc");
+$husnab0t->addCommand("nasıl","beyle");
+$husnab0t->addCommand("nasil","beyle");
+$husnab0t->addCommand("java","java");
+$husnab0t->addCommand("bilimsiz","bilimsiz");
+$husnab0t->addCommand("bilimsizlik","bilimsiz");
+$husnab0t->addCommand("bilimsizliktir","bilimsiz");
+$husnab0t->addCommand("muazzam","muazzam");
 //$husnab0t->addCommand("komutad","komutad");
 
 /* PUT NEW COMMANDS BELOW */
