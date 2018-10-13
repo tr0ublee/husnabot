@@ -231,10 +231,10 @@ function yemeksepeti() {
           #1- links, 4- min delivery limits
           if($minTutar) {
             $restorantlarYeni=array();
-            $Yenisay=count($restoranlar[1]);
+            $Yenisay=count($restorantlar[1]);
             for($i=0;$i<$Yenisay;$i++) {
-              if($restorantlar[4] < $minTutar) {
-                $restorantlarYeni[$i]=array_column($restoranlar,$i);
+              if($restorantlar[4][$i] < $minTutar) {
+                array_push($restorantlarYeni,array($restorantlar[0][$i],$restorantlar[1][$i]));
               }
             }
             $restorantlar=$restorantlarYeni;
