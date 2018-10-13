@@ -210,13 +210,21 @@ function yemeksepeti() {
 
           global $husnab0t;
 
-          $kaliteMi=trim($husnab0t->getOtherWords());
-          $coksatan=0;
-          if($kaliteMi == "popi" || $kaliteMi == "popı" ) {
+          $others=trim($husnab0t->getOtherWords());
+          $others=explode(" ",$others);
+          $othersC=count($others);
+          $minTutar = 0;
+          $coksatan = 0;
+          if(in_array("popi", $others) || in_array("popı", $others)) {
             $coksatan = 1;
           }
-
+          if(($othersC > 1 && $coksatan == 1) || ($othersC == 1 && $coksatan == 0)) {
+            $minTutar=$others[$coksatan];
+          }
           $kampusteki="https://www.yemeksepeti.com/ankara/orta-dogu-teknik-universitesi-odtu-kampusu#sof:2|sob:true";
+          if($minTutar) {
+            $kampusteki.="|mbt:".$minTutar;
+          }
           $simdiAcik=husnaCurl($kampusteki);
           preg_match_all('/<a class="restaurantName withTooltip" href="(.*?)" target="_parent">/msi', $simdiAcik, $restorantlar);
           $restorantSay=count($restorantlar[1]);
