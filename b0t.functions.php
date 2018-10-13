@@ -226,7 +226,20 @@ function yemeksepeti() {
             $kampusteki.="|mbt:".$minTutar;
           }
           $simdiAcik=husnaCurl($kampusteki);
-          preg_match_all('/<a class="restaurantName withTooltip" href="(.*?)" target="_parent">/msi', $simdiAcik, $restorantlar);
+          #preg_match_all('/<a class="restaurantName withTooltip" href="(.*?)" target="_parent">/msi', $simdiAcik, $restorantlar);
+          preg_match_all('/<a class="restaurantName withTooltip" href="(.*?)" target="_parent">(.*?)<span data-tooltip="(.*?)MinimumDeliveryPrice&quot;:(.*?),&quot(.*?)">/msi', $simdiAcik, $restorantlar);
+          #1- links, 4- min delivery limits
+          if($minTutar) {
+            $restorantlarYeni=array();
+            $Yenisay=count($restoranlar[1]);
+            for($i=0;$i<$Yenisay;$i++) {
+              if($restorantlar[4] < $minTutar) {
+                $restorantlarYeni[$i]=array_column($restoranlar,$i);
+              }
+            }
+            $restorantlar=$restorantlarYeni;
+          }
+
           $restorantSay=count($restorantlar[1]);
           $restorantSec=rand(1,$restorantSay)-1;
           $restorant="https://www.yemeksepeti.com".$restorantlar[1][$restorantSec];
