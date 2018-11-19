@@ -91,11 +91,12 @@ function fotoadFunc(){
 /* yemekad Function STARTS */
 function yemekteNeVar() {
         global $husnab0t;
-        $neZaman=trim($husnab0t->getOtherWords());
+        $others=trim($husnab0t->getOtherWords());
         date_default_timezone_set('Europe/Istanbul');
         $bak=date("N");
         $tomo=0;
-        if($neZaman == "yarın" || $neZaman == "yarin") {
+        $others=explode(" ",$others);
+        if(in_array("yarın", $others) || if(in_array("yarin", $others)) {
           $bak=(date("N")+1) % 7;
           $tomo=1;
         }
@@ -356,6 +357,13 @@ function spamlamayin(){
 	$husnab0t->sendMessage("hojam botu spamlamayin",1);
 }
 /* spam Function ENDS */
+
+/* husnacim Function STARTS*/
+function husnacimFunc() {
+  global $husnab0t;
+  $husnab0t->sendMessage("yeter ki sen iste ".$husnabot->getSenderUsername(),1);
+}
+
 
 
 
