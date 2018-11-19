@@ -19,8 +19,8 @@ if($cagrici == "getirhoca") {
   }
 }
 
-/*$husnab0t->addCommand("husnacim","husnacimFunc");
-$husnab0t->addCommand("hüsnacım","husnacimFunc");*/
+$husnab0t->addCommand("husnacim","husnacimFunc");
+$husnab0t->addCommand("hüsnacım","husnacimFunc");
 $husnab0t->addCommand("bilgiad","bilgiadFunc");
 $husnab0t->addCommand("mizahyab","mizahyabFunc");
 $husnab0t->addCommand("fotoad","fotoadFunc");
