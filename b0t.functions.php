@@ -361,8 +361,7 @@ function spamlamayin(){
 /* husnacim Function STARTS*/
 function husnacimFunc() {
   global $husnab0t;
-  $isteyen=$husnabot->getSenderUsername();
-  $husnab0t->sendMessage("yeter ki sen iste $isteyen",1);
+  $husnab0t->sendMessage("yeter ki sen iste @".$this->getSenderUsername(),1);
 }
 
 
