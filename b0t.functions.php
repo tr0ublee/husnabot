@@ -193,9 +193,13 @@ function havadurumuadFunc() {
           $weather->province($city);
           $weather->district($district);
           $weather->getData();
+          $durum=$weather->event()[turkish];
+          if($durum == "-9999") {
+            $durum="bi tuhaf";
+          }
 
           if(strlen($weather->province()) > 1) {
-            $message = $weather->province()." ".$weather->district()." konumunda hava *".$weather->event()[turkish]."* ve sıcaklık *".$weather->temperature()."°*.";
+            $message = $weather->province()." ".$weather->district()." konumunda hava *".$durum."* ve sıcaklık *".$weather->temperature()."°*.";
             $message = $message."\n\n"."hava çoh iyi hojam.";
           }
           else {
