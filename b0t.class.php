@@ -292,6 +292,13 @@ henüz yeni sayılırım mazur gör hoja!";
     {
         return $this->commands;
     }
+	/**
+     * Get the value of menu_elems
+     */
+    public function getMenu()
+    {
+        return $this->menu_elems;
+    }
 
     /**
      * Get the value of firstWord
