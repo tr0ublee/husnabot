@@ -304,7 +304,7 @@ function helber(){
 function komutad(){
 	global $husnab0t;
 
-	$lista=array_chunk(array_keys($husnab0t->getCommands()), (ceil(count(array_keys($husnab0t->getCommands()))/3)));
+	$lista=array_chunk(array_keys($husnab0t->getMenu()), (ceil(count(array_keys($husnab0t->getMenu()))/3)));
 	$replyMarkup = array(
     'keyboard' => $lista,
 	);
