@@ -303,7 +303,7 @@ function helber(){
 
 function komutad(){
 	global $husnab0t;
-	if ($husnab0t->getGroupOrPrivate()){
+	if (!$husnab0t->getGroupOrPrivate()){
 	$lista=array_chunk(array_keys($husnab0t->getMenu()), (ceil(count(array_keys($husnab0t->getMenu()))/3)));
 	$replyMarkup = array(
     'keyboard' => $lista,
