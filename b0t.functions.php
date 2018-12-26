@@ -123,7 +123,7 @@ function yemekteNeVar() {
         }
         $husnab0t->sendMessage($yemekler);
         if(contains("BORONA",$output[4])) {
-          $husnab0t->sendMessage("Aaa bi dk hojam borona varmış menüde? \xf0\x9f\xa5\x95 \n BORONA BORONA \n AL BENİ BORONA \n YAKIŞIRIZ AMA \n ÇOK ÇOK");
+          $husnab0t->sendMessage("Aaa bi dk hojam borona varmış menüde? \xf0\x9f\xa5\x95 \n BORONA BORONA \n AL BENI BORONA \n YAKISIRIZ AMA \n COK COK");
         }
 }
 /* yemekad Function ENDS */
@@ -373,7 +373,7 @@ function husnacimFunc() {
 
 function contains($str, array $arr) {
   foreach($arr as $a) {
-    if (stripos($str,$a) !== false) return true;
+    if (stripos($a,$str) !== false) return true;
   }
   return false;
 }
