@@ -303,13 +303,16 @@ function helber(){
 
 function komutad(){
 	global $husnab0t;
-
+	if ($husnab0t->getGroupOrPrivate()){
 	$lista=array_chunk(array_keys($husnab0t->getMenu()), (ceil(count(array_keys($husnab0t->getMenu()))/3)));
 	$replyMarkup = array(
     'keyboard' => $lista,
 	);
 	$encodedMarkup = json_encode($replyMarkup);
-	$husnab0t->sendMessage_w_markup("komut seç bro",$encodedMarkup);
+	$husnab0t->sendMessage_w_markup("komut seç bro",$encodedMarkup);}
+	else {
+		$husnab0t->sendMessage("bu fonksiyon sadece özel mesajda çalışıyor",1);	
+	}
 }
 
 /* gunaydin Function STARTS	*/
