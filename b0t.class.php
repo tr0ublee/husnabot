@@ -15,6 +15,7 @@ class husna extends settings
     private $groupOrPrivate;
     private $reqUrl;
     private $commands = array();
+    private $menu_elems = array();
     private $whoamI;
 	private $groupName;
     public function __construct($data)
@@ -261,8 +262,9 @@ henüz yeni sayılırım mazur gör hoja!";
      *
      * @return  self
      */
-    public function addCommand($command,$function_name)
+    public function addCommand($command,$function_name,$add_menu=0)
     {
+	if($add_menu) { $this->menu_elems += array($command=>$function_name); }
         $this->commands += array($command=>$function_name);
         return $this;
     }
