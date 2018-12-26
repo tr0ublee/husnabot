@@ -34,7 +34,7 @@ $husnab0t->addCommand("nasil","beyle");
 $husnab0t->addCommand("java","jaava");
 $husnab0t->addCommand("bilimsiz","bilimsiz");
 $husnab0t->addCommand("muazzam","muazzam");
-//$husnab0t->addCommand("komutad","komutad");
+$husnab0t->addCommand("komutad","komutad");
 
 /* PUT NEW COMMANDS BELOW */
 
