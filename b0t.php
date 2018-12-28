@@ -35,7 +35,7 @@ $husnab0t->addCommand("java","jaava");
 $husnab0t->addCommand("bilimsiz","bilimsiz");
 $husnab0t->addCommand("muazzam","muazzam");
 $husnab0t->addCommand("komutad","komutad");
-
+$husnab0t->addCommand("oyunad","oyunadFunc",1);
 /* PUT NEW COMMANDS BELOW */
 
 
