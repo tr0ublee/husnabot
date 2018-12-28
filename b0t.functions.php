@@ -445,7 +445,8 @@ function oyunadFunc(){
           $price.=oyunfiyatiAd($url2);
           $price=strip_tags($price);
           $message.="Type : ".$id[0][1]." Name : ".$id[0][2]." Price : ".$price;
-          
+          $message=html_entity_decode($message);
+
           $husnab0t->sendMessage($message."\n");
      
         
