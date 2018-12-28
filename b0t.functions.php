@@ -387,23 +387,28 @@ function oyunfiyatiAd($url2){
     $tablex="";
     $rows="";
     $price="";
+    $yok="bu oyun artik yok hodjam";
     $response=husnaCurl($url2);
     preg_match_all("/<table.*?>(.*?)<\/table>/si", $response, $tablex);
     if(preg_match_all("/<tr.*?>(.*?)<\/tr>/si", $tablex[1][1], $rows)){
         if(preg_match_all("/<td.*?>(.*?)<\/td>/si", $rows[1][14], $price)){
-            $husnab0t->sendMessage("Price: ".$price[0][1]."\n");
-            return true;
+            return $price[0][1];
+            
+           
         }
+        else return $yok;
+    }
+    
+    else{ 
+        
         return false;
     }
-    else {
-        return false;
-    }
+    
 }
 
 function oyunadFunc(){
     global $husnab0t;
-
+        
     $caller=$husnab0t->getFirstWord();
     $thread='';
     if($caller == "oyunad") {
@@ -413,13 +418,16 @@ function oyunadFunc(){
         return false;
     }
     $url="https://steamdb.info/search/?a=app&q=";
-    $url.=$thread;
+    $url.=$thread; 
     $table="";
     $rows="";
     $id="";
     $response=husnaCurl($url);
+    $message="";
+    $price="";
 
     preg_match_all("/<table.*?>(.*?)<\/table>/si", $response, $table);
+
     preg_match_all("/<tr.*?>(.*?)<\/tr>/si", $table[1][0], $rows);
     $i=2;
 
@@ -429,13 +437,18 @@ function oyunadFunc(){
         preg_match_all("/<a href.*?>(.*?)<\/a>/si", $id[0][0], $extension);
         if (strlen($id[0][1])==13) $id[0][1]=substr($id[0][1],4,4);
         else if(strlen($id[0][1])==12) $id[0][1]=substr($id[0][1],4,3);
+    
         if($id[0][1]=="DLC" || $id[0][1]=="Game"){
-          $husnab0t->sendMessage("Type : ".$id[0][1]."\n");
-          $husnab0t->sendMessage("Name : ". $id[0][2]."\n");
-          $url2="https://steamdb.info/app/";
+          $id[0][1]=strip_tags($id[0][1]);//type
+          $id[0][2]=strip_tags($id[0][2]);//name
+          $url2="https://steamdb.info/app/";   
           $url2.=$extension[1][0]."/";
-          oyunfiyatiAd($url2);
-          $husnab0t->sendMessage("\n");
+          $price.=oyunfiyatiAd($url2);
+          $price=strip_tags($price);
+          $message.="Type : ".$id[0][1]." Name : ".$id[0][2]." Price : ".$price;
+          
+          $husnab0t->sendMessage($message."\n");
+     
         }
     }
 }
