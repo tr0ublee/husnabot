@@ -437,8 +437,7 @@ function oyunadFunc(){
     if (strlen($id[0][1])==13) $id[0][1]=substr($id[0][1],4,4);
     else if(strlen($id[0][1])==12) $id[0][1]=substr($id[0][1],4,3);
     
-    for(;$i<count($rows[1]);$i++){
-      if($id[0][1]=="DLC" || $id[0][1]=="Game"){
+    if($id[0][1]=="DLC" || $id[0][1]=="Game"){
           $id[0][1]=strip_tags($id[0][1]);//type
           $id[0][2]=strip_tags($id[0][2]);//name
           $url2="https://steamdb.info/app/";   
@@ -446,12 +445,12 @@ function oyunadFunc(){
           $price.=oyunfiyatiAd($url2);
           $price=strip_tags($price);
           $message.="Type : ".$id[0][1]." Name : ".$id[0][2]." Price : ".$price;
-          html_entity_decode($message);
+          $message=html_entity_decode($message);
+
           $husnab0t->sendMessage($message."\n");
      
-      }
+        
     }
-
 }
 /*oyunad function ENDS*/
 
