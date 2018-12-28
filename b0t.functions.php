@@ -431,14 +431,13 @@ function oyunadFunc(){
     preg_match_all("/<tr.*?>(.*?)<\/tr>/si", $table[1][0], $rows);
     $i=2;
 
-    for($i=2;$i<count($rows[1]);$i++){
-        $extension="";
-        preg_match_all("/<td.*?>(.*?)<\/td>/si", $rows[1][$i], $id);
-        preg_match_all("/<a href.*?>(.*?)<\/a>/si", $id[0][0], $extension);
-        if (strlen($id[0][1])==13) $id[0][1]=substr($id[0][1],4,4);
-        else if(strlen($id[0][1])==12) $id[0][1]=substr($id[0][1],4,3);
+    $extension="";
+    preg_match_all("/<td.*?>(.*?)<\/td>/si", $rows[1][$i], $id);
+    preg_match_all("/<a href.*?>(.*?)<\/a>/si", $id[0][0], $extension);
+    if (strlen($id[0][1])==13) $id[0][1]=substr($id[0][1],4,4);
+    else if(strlen($id[0][1])==12) $id[0][1]=substr($id[0][1],4,3);
     
-        if($id[0][1]=="DLC" || $id[0][1]=="Game"){
+    if($id[0][1]=="DLC" || $id[0][1]=="Game"){
           $id[0][1]=strip_tags($id[0][1]);//type
           $id[0][2]=strip_tags($id[0][2]);//name
           $url2="https://steamdb.info/app/";   
@@ -449,7 +448,7 @@ function oyunadFunc(){
           
           $husnab0t->sendMessage($message."\n");
      
-        }
+        
     }
 }
 /*oyunad function ENDS*/
