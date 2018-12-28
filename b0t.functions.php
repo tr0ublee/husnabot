@@ -391,7 +391,7 @@ function oyunfiyatiAd($url2){
     preg_match_all("/<table.*?>(.*?)<\/table>/si", $response, $tablex);
     if(preg_match_all("/<tr.*?>(.*?)<\/tr>/si", $tablex[1][1], $rows)){
         if(preg_match_all("/<td.*?>(.*?)<\/td>/si", $rows[1][14], $price)){
-            $husnab0t->sendMessage("Price: ".$price[0][1]."\n");
+            $husnab0t->sendMessage("Price: ".$price[0][1].);
             return true;
         }
         return false;
@@ -430,8 +430,8 @@ function oyunadFunc(){
         if (strlen($id[0][1])==13) $id[0][1]=substr($id[0][1],4,4);
         else if(strlen($id[0][1])==12) $id[0][1]=substr($id[0][1],4,3);
         if($id[0][1]=="DLC" || $id[0][1]=="Game"){
-          $husnab0t->sendMessage("Type : ".$id[0][1]."\n");
-          $husnab0t->sendMessage("Name : ". $id[0][2]."\n");
+          $husnab0t->sendMessage("Type : ".$id[0][1].);
+          $husnab0t->sendMessage("Name : ". $id[0][2].);
           $url2="https://steamdb.info/app/";
           $url2.=$extension[1][0]."/";
           oyunfiyatiAd($url2);
