@@ -47,6 +47,7 @@ class husna extends settings
  · *neyesem* {popi} {minimum sipariş tutarı} dersen sana yemeksepeti'nden yemek öneririm, *popi* ve *minimum sipariş tutarı* zorunlu değil, ama yardımcı oluyor bence\n
  · *gunaydin* yazarsan seni güne sıcacık başlatmaya çalışırım, çok korkuyorum, selam\n
  · *komutad* yazarsan sana komutlara daha hızlı erişebilmen için menü hazırlarım\n
+ · *oyunad* {oyunadı} yazarsan sana istedigin oyunun fiyatini soylerim\n
 henüz yeni sayılırım mazur gör hoja!";
 
     }
