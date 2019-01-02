@@ -464,7 +464,7 @@ function despacito() {
 /*nani */
 function nani() {
   global $husnab0t;
-  $husnab0t->sendVoiceMessage("http://ozanalpay.com/husna/nani.ogg","",1);
+  $husnab0t->sendVoiceMessage("http://ozanalpay.com/husna/nanii.ogg","",1);
 }
 /* nani ends */
 
