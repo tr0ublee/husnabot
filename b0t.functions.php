@@ -393,22 +393,22 @@ function oyunfiyatiAd($url2){
     if(preg_match_all("/<tr.*?>(.*?)<\/tr>/si", $tablex[1][1], $rows)){
         if(preg_match_all("/<td.*?>(.*?)<\/td>/si", $rows[1][14], $price)){
             return $price[0][1];
-            
-           
+
+
         }
         else return $yok;
     }
-    
-    else{ 
-        
+
+    else{
+
         return false;
     }
-    
+
 }
 
 function oyunadFunc(){
     global $husnab0t;
-        
+
     $caller=$husnab0t->getFirstWord();
     $thread='';
     if($caller == "oyunad") {
@@ -418,7 +418,7 @@ function oyunadFunc(){
         return false;
     }
     $url="https://steamdb.info/search/?a=app&q=";
-    $url.=$thread; 
+    $url.=$thread;
     $table="";
     $rows="";
     $id="";
@@ -436,11 +436,11 @@ function oyunadFunc(){
     preg_match_all("/<a href.*?>(.*?)<\/a>/si", $id[0][0], $extension);
     if (strlen($id[0][1])==13) $id[0][1]=substr($id[0][1],4,4);
     else if(strlen($id[0][1])==12) $id[0][1]=substr($id[0][1],4,3);
-    
+
     if($id[0][1]=="DLC" || $id[0][1]=="Game"){
           $id[0][1]=strip_tags($id[0][1]);//type
           $id[0][2]=strip_tags($id[0][2]);//name
-          $url2="https://steamdb.info/app/";   
+          $url2="https://steamdb.info/app/";
           $url2.=$extension[1][0]."/";
           $price.=oyunfiyatiAd($url2);
           $price=strip_tags($price);
@@ -448,11 +448,21 @@ function oyunadFunc(){
           $message=html_entity_decode($message);
 
           $husnab0t->sendMessage($message."\n");
-     
-        
+
+
     }
 }
 /*oyunad function ENDS*/
+
+/*despacito */
+
+function despacito() {
+  global $husnab0t;
+  $husnab0t->sendVoiceMessage("http://ozanalpay.com/despa.ogg","",1);
+}
+
+
+/* despacito ends */
 
 /* PUT NEW FEATURES BELOW */
 
