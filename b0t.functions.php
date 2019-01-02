@@ -455,14 +455,25 @@ function oyunadFunc(){
 /*oyunad function ENDS*/
 
 /*despacito */
-
 function despacito() {
   global $husnab0t;
-  $husnab0t->sendVoiceMessage("http://ozanalpay.com/despaci.ogg","",1);
+  $husnab0t->sendVoiceMessage("http://ozanalpay.com/husna/despacito.ogg","",1);
 }
-
-
 /* despacito ends */
+
+/*nani */
+function nani() {
+  global $husnab0t;
+  $husnab0t->sendVoiceMessage("http://ozanalpay.com/husna/nani.ogg","",1);
+}
+/* nani ends */
+
+/*omae */
+function omae() {
+  global $husnab0t;
+  $husnab0t->sendVoiceMessage("http://ozanalpay.com/husna/shi.ogg","",1);
+}
+/* omae ends */
 
 /* PUT NEW FEATURES BELOW */
 

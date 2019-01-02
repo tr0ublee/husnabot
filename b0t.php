@@ -37,6 +37,9 @@ $husnab0t->addCommand("muazzam","muazzam");
 $husnab0t->addCommand("komutad","komutad");
 $husnab0t->addCommand("oyunad","oyunadFunc",1);
 $husnab0t->addCommand("so sad","despacito");
+$husnab0t->addCommand("nani","nani");
+$husnab0t->addCommand("shindeiru","omae");
+$husnab0t->addCommand("dead","omae");
 /* PUT NEW COMMANDS BELOW */
 
 
