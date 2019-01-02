@@ -458,7 +458,7 @@ function oyunadFunc(){
 
 function despacito() {
   global $husnab0t;
-  $husnab0t->sendVoiceMessage("http://ozanalpay.com/despa.ogg","",1);
+  $husnab0t->sendVoiceMessage("http://ozanalpay.com/despaci.ogg","",1);
 }
 
 
