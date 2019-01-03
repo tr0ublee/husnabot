@@ -477,7 +477,7 @@ function omae() {
 /*yaprak */
 function yaprak() {
   global $husnab0t;
-  $husnab0t->sendVoiceMessage("https://kursat.space/b0t/audio/yaprak.ogg","yaprak",1);
+  $husnab0t->sendVoiceMessage("https://kursat.space/b0t/audio/yaprak.ogg","",1);
 }
 /* yaprak ends */
 /* PUT NEW FEATURES BELOW */
