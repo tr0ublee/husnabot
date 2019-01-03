@@ -48,7 +48,9 @@ class husna extends settings
  · *gunaydin* yazarsan seni güne sıcacık başlatmaya çalışırım, çok korkuyorum, selam\n
  · *komutad* yazarsan sana komutlara daha hızlı erişebilmen için menü hazırlarım\n
  · *oyunad* {oyunadı} yazarsan sana istedigin oyunun fiyatini soylerim\n
-henüz yeni sayılırım mazur gör hoja!";
+henüz yeni sayılırım mazur gör hoja!\n
+for hugs and bugs @z4r4r
+";
 
     }
 
