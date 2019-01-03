@@ -21,6 +21,7 @@ $husnab0t->addCommand("egonomiad","egonomiadFunc",1);
 $husnab0t->addCommand("havadurumuad","havadurumuadFunc",1);
 $husnab0t->addCommand("helb","helber",1);
 $husnab0t->addCommand("help","helber");
+$husnab0t->addCommand("/start","helber");
 $husnab0t->addCommand("neyesem","yemeksepeti");
 $husnab0t->addCommand("gunaydin","gunadyinFunc");
 $husnab0t->addCommand("günaydın","gunadyinFunc",1);
