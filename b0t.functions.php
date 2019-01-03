@@ -474,7 +474,12 @@ function omae() {
   $husnab0t->sendVoiceMessage("http://ozanalpay.com/husna/shi.ogg","",1);
 }
 /* omae ends */
-
+/*yaprak */
+function yaprak() {
+  global $husnab0t;
+  $husnab0t->sendVoiceMessage("https://kursat.space/b0t/audio/yaprak.ogg","",1);
+}
+/* yaprak ends */
 /* PUT NEW FEATURES BELOW */
 
 /* PUT NEW FEATURES ABOVE */
