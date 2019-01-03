@@ -41,6 +41,7 @@ $husnab0t->addCommand("so sad","despacito");
 $husnab0t->addCommand("nani","nani");
 $husnab0t->addCommand("shindeiru","omae");
 $husnab0t->addCommand("dead","omae");
+$husnab0t->addCommand("yaprak","yaprak");
 /* PUT NEW COMMANDS BELOW */
 
 
