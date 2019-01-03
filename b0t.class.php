@@ -135,14 +135,14 @@ for hugs and bugs @z4r4r
 
     private function sayHi(){
             if($this->getUserEnter() == "HusnaBot" ){
-                $this->sendVoiceMessage("https://kursat.blog/b0t/audio/selam.ogg","hey bitchezzz");
+                $this->sendVoiceMessage("https://kursat.space/b0t/audio/selam.ogg","hey bitchezzz");
                 $this->sendMessage($this->getWhoamI());
             }else{
-                $this->sendVoiceMessage("https://kursat.blog/b0t/audio/selam.ogg","@".$this->getUserEnter());
+                $this->sendVoiceMessage("https://kursat.space/b0t/audio/selam.ogg","@".$this->getUserEnter());
             }
     }
     private function sayBye(){
-        $this->sendVoiceMessage("https://kursat.blog/b0t/audio/seriuzgunad.ogg","@".$this->getUserExit(). " gitti. artık bir eksiğiz...");
+        $this->sendVoiceMessage("https://kursat.space/b0t/audio/seriuzgunad.ogg","@".$this->getUserExit(). " gitti. artık bir eksiğiz...");
     }
     public function requEst($url){
 
