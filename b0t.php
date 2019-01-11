@@ -47,5 +47,5 @@ $husnab0t->addCommand("yaprak","yaprak");
 
 /* PUT NEW COMMANDS ABOVE */
 
-$husnab0t->proccess();
+$husnab0t->process();
 ?>
