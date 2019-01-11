@@ -54,7 +54,7 @@ for hugs and bugs @z4r4r
 
     }
 
-    public function proccess(){
+    public function process(){
         if($this->getUserEnter() !== 0)
         {
             $this->sayHi();
