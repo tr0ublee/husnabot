@@ -15,7 +15,7 @@ $husnab0t->addCommand("mizahyab","mizahyabFunc",1);
 $husnab0t->addCommand("fotoad","fotoadFunc",1);
 $husnab0t->addCommand("yemekad","yemekteNeVar",1);
 $husnab0t->addCommand("dolarad","dolaradFunc",1);
-$husnab0t->addCommand("avroad","avroadFunc",1);
+$husnab0t->addCommand("avroad","avroadFunc",0);
 $husnab0t->addCommand("euroad","avroadFunc",1);
 $husnab0t->addCommand("egonomiad","egonomiadFunc",1);
 $husnab0t->addCommand("havadurumuad","havadurumuadFunc",1);
