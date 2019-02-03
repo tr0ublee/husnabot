@@ -138,11 +138,12 @@ for hugs and bugs @z4r4r
                 $this->sendVoiceMessage("https://kursat.space/b0t/audio/selam.ogg","hey bitchezzz");
                 $this->sendMessage($this->getWhoamI());
             }else{
-                $this->sendVoiceMessage("https://kursat.space/b0t/audio/selam.ogg","@".$this->getUserEnter());
+		
+                $this->sendVoiceMessage("https://kursat.space/b0t/audio/selam.ogg",(($this->getUserEnter()) ? "@" . $this->getUserEnter() : $this->getSenderFirstName(). " ". $this->getSenderLastName()));
             }
     }
     private function sayBye(){
-        $this->sendVoiceMessage("https://kursat.space/b0t/audio/seriuzgunad.ogg","@".$this->getUserExit(). " gitti. artık bir eksiğiz...");
+        $this->sendVoiceMessage("https://kursat.space/b0t/audio/seriuzgunad.ogg",(($this->getUserExit()) ? "@" . $this->getUserExit() : $this->getSenderFirstName(). " ". $this->getSenderLastName()). " gitti. artık bir eksiğiz...");
     }
     public function requEst($url){
 
