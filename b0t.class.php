@@ -28,8 +28,8 @@ class husna extends settings
         $this->otherWords = explode(" ",$this->message,2)[1];
 	$this->messageId = $data["message"]["message_id"];
         $this->chatId = $data["message"]["chat"]["id"];
-        $this->userEnter = ($data["message"]["new_chat_member"]["username"]) ? $data["message"]["new_chat_member"]["username"] : 0;
-        $this->userExit = ($data["message"]["left_chat_participant"]["username"]) ? $data["message"]["left_chat_participant"]["username"] : 0;
+        $this->userEnter = ($data["message"]["new_chat_member"]["username"]) ? "@".$data["message"]["new_chat_member"]["username"] : $data["message"]["new_chat_member"]["firstname"]. " ".$data["message"]["new_chat_member"]["lastname"];
+        $this->userExit = ($data["message"]["left_chat_participant"]["username"]) ? "@". $data["message"]["left_chat_participant"]["username"] : $data["message"]["left_chat_participant"]["firstname"]." ".$data["message"]["left_chat_participant"]["lastname"];
         $this->groupOrPrivate = ($data["message"]["chat"]["type"] == "private") ? 0 : 1; // 0 = private message, 1 = group message
 		$this->groupName = ($this->groupOrPrivate === 1) ? $data["message"]["chat"]["title"] : $this->senderUsername;
         $this->reqUrl = "https://api.telegram.org/bot".$this->getBotToken() . "/";
@@ -139,11 +139,11 @@ for hugs and bugs @z4r4r
                 $this->sendMessage($this->getWhoamI());
             }else{
 		
-                $this->sendVoiceMessage("https://kursat.space/b0t/audio/selam.ogg",(($this->getUserEnter()) ? "@" . $this->getUserEnter() : $this->getSenderFirstName(). " ". $this->getSenderLastName()));
+                $this->sendVoiceMessage("https://kursat.space/b0t/audio/selam.ogg",$this->getUserEnter(). " gelmiş hoj gelmiş");
             }
     }
     private function sayBye(){
-        $this->sendVoiceMessage("https://kursat.space/b0t/audio/seriuzgunad.ogg",(($this->getUserExit()) ? "@" . $this->getUserExit() : $this->getSenderFirstName(). " ". $this->getSenderLastName()). " gitti. artık bir eksiğiz...");
+        $this->sendVoiceMessage("https://kursat.space/b0t/audio/seriuzgunad.ogg",$this->getUserExit(). " gitti. artık bir eksiğiz...");
     }
     public function requEst($url){
 
