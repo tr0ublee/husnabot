@@ -55,12 +55,12 @@ for hugs and bugs @z4r4r
     }
 
     public function process(){
-        if($this->getUserEnter() !== 0)
+        if($this->getUserEnter())
         {
             $this->sayHi();
             return;
         }
-        else if($this->getUserExit() !== 0)
+        else if($this->getUserExit())
         {
             $this->sayBye();
             return;
