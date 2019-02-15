@@ -298,10 +298,11 @@ function yemeksepeti() {
 function helber(){
 	global $husnab0t;
   $husnab0t->sendMessage($husnab0t->getWhoamI());
+	$husnab0t->komutad(1);
 }
 
 
-function komutad(){
+function komutad($auto=0){
 	global $husnab0t;
 	if (!$husnab0t->getGroupOrPrivate()){
 	$lista=array_chunk(array_keys($husnab0t->getMenu()), (ceil(count(array_keys($husnab0t->getMenu()))/3)));
@@ -310,7 +311,7 @@ function komutad(){
 	);
 	$encodedMarkup = json_encode($replyMarkup);
 	$husnab0t->sendMessage_w_markup("komut seç bro",$encodedMarkup);}
-	else {
+	elseif (!$auto){
 		$husnab0t->sendMessage("bu fonksiyon sadece özel mesajda çalışıyor",1);
 	}
 }
