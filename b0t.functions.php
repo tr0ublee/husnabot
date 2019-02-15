@@ -298,7 +298,7 @@ function yemeksepeti() {
 function helber(){
 	global $husnab0t;
   $husnab0t->sendMessage($husnab0t->getWhoamI());
-	$husnab0t->komutad(1);
+	komutad(1);
 }
 
 
