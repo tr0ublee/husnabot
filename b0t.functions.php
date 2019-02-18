@@ -196,7 +196,7 @@ function havadurumuadFunc() {
           $weather->province($city);
           $weather->district($district);
           $weather->getData();
-          $durum=$weather->event()[turkish];
+          $durum=$weather->event()["turkish"];
           if($durum == "-9999") {
             $durum="bi tuhaf";
           }
