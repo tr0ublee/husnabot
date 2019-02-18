@@ -1,4 +1,12 @@
 <?php
+//ERROR HANDLING
+error_reporting(E_ALL); 
+ini_set('ignore_repeated_errors', TRUE); 
+ini_set('display_errors', FALSE); 
+ini_set('log_errors', TRUE); 
+ini_set('error_log', __DIR__ . "/3rr0r5.log"); 
+ini_set('log_errors_max_len', 1024); 
+
 require_once("b0t.class.php");
 
 $data = file_get_contents('php://input');
