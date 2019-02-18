@@ -28,8 +28,10 @@ class husna extends settings
         $this->otherWords = (isset(explode(" ",$this->message,2)[1])) ? explode(" ",$this->message,2)[1] : "";
 	$this->messageId = $data["message"]["message_id"];
         $this->chatId = $data["message"]["chat"]["id"];
-        $this->userEnter = (isset($data["message"]["new_chat_member"]) && isset($data["message"]["new_chat_member"]["username"])) ? "@".$data["message"]["new_chat_member"]["username"] : $data["message"]["new_chat_member"]["first_name"]. " ".$data["message"]["new_chat_member"]["last_name"];
-        $this->userExit = (isset($data["message"]["left_chat_participant"]) && isset($data["message"]["left_chat_participant"]["username"])) ? "@". $data["message"]["left_chat_participant"]["username"] : $data["message"]["left_chat_participant"]["first_name"]." ".$data["message"]["left_chat_participant"]["last_name"];
+	if(isset($data["message"]["new_chat_member"]){
+        $this->userEnter = (isset($data["message"]["new_chat_member"]["username"])) ? "@".$data["message"]["new_chat_member"]["username"] : $data["message"]["new_chat_member"]["first_name"]. " ".$data["message"]["new_chat_member"]["last_name"];}
+	if(isset($data["message"]["left_chat_participant"]){
+        $this->userExit = (isset($data["message"]["left_chat_participant"]["username"])) ? "@". $data["message"]["left_chat_participant"]["username"] : $data["message"]["left_chat_participant"]["first_name"]." ".$data["message"]["left_chat_participant"]["last_name"];}
         $this->groupOrPrivate = ($data["message"]["chat"]["type"] == "private") ? 0 : 1; // 0 = private message, 1 = group message
 		$this->groupName = ($this->groupOrPrivate === 1) ? $data["message"]["chat"]["title"] : $this->senderUsername;
         $this->reqUrl = "https://api.telegram.org/bot".$this->getBotToken() . "/";
