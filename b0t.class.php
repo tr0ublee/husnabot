@@ -160,7 +160,8 @@ for hugs and bugs @z4r4r
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $this->getReqUrl() . $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch,CURLOPT_TIMEOUT,1000);
 		curl_exec($ch);
 		curl_close($ch);
     }
@@ -173,6 +174,7 @@ for hugs and bugs @z4r4r
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($content));
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch,CURLOPT_TIMEOUT,1000);
 
 		// receive server response ...
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
