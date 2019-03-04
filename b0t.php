@@ -1,5 +1,12 @@
 <?php
 //ERROR HANDLING
+
+
+
+
+
+
+
 error_reporting(E_ALL); 
 ini_set('ignore_repeated_errors', TRUE); 
 ini_set('display_errors', FALSE); 
@@ -56,4 +63,5 @@ $husnab0t->addCommand("yaprak","yaprak");
 /* PUT NEW COMMANDS ABOVE */
 
 $husnab0t->process();
+die("1");
 ?>
