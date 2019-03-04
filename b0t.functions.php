@@ -394,7 +394,7 @@ function oyunfiyatiAd($url2){
     preg_match_all("/<table.*?>(.*?)<\/table>/si", $response, $tablex);
     if(preg_match_all("/<tr.*?>(.*?)<\/tr>/si", $tablex[1][1], $rows)){
         if(preg_match_all("/<td.*?>(.*?)<\/td>/si", $rows[1][14], $price)){
-            return $price[0][1];
+            return @$price[0][1];
 
 
         }
@@ -427,7 +427,10 @@ function oyunadFunc(){
     $response=husnaCurl($url);
     $message="";
     $price="";
-
+	if(strpos($response,"Nothing was found")){
+		$husnab0t->sendMessage("Oyunu bulamadık hocam :/ \n");
+		return;
+	}
     preg_match_all("/<table.*?>(.*?)<\/table>/si", $response, $table);
 
     preg_match_all("/<tr.*?>(.*?)<\/tr>/si", $table[1][0], $rows);
