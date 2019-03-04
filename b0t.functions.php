@@ -416,7 +416,7 @@ function oyunadFunc(){
     if($caller == "oyunad") {
         $thread=trim($husnab0t->getOtherWords());
     }
-    if(strlen($thread) < 0) {
+    if(strlen($thread) <= 0) {
         return false;
     }
     $url="https://steamdb.info/search/?a=app&q=";
