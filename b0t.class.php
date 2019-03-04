@@ -20,9 +20,9 @@ class husna extends settings
 	private $groupName;
     public function __construct($data)
     {
-        $this->senderUsername = $data["message"]["from"]["username"];
+        $this->senderUsername = @$data["message"]["from"]["username"];
         $this->senderFirstName = $data["message"]["from"]["first_name"];
-        $this->senderLastName = $data["message"]["from"]["last_name"];
+        $this->senderLastName = @$data["message"]["from"]["last_name"];
         $this->message = mb_strtolower($data["message"]["text"]);
         $this->firstWord = explode(" ",$this->message,2)[0];
         $this->otherWords = (isset(explode(" ",$this->message,2)[1])) ? explode(" ",$this->message,2)[1] : "";
