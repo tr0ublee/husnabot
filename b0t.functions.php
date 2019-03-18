@@ -97,7 +97,7 @@ function yemekteNeVar() {
         $bak=date("N");
         $tomo=0;
         $others=explode(" ",$others);
-        if(in_array("yarın", $others) || in_array("yarin", $others)) {
+        if(in_array("yarın", $others) || in_array("yarin", $others)) || in_array("iyi geceler", $others$) {
           $bak=(date("N")+1) % 7;
           $tomo=1;
         }
@@ -486,5 +486,16 @@ function yaprak() {
 }
 /* yaprak ends */
 /* PUT NEW FEATURES BELOW */
+
+/*iyi geceler starts*/
+
+function iyi_geceler() {
+  global $husnab0t;
+  $husnab0t->sendMessage("iyi geceler hocccam (:");
+  yemekteNeVar();
+	egonomiadFunc();
+}
+
+/*iyi geceler ends*/
 
 /* PUT NEW FEATURES ABOVE */
