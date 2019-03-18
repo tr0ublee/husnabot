@@ -97,7 +97,7 @@ function yemekteNeVar() {
         $bak=date("N");
         $tomo=0;
         $others=explode(" ",$others);
-        if(in_array("yarın", $others) || in_array("yarin", $others)) || in_array("iyi geceler", $others$) {
+        if(in_array("yarın", $others) || in_array("yarin", $others) || in_array("iyi geceler", $others$)) {
           $bak=(date("N")+1) % 7;
           $tomo=1;
         }
