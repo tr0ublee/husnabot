@@ -59,7 +59,7 @@ $husnab0t->addCommand("dead","omae");
 $husnab0t->addCommand("yaprak","yaprak");
 /* PUT NEW COMMANDS BELOW */
 
-$husnab0t->addCommand("iyi geceler","iyi_geceler");
+$husnab0t->addCommand("geceler","iyiGeceler");
 
 /* PUT NEW COMMANDS ABOVE */
 
