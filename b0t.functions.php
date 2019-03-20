@@ -113,7 +113,7 @@ function yemekteNeVar() {
         }
         else {
           $yemekler = "\xF0\x9F\x8D\xB4 Y";
-          preg_match_all('/<!--end yemek-->(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-list-->/msi', $response, $vej);
+          preg_match_all('/<!--end yemek-->(.*?)<p>(.*?)<\/p>/msi', $response, $vej);
           if($tomo) {
             $yemekler .="arın y";
           }
@@ -122,13 +122,14 @@ function yemekteNeVar() {
           $yemekler .= "*Akşam yemeği*\n · ".$output[4][4]."\n · ".$output[4][5]."\n · ".$output[4][6]."\n · ".$output[4][7]."\n\n";
           }
 
-          if(strlen($vej[2][0]) > 2 || strlen($vej[2][1]) > 2) {
+          if(strlen($vej[2][3]) > 2 || strlen($vej[2][7]) > 2) {
             $yemekler .= "*Vejeteryan* alternatifler de şunlarmış hojam: \n\n";
             if(strlen($vej[2][0]) > 2) {
-              $yemekler .= "*Öğle yemeği*\n · ".$vej[2][0]."\n";
+
+              $yemekler .= "*Öğle yemeği*\n · ".explode('(',$vej[2][3])[0]."\n";
             }
             if(strlen($vej[2][1]) > 2) {
-              $yemekler .= "*Akşam yemeği*\n · ".$vej[2][1]."\n";
+              $yemekler .= "*Akşam yemeği*\n · ".explode('(',$vej[2][7])[0]."\n";
             }
             $yemekler .="\n";
           }
