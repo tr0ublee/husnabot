@@ -123,7 +123,7 @@ function yemekteNeVar() {
           }
 
           if(strlen($vej[2][3]) > 2 || strlen($vej[2][7]) > 2) {
-            $yemekler .= "*Vejeteryan* alternatifler de şunlarmış hojam: \n\n";
+            $yemekler .= "\xF0\x9F\xA5\xAC *Vejeteryan* alternatifler de şunlarmış hojam: \n\n";
             if(strlen($vej[2][0]) > 2) {
 
               $yemekler .= "*Öğle yemeği*\n · ".explode('(',$vej[2][3])[0]."\n";
