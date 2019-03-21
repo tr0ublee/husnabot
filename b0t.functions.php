@@ -505,9 +505,16 @@ function yaprak() {
 
 function iyiGeceler() {
   global $husnab0t;
-  $husnab0t->sendMessage("iyi geceler hocccam (:");
-  yemekteNeVar();
-  egonomiadFunc();
+  date_default_timezone_set('Europe/Istanbul');
+  $bak=date("H");
+  if($bak < 21 && $bak > 6) {
+    $husnab0t->sendMessage("hangi saat diliminde yaşıyorsunuz hojam siz :/",1);
+  }
+  else {
+    $husnab0t->sendMessage("iyi geceler hocccam (:");
+    yemekteNeVar();
+    egonomiadFunc();
+  }
 }
 
 /*iyi geceler ends*/
