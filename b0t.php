@@ -60,6 +60,7 @@ $husnab0t->addCommand("yaprak","yaprak");
 /* PUT NEW COMMANDS BELOW */
 
 $husnab0t->addCommand("geceler","iyiGeceler");
+$husnab0t->addCommand("zlotiad","zlotyadFunc");
 
 /* PUT NEW COMMANDS ABOVE */
 

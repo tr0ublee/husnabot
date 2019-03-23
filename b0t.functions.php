@@ -175,7 +175,7 @@ function egonomiadFunc() {
           $message = $message."\n"."\xF0\x9F\x93\x88 borsa endeksi şu an *".$resultRegex[1][0]."*. \xF0\x9F\x93\x88";
           preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"EURUSD Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
           $message = $message."\n"."\xF0\x9F\x8F\xA7 avro/dolar paritesi şu an *".$resultRegex[1][0]."*. \xF0\x9F\x8F\xA7";
-          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"IECM2Y Index\">(.*?)<\/span>/msi", $response, $resultRegex);
+          preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"TAHVIL2Y\">(.*?)<\/span>/msi", $response, $resultRegex);
           $message = $message."\n"."faiz şu an *%".$resultRegex[1][0]."*.";
           preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"XAU Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
           $message = $message."\n"."altın/ons şu an *".$resultRegex[1][0]."* ₺.";
@@ -518,5 +518,18 @@ function iyiGeceler() {
 }
 
 /*iyi geceler ends*/
+
+/*zlotyad starts*/
+
+function zlotyadFunc() {
+  global $husnab0t;
+  $response = husnaCurl("https://www.bloomberg.com/quote/PLNTRY:CUR");
+  preg_match_all("/<span class=\"priceText__*\" >(.*?)<\/span>/msi", $response, $resultRegex);
+  $message = "\xF0\x9F\x82\xB9 zloty şu an *".$resultRegex[1][0]."* ₺ hojam. \xF0\x9F\x87\xB9";
+  $husnab0t->sendMessage($message);
+}
+
+/*zlotyad ends*/
+ 
 
 /* PUT NEW FEATURES ABOVE */
