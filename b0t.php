@@ -37,7 +37,7 @@ $husnab0t->addCommand("havadurumuad","havadurumuadFunc",1);
 $husnab0t->addCommand("helb","helber",1);
 $husnab0t->addCommand("help","helber");
 $husnab0t->addCommand("/start","helber");
-$husnab0t->addCommand("neyesem","yemeksepeti");
+//$husnab0t->addCommand("neyesem","yemeksepeti"); deactivated as it does not word properly
 $husnab0t->addCommand("gunaydin","gunadyinFunc");
 $husnab0t->addCommand("günaydın","gunadyinFunc",1);
 $husnab0t->addCommand("boşyapıyolar","bojyabmaFunc");
