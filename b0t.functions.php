@@ -523,9 +523,9 @@ function iyiGeceler() {
 
 function zlotyadFunc() {
   global $husnab0t;
-  $response = husnaCurl("https://www.bloomberg.com/quote/PLNTRY:CUR");
-  preg_match_all("/<span class=\"priceText.*?\">(.*?)<\/span>/msi", $response, $resultRegex);
-  $message = "\xF0\x9F\x87\xB5\xF0\x9F\x87\xB1 zloty şu an *".$resultRegex[1][0]."* ₺ hojam. \xF0\x9F\x87\xB9\xF0\x9F\x87\xB7";
+  $response = husnaCurl("https://m.tr.investing.com/currencies/pln-try");
+  preg_match_all('/<span class=\"lastInst pid.*?\">\s*?(\S*?)\s*?<\/span>/msi', $response, $resultRegex);
+  $message = "\xF0\x9F\x87\xB5\xF0\x9F\x87\xB1 zloty şu an **".$resultRegex[1][0]."** ₺ hojam. \xF0\x9F\x87\xB9\xF0\x9F\x87\xB7";
   $husnab0t->sendMessage($message);
 }
 
