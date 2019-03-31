@@ -556,7 +556,8 @@ function secimAd() {
     preg_match_all('/lu<\/span>\s*<div class="progress">\s*.{34}(\S{5})%;">/', $istanbulFile, $resultRegex);
     $imamogluPercentage = $resultRegex[1][0];
 
-    preg_match_all('/box.png" alt="">\s*<span>A&#231;ılan Sandık Oranı: <strong>%(\S{5})<\/str/', $istanbulFile, $resultRegex);
+    preg_match_all('/box.png" alt="">\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%/', $istanbulFile, $resultRegex);
+
     $sandikPercentage = $resultRegex[1][0];
 
     $besiktasFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/istanbul/besiktas/ilcesi-yerel-secim-sonuclari");
@@ -582,8 +583,8 @@ function secimAd() {
     $mansurPercentage = $resultRegex[1][0];
     preg_match_all('/<span>Mehmet &#214;zhaseki<\/span>\s*<div class="progress">\s*.{34}(\S{5})%;">/', $ankaraFile, $resultRegex);
     $ozhasekiPercentage = $resultRegex[1][0];
+    preg_match_all('/box.png" alt="">\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%/', $ankaraFile, $resultRegex);
 
-    preg_match_all('/box.png" alt="">\s*<span>A&#231;ılan Sandık Oranı: <strong>%(\S{5})<\/str/', $ankaraFile, $resultRegex);
     $sandikPercentage = $resultRegex[1][0];
 
     $cankayaFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/ankara/cankaya/ilcesi-yerel-secim-sonuclari");
