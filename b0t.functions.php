@@ -564,7 +564,7 @@ function secimAd() {
     $rizaPercentage = $resultRegex[1][0];
 
     $zeytinburnuFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/istanbul/besiktas/ilcesi-yerel-secim-sonuclari");
-    preg_match_all('/per<\/span>\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%;">/', $zeytinburnuFile, $resultRegex);
+    preg_match_all('/soy<\/span>\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%;">/', $zeytinburnuFile, $resultRegex);
     $omerPercentage = $resultRegex[1][0];
 
     $message = "İSTANBUL BB BAŞKANLIĞI\n"
