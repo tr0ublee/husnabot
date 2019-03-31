@@ -548,6 +548,7 @@ function secimAdCurl($url) {
 function secimAd() {
   global $husnab0t;
   $sehirSec=trim($husnab0t->getOtherWords());
+  $sehirSec=explode(" ",$sehirSec);
   if(in_array("istanbul", $sehirSec) && !in_array("ankara", $sehirSec)) {
     $istanbulFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/istanbul/ili-yerel-secim-sonuclari");
     preg_match_all('/<span>Binali Yıldırım<\/span>\s*<div class="progress">\s*.{34}(\S{5})%;">/', $istanbulFile, $resultRegex);
