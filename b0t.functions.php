@@ -530,6 +530,53 @@ function zlotyadFunc() {
 }
 
 /*zlotyad ends*/
- 
+
+
+/*secimAd starts*/
+
+function secimAdCurl($url) {
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch,CURLOPT_TIMEOUT,1000);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+  $response = curl_exec($ch);
+  curl_close($ch);
+  return $response;
+}
+
+function secimAd() {
+  global $husnab0t;
+  $ankaraFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/ankara/ili-yerel-secim-sonuclari");
+  preg_match_all('/<span>Mansur Yavaş<\/span>\s*<div class="progress">\s*.{34}(\S{5})%;">/', $ankaraFile, $resultRegex);
+  $mansurPercentage = $resultRegex[1][0];
+  preg_match_all('/<span>Mehmet &#214;zhaseki<\/span>\s*<div class="progress">\s*.{34}(\S{5})%;">/', $ankaraFile, $resultRegex);
+  $ozhasekiPercentage = $resultRegex[1][0];
+  
+  preg_match_all('/box.png" alt="">\s*<span>A&#231;ılan Sandık Oranı: <strong>%(\S{5})<\/str/', $ankaraFile, $resultRegex);
+  $sandikPercentage = $resultRegex[1][0];
+  
+  $cankayaFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/ankara/cankaya/ilcesi-yerel-secim-sonuclari");
+  preg_match_all('/delen<\/span>\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%;">/', $cankayaFile, $resultRegex);
+  $alperPercentage = $resultRegex[1][0];
+
+  $yenimahalleFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/ankara/yenimahalle/ilcesi-yerel-secim-sonuclari");
+  preg_match_all('/ar<\/span>\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%;">/', $yenimahalleFile, $resultRegex);
+  $fethiPercentage = $resultRegex[1][0];
+
+  $message = "ANKARA BB BAŞKANLIĞI\n"
+    ."Açılan Sandık: %".$sandikPercentage."\n"
+    ."1.Aday: Mansur Yavaş - CHP - %".$mansurPercentage."\n"
+    ."2.Aday: Mehmet Özhaseki - AKP - %".$ozhasekiPercentage."\n"
+    ."\n"
+    ."Çankaya Belediye Başkanlığı: Alper Taşdelen - CHP - %".$alperPercentage."\n"
+    ."Yenimahalle Belediye Başkanlığı: Fethi Yaşar - CHP - %".$fethiPercentage."\n"
+    ."alamanyadan sevgiler hojam.";
+  
+    $husnab0t->sendMessage($message);
+}
+
+/*secimAd ends*/
+
 
 /* PUT NEW FEATURES ABOVE */
