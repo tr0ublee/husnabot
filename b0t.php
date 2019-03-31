@@ -57,6 +57,7 @@ $husnab0t->addCommand("nani","nani");
 $husnab0t->addCommand("shindeiru","omae");
 $husnab0t->addCommand("dead","omae");
 $husnab0t->addCommand("yaprak","yaprak");
+$husnab0t->addCommand("secimad","secimAd");
 /* PUT NEW COMMANDS BELOW */
 
 $husnab0t->addCommand("geceler","iyiGeceler");
