@@ -550,55 +550,45 @@ function secimAd() {
   $sehirSec=trim($husnab0t->getOtherWords());
   $sehirSec=explode(" ",$sehirSec);
   if(in_array("istanbul", $sehirSec) && !in_array("ankara", $sehirSec)) {
-    $istanbulFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/istanbul/ili-yerel-secim-sonuclari");
-    preg_match_all('/<span>Binali Yıldırım<\/span>\s*<div class="progress">\s*.{34}(\S{5})%;">/', $istanbulFile, $resultRegex);
+    $istanbulFile = secimAdCurl("https://www.haberturk.com/secim/secim2019/yerel-secim/sehir/istanbul-34");
+    preg_match_all('/Pie = \$\("#sehirPartiPieChart"\);\s*var dataPie = {\s*labels: \[".*?(\S{6})",".*?(\S{6})",/', $istanbulFile, $resultRegex);
     $binaliPercentage = $resultRegex[1][0];
-    preg_match_all('/lu<\/span>\s*<div class="progress">\s*.{34}(\S{5})%;">/', $istanbulFile, $resultRegex);
-    $imamogluPercentage = $resultRegex[1][0];
+    $imamogluPercentage = $resultRegex[2][0];
 
-    preg_match_all('/box.png" alt="">\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%/', $istanbulFile, $resultRegex);
-
+    preg_match_all('/genel_durum_acilan_sandik_oran">(\S{4})/', $istanbulFile, $resultRegex);
     $sandikPercentage = $resultRegex[1][0];
 
-    $besiktasFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/istanbul/besiktas/ilcesi-yerel-secim-sonuclari");
-    preg_match_all('/polat<\/span>\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%;">/', $besiktasFile, $resultRegex);
-    $rizaPercentage = $resultRegex[1][0];
-
-    $zeytinburnuFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/istanbul/besiktas/ilcesi-yerel-secim-sonuclari");
-    preg_match_all('/soy<\/span>\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%;">/', $zeytinburnuFile, $resultRegex);
-    $omerPercentage = $resultRegex[1][0];
+    preg_match_all('/.data\("qtipData","İstanbul - (Zey|Beş).*?<br \/>.*? (\S{5})%"/', $istanbulFile, $resultRegex);
+    $rizaPercentage = $resultRegex[2][0];
+    $omerPercentage = $resultRegex[2][1];
+   
 
     $message = "İSTANBUL BB BAŞKANLIĞI\n"
       ."Açılan Sandık: %".$sandikPercentage."\n"
-      ."1.Aday: Binali Yıldırım - AKP - %".$binaliPercentage."\n"
-      ."2.Aday: Ekrem İmamoğlu - CHP - %".$imamogluPercentage."\n"
+      ."1.Aday: Ekrem İmamoğlu - CHP - ".$imamogluPercentage."\n"
+      ."2.Aday: Binali Yıldırım - AKP - ".$binaliPercentage."\n"
       ."\n"
       ."Beşiktaş Belediye Başkanlığı: Rıza Akpolat - CHP - %".$rizaPercentage."\n"
       ."Zeytinburnu Belediye Başkanlığı: Ömer Arısoy - AKP - %".$omerPercentage."\n"
       ."alamanyadan sevgiler hojam.";
   }
   elseif(!in_array("istanbul", $sehirSec) && in_array("ankara", $sehirSec)) {
-    $ankaraFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/ankara/ili-yerel-secim-sonuclari");
-    preg_match_all('/<span>Mansur Yavaş<\/span>\s*<div class="progress">\s*.{34}(\S{5})%;">/', $ankaraFile, $resultRegex);
+    $ankaraFile = secimAdCurl("https://www.haberturk.com/secim/secim2019/yerel-secim/sehir/ankara-6");
+    preg_match_all('/Pie = \$\("#sehirPartiPieChart"\);\s*var dataPie = {\s*labels: \[".*?(\S{6})",".*?(\S{6})",/', $ankaraFile, $resultRegex);
     $mansurPercentage = $resultRegex[1][0];
-    preg_match_all('/<span>Mehmet &#214;zhaseki<\/span>\s*<div class="progress">\s*.{34}(\S{5})%;">/', $ankaraFile, $resultRegex);
-    $ozhasekiPercentage = $resultRegex[1][0];
-    preg_match_all('/box.png" alt="">\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%/', $ankaraFile, $resultRegex);
+    $ozhasekiPercentage = $resultRegex[2][0];
 
+    preg_match_all('/genel_durum_acilan_sandik_oran">(\S{4})/', $ankaraFile, $resultRegex);
     $sandikPercentage = $resultRegex[1][0];
 
-    $cankayaFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/ankara/cankaya/ilcesi-yerel-secim-sonuclari");
-    preg_match_all('/delen<\/span>\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%;">/', $cankayaFile, $resultRegex);
-    $alperPercentage = $resultRegex[1][0];
-
-    $yenimahalleFile = secimAdCurl("https://www.sabah.com.tr/secim/31-mart-2019-yerel-secim-sonuclari/ankara/yenimahalle/ilcesi-yerel-secim-sonuclari");
-    preg_match_all('/ar<\/span>\s*<div class="progress">\s*<div class="current" style="width:(\S{5})%;">/', $yenimahalleFile, $resultRegex);
-    $fethiPercentage = $resultRegex[1][0];
+    preg_match_all('/.data\("qtipData","Ankara - (Çank|Yeni).*?<br \/>.*? (\S{5})%"/', $ankaraFile, $resultRegex);
+    $alperPercentage = $resultRegex[2][0];
+    $fethiPercentage = $resultRegex[2][1];
 
     $message = "ANKARA BB BAŞKANLIĞI\n"
       ."Açılan Sandık: %".$sandikPercentage."\n"
-      ."1.Aday: Mansur Yavaş - CHP - %".$mansurPercentage."\n"
-      ."2.Aday: Mehmet Özhaseki - AKP - %".$ozhasekiPercentage."\n"
+      ."1.Aday: Mansur Yavaş - CHP - ".$mansurPercentage."\n"
+      ."2.Aday: Mehmet Özhaseki - AKP - ".$ozhasekiPercentage."\n"
       ."\n"
       ."Çankaya Belediye Başkanlığı: Alper Taşdelen - CHP - %".$alperPercentage."\n"
       ."Yenimahalle Belediye Başkanlığı: Fethi Yaşar - CHP - %".$fethiPercentage."\n"
