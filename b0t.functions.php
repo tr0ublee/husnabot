@@ -552,8 +552,8 @@ function secimAd() {
   if(in_array("istanbul", $sehirSec) && !in_array("ankara", $sehirSec)) {
     $istanbulFile = secimAdCurl("https://www.haberturk.com/secim/secim2019/yerel-secim/sehir/istanbul-34");
     preg_match_all('/Pie = \$\("#sehirPartiPieChart"\);\s*var dataPie = {\s*labels: \[".*?(\S{6})",".*?(\S{6})",/', $istanbulFile, $resultRegex);
-    $binaliPercentage = $resultRegex[1][0];
-    $imamogluPercentage = $resultRegex[2][0];
+    $binaliPercentage = $resultRegex[2][0];
+    $imamogluPercentage = $resultRegex[1][0];
 
     preg_match_all('/genel_durum_acilan_sandik_oran">(\S{4})/', $istanbulFile, $resultRegex);
     $sandikPercentage = $resultRegex[1][0];
@@ -570,7 +570,7 @@ function secimAd() {
       ."\n"
       ."Beşiktaş Belediye Başkanlığı: Rıza Akpolat - CHP - %".$rizaPercentage."\n"
       ."Zeytinburnu Belediye Başkanlığı: Ömer Arısoy - AKP - %".$omerPercentage."\n"
-      ."alamanyadan sevgiler hojam.";
+      ."alamanyadan sevgiler hojajım.";
   }
   elseif(!in_array("istanbul", $sehirSec) && in_array("ankara", $sehirSec)) {
     $ankaraFile = secimAdCurl("https://www.haberturk.com/secim/secim2019/yerel-secim/sehir/ankara-6");
@@ -592,13 +592,14 @@ function secimAd() {
       ."\n"
       ."Çankaya Belediye Başkanlığı: Alper Taşdelen - CHP - %".$alperPercentage."\n"
       ."Yenimahalle Belediye Başkanlığı: Fethi Yaşar - CHP - %".$fethiPercentage."\n"
-      ."alamanyadan sevgiler hojam.";
+      ."alamanyadan sevgiler hojajım.";
   }
   else {
     $message = "sadece angara veya izdanbul hojajım.";
   }
 
     $husnab0t->sendMessage($message);
+    $husnab0t->sendPhoto("https://s1.eksiup.com/4e8333a0a939.jpeg","",1);
 }
 
 /*secimAd ends*/
