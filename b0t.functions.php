@@ -547,59 +547,68 @@ function secimAdCurl($url) {
 
 function secimAd() {
   global $husnab0t;
-  $sehirSec=trim($husnab0t->getOtherWords());
-  $sehirSec=explode(" ",$sehirSec);
-  if(in_array("istanbul", $sehirSec) && !in_array("ankara", $sehirSec)) {
-    $istanbulFile = secimAdCurl("https://www.haberturk.com/secim/secim2019/yerel-secim/sehir/istanbul-34");
-    preg_match_all('/Pie = \$\("#sehirPartiPieChart"\);\s*var dataPie = {\s*labels: \[".*?(\S{6})",".*?(\S{6})",/', $istanbulFile, $resultRegex);
-    $binaliPercentage = $resultRegex[2][0];
-    $imamogluPercentage = $resultRegex[1][0];
-
-    preg_match_all('/genel_durum_acilan_sandik_oran">(\S{4})/', $istanbulFile, $resultRegex);
-    $sandikPercentage = $resultRegex[1][0];
-
-    preg_match_all('/.data\("qtipData","İstanbul - (Zey|Beş).*?<br \/>.*? (\S{5})%"/', $istanbulFile, $resultRegex);
-    $rizaPercentage = $resultRegex[2][0];
-    $omerPercentage = $resultRegex[2][1];
-   
-
-    $message = "İSTANBUL BB BAŞKANLIĞI\n"
-      ."Açılan Sandık: %".$sandikPercentage."\n"
-      ."1.Aday: Ekrem İmamoğlu - CHP - ".$imamogluPercentage."\n"
-      ."2.Aday: Binali Yıldırım - AKP - ".$binaliPercentage."\n"
-      ."\n"
-      ."Beşiktaş Belediye Başkanlığı: Rıza Akpolat - CHP - %".$rizaPercentage."\n"
-      ."Zeytinburnu Belediye Başkanlığı: Ömer Arısoy - AKP - %".$omerPercentage."\n"
-      ."alamanyadan sevgiler hojajım.";
-  }
-  elseif(!in_array("istanbul", $sehirSec) && in_array("ankara", $sehirSec)) {
-    $ankaraFile = secimAdCurl("https://www.haberturk.com/secim/secim2019/yerel-secim/sehir/ankara-6");
-    preg_match_all('/Pie = \$\("#sehirPartiPieChart"\);\s*var dataPie = {\s*labels: \[".*?(\S{6})",".*?(\S{6})",/', $ankaraFile, $resultRegex);
-    $mansurPercentage = $resultRegex[1][0];
-    $ozhasekiPercentage = $resultRegex[2][0];
-
-    preg_match_all('/genel_durum_acilan_sandik_oran">(\S{4})/', $ankaraFile, $resultRegex);
-    $sandikPercentage = $resultRegex[1][0];
-
-    preg_match_all('/.data\("qtipData","Ankara - (Çank|Yeni).*?<br \/>.*? (\S{5})%"/', $ankaraFile, $resultRegex);
-    $alperPercentage = $resultRegex[2][0];
-    $fethiPercentage = $resultRegex[2][1];
-
-    $message = "ANKARA BB BAŞKANLIĞI\n"
-      ."Açılan Sandık: %".$sandikPercentage."\n"
-      ."1.Aday: Mansur Yavaş - CHP - ".$mansurPercentage."\n"
-      ."2.Aday: Mehmet Özhaseki - AKP - ".$ozhasekiPercentage."\n"
-      ."\n"
-      ."Çankaya Belediye Başkanlığı: Alper Taşdelen - CHP - %".$alperPercentage."\n"
-      ."Yenimahalle Belediye Başkanlığı: Fethi Yaşar - CHP - %".$fethiPercentage."\n"
-      ."alamanyadan sevgiler hojajım.";
-  }
-  else {
-    $message = "sadece angara veya izdanbul hojajım.";
-  }
-
-    $husnab0t->sendMessage($message);
+  if($husnab0t->getOtherWords() == ""){
     $husnab0t->sendPhoto("https://s1.eksiup.com/4e8333a0a939.jpeg","",1);
+  }
+  else{
+    $sehirSec=trim($husnab0t->getOtherWords());
+    $sehirSec=explode(" ",$sehirSec);
+    if(in_array("istanbul", $sehirSec) && !in_array("ankara", $sehirSec)) {
+      $istanbulFile = secimAdCurl("https://www.haberturk.com/secim/secim2019/yerel-secim/sehir/istanbul-34");
+      preg_match_all('/Pie = \$\("#sehirPartiPieChart"\);\s*var dataPie = {\s*labels: \[".*?(\S{6})",".*?(\S{6})",/', $istanbulFile, $resultRegex);
+      $binaliPercentage = $resultRegex[2][0];
+      $imamogluPercentage = $resultRegex[1][0];
+
+      preg_match_all('/genel_durum_acilan_sandik_oran">(\S{4})/', $istanbulFile, $resultRegex);
+      $sandikPercentage = $resultRegex[1][0];
+
+      preg_match_all('/.data\("qtipData","İstanbul - (Zey|Beş).*?<br \/>.*? (\S{5})%"/', $istanbulFile, $resultRegex);
+      $rizaPercentage = $resultRegex[2][0];
+      $omerPercentage = $resultRegex[2][1];
+    
+
+      $message = "İSTANBUL BB BAŞKANLIĞI\n"
+        ."Açılan Sandık: %".$sandikPercentage."\n"
+        ."1.Aday: Ekrem İmamoğlu - CHP - ".$imamogluPercentage."\n"
+        ."2.Aday: Binali Yıldırım - AKP - ".$binaliPercentage."\n"
+        ."\n"
+        ."Beşiktaş Belediye Başkanlığı: Rıza Akpolat - CHP - %".$rizaPercentage."\n"
+        ."Zeytinburnu Belediye Başkanlığı: Ömer Arısoy - AKP - %".$omerPercentage."\n"
+        ."alamanyadan sevgiler hojajım.";
+        
+        $husnab0t->sendMessage($message);
+        $husnab0t->sendPhoto("https://s1.eksiup.com/4e8333a0a939.jpeg","",1);
+    }
+    elseif(!in_array("istanbul", $sehirSec) && in_array("ankara", $sehirSec)) {
+      $ankaraFile = secimAdCurl("https://www.haberturk.com/secim/secim2019/yerel-secim/sehir/ankara-6");
+      preg_match_all('/Pie = \$\("#sehirPartiPieChart"\);\s*var dataPie = {\s*labels: \[".*?(\S{6})",".*?(\S{6})",/', $ankaraFile, $resultRegex);
+      $mansurPercentage = $resultRegex[1][0];
+      $ozhasekiPercentage = $resultRegex[2][0];
+
+      preg_match_all('/genel_durum_acilan_sandik_oran">(\S{4})/', $ankaraFile, $resultRegex);
+      $sandikPercentage = $resultRegex[1][0];
+
+      preg_match_all('/.data\("qtipData","Ankara - (Çank|Yeni).*?<br \/>.*? (\S{5})%"/', $ankaraFile, $resultRegex);
+      $alperPercentage = $resultRegex[2][0];
+      $fethiPercentage = $resultRegex[2][1];
+
+      $message = "ANKARA BB BAŞKANLIĞI\n"
+        ."Açılan Sandık: %".$sandikPercentage."\n"
+        ."1.Aday: Mansur Yavaş - CHP - ".$mansurPercentage."\n"
+        ."2.Aday: Mehmet Özhaseki - AKP - ".$ozhasekiPercentage."\n"
+        ."\n"
+        ."Çankaya Belediye Başkanlığı: Alper Taşdelen - CHP - %".$alperPercentage."\n"
+        ."Yenimahalle Belediye Başkanlığı: Fethi Yaşar - CHP - %".$fethiPercentage."\n"
+        ."alamanyadan sevgiler hojajım.";
+        
+        $husnab0t->sendMessage($message);
+        $husnab0t->sendPhoto("https://s1.eksiup.com/4e8333a0a939.jpeg","",1);
+    }
+    else {
+      $message = "sadece angara veya izdanbul hoja.";
+      $husnab0t->sendMessage($message);
+    }
+  }
 }
 
 /*secimAd ends*/
