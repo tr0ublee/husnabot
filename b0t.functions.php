@@ -30,7 +30,7 @@ function bilgiadFunc(){
         }
         if(strlen($thread) > 0) {
           $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=".urlencode($thread)."&redirects=1";
-	  $url = "https://tr.wikipedia.org/w/api.php?action=opensearch&search=".urlencode($thread)."&limit=3&namespace=0&format=json";
+	  $url = "https://tr.wikipedia.org/w/api.php?action=opensearch&search=".urlencode($thread)."&limit=7&namespace=0&format=json";
         }
         else {
           $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
@@ -45,16 +45,27 @@ function bilgiadFunc(){
 	
 	if(strlen($thread) > 0){
 		$result_count= count($response[1]);
-		if(!$result_count) $husnab0t->sendMessage("hojam boj yabmayın",1);
+		if(!$result_count) {$husnab0t->sendMessage("hojam boj yabmayın",1); return;}
 		
 		$husnab0t->sendMessage($response[0]." sorgusu için $result_count sonuç bulundu:",1);
-		
+		$yanit = "";
 		for($i = 0; $i < $result_count; $i++){
-			$husnab0t->sendMessage("*".$response[1][$i]."*\n".
+			
+			
+			$yanit .= "<b>".$response[1][$i]."</b>\n".
 			$response[2][$i]."\n".
 			"Daha fazla bilgi için:\n".
-			$response[3][$i]);
+			$response[3][$i]."\n----------------\n";
+
 		}
+		
+		if (strlen($yanit) > 3500) {
+			$messageparts = str_split($yanit, 3500);
+			foreach($messageparts as $parts){
+			$husnab0t->sendMessage_html($parts);
+			}
+		}
+		else {$husnab0t->sendMessage_html($yanit); }
 		
 	} else {
 		if (!array_value_recursive('extract', $response)) {
