@@ -89,6 +89,13 @@ for hugs and bugs @z4r4r
         $this->requEst($url);
         return;
     }
+	
+	public function sendMessage_html($message,$reply_to_message = 0) {
+        $reply = ($reply_to_message != 0) ? "&reply_to_message_id=".$this->getMessageId(): "";
+        $url = "sendMessage?chat_id=".$this->getChatId()."&text=".urlencode($message).$reply."&parse_mode=html";		
+        $this->requEst($url);
+        return;
+    }
 
 	public function sendMessage_w_markup($message, $reply_markup) {
 
