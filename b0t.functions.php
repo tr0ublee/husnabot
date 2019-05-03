@@ -30,6 +30,7 @@ function bilgiadFunc(){
         }
         if(strlen($thread) > 0) {
           $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=".urlencode($thread)."&redirects=1";
+	  $url = "https://en.wikipedia.org/w/api.php?action=opensearch&search=".urlencode($thread)."&limit=3&namespace=0&format=json";
         }
         else {
           $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
@@ -41,13 +42,28 @@ function bilgiadFunc(){
         $response = curl_exec($ch);
         $response = json_decode($response, TRUE);
         curl_close($ch);
-
-        if (!array_value_recursive('extract', $response)) {
-          $husnab0t->sendMessage("hojam boj yabmayın",1);
-        } else {
-          $husnab0t->sendMessage("*".array_value_recursive('title', $response)."*");
-          $husnab0t->sendMessage(array_value_recursive('extract', $response));
-        }
+	
+	if(strlen($thread) > 0){
+		$result_count= count($response[1]);
+		if(!$result_count) $husnab0t->sendMessage("hojam boj yabmayın",1);
+		
+		$husnab0t->sendMessage($response[0]." sorgusu için $result_count sonuç bulundu:",1);
+		
+		for($i = 0; $i < $result_count; $i++){
+			$husnab0t->sendMessage("*".$response[1][$i]."*".
+			$response[2][$i]."\n\n\n".
+			"Daha fazla bilgi için:\n".
+			$response[3][$i]);
+		}
+		
+	} else {
+		if (!array_value_recursive('extract', $response)) {
+		  $husnab0t->sendMessage("hojam boj yabmayın",1);
+		} else {
+		  $husnab0t->sendMessage("*".array_value_recursive('title', $response)."*");
+		  $husnab0t->sendMessage(array_value_recursive('extract', $response));
+		}
+	}
 
 }
 /* bilgiad Function ENDS */
