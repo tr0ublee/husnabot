@@ -38,7 +38,7 @@ class husna extends settings
         $this->whoamI = "ben hüsna b0t\n
  · *bilgiad* yazarsan sana harika rastgele bilgiler getiririm\n
  · *bilgiad* {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi bulurum _örn: bilgiad odtü_\n
- · *getirhoca* {id}|{ad-soyad} yazarsan senin için okulda o öğrenciyi ararım\n
+ · *getirhoca* {id} | {ad-soyad} yazarsan senin için okulda o öğrenciyi ararım _örn: getirhoca 2337046 ya da getirhoca ali yılmaz\n
  · *mizahyab* yazarsan senin için birbirinden eĞLenCeLi fıkralarımdan birisini anlatırım\n
  · *fotoad* yazarsan senin için internetin derinliklerinden elde ettiğim görsellerimden birisini paylaşırım\n
  · *yemekad* yazarsan senin için yemekhanede bugün ne olduğunu söylerim\n
@@ -46,7 +46,6 @@ class husna extends settings
  · *avroad* veya *euroad* yazarsan 1 avro kaç tl imiş onu söyler ve seninle üzülürüm\n
  · *egonomiad* yazarsan senin için en güncel iktisadi verileri bir araya getirir güçlü egonomimizin ne kadar iyi olduğundan dem vururum\n
  · *havadurumuad* {şehir} {ilçe} yazarsan senin için en güncel hava durumu verilerini getiririm\n
- · *neyesem* {popi} {minimum sipariş tutarı} dersen sana yemeksepeti'nden yemek öneririm, *popi* ve *minimum sipariş tutarı* zorunlu değil, ama yardımcı oluyor bence\n
  · *gunaydin* yazarsan seni güne sıcacık başlatmaya çalışırım, çok korkuyorum, selam\n
  · *komutad* yazarsan sana komutlara daha hızlı erişebilmen için menü hazırlarım\n
  · *oyunad* {oyunadı} yazarsan sana istedigin oyunun fiyatini soylerim\n
