@@ -24,10 +24,7 @@ function bilgiadFunc(){
         global $husnab0t;
         $ch = curl_init();
         $caller=$husnab0t->getFirstWord();
-        $thread='';
-        if($caller == "allambilgiad") {
-          $thread=trim($husnab0t->getOtherWords());
-        }
+        $thread=trim($husnab0t->getOtherWords());
         if(strlen($thread) > 0) {
           $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=".urlencode($thread)."&redirects=1";
 	  $url = "https://tr.wikipedia.org/w/api.php?action=opensearch&search=".urlencode($thread)."&limit=7&namespace=0&format=json";
