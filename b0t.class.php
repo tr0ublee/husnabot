@@ -36,8 +36,8 @@ class husna extends settings
 		$this->groupName = ($this->groupOrPrivate === 1) ? $data["message"]["chat"]["title"] : $this->senderUsername;
         $this->reqUrl = "https://api.telegram.org/bot".$this->getBotToken() . "/";
         $this->whoamI = "ben hüsna b0t\n
- · *bilgiad* yazarsan sana harika bilgiler getiririm\n
- · *allambilgiad* {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi bulurum\n
+ · *bilgiad* yazarsan sana harika rastgele bilgiler getiririm\n
+ · *bilgiad* {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi bulurum _örn: bilgiad odtü_\n
  · *getirhoca* {id}|{ad-soyad} yazarsan senin için okulda o öğrenciyi ararım\n
  · *mizahyab* yazarsan senin için birbirinden eĞLenCeLi fıkralarımdan birisini anlatırım\n
  · *fotoad* yazarsan senin için internetin derinliklerinden elde ettiğim görsellerimden birisini paylaşırım\n
