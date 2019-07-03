@@ -152,7 +152,7 @@ function yemekteNeVar() {
 
               $yemekler .= "*Öğle yemeği*\n · ".explode('(',$vej[2][3])[0]."\n";
             }
-            if(strlen($vej[2][1]) > 2) {
+            if(strlen($vej[2][1]) > 2 && strlen($output[4][4]) > 2) {
               $yemekler .= "*Akşam yemeği*\n · ".explode('(',$vej[2][7])[0]."\n";
             }
             $yemekler .="\n";
