@@ -27,7 +27,7 @@ function bilgiadFunc(){
         $thread=trim($husnab0t->getOtherWords());
         if(strlen($thread) > 0) {
           $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=".urlencode($thread)."&redirects=1";
-	  $url = "https://tr.wikipedia.org/w/api.php?action=opensearch&search=".urlencode($thread)."&limit=7&namespace=0&format=json";
+	  $url = "https://tr.wikipedia0.org/w/api.php?action=opensearch&search=".urlencode($thread)."&limit=7&namespace=0&format=json";
         }
         else {
           $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
