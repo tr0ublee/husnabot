@@ -2,6 +2,7 @@
 require_once("settings.php");
 class husna extends settings
 {
+    private $senderId;
     private $senderUsername;
     private $senderFirstName;
     private $senderLastName;
@@ -23,6 +24,7 @@ class husna extends settings
         $this->senderUsername = @$data["message"]["from"]["username"];
         $this->senderFirstName = $data["message"]["from"]["first_name"];
         $this->senderLastName = @$data["message"]["from"]["last_name"];
+	$this->senderId = @$data["message"]["from"]["id"];
         $this->message = ($data["message"]["text"]) ? mb_strtolower($data["message"]["text"]) : "";
         $this->firstWord = explode(" ",$this->message,2)[0];
         $this->otherWords = (isset(explode(" ",$this->message,2)[1])) ? explode(" ",$this->message,2)[1] : "";
@@ -270,7 +272,13 @@ for hugs and bugs @z4r4r
     {
         return $this->messageId;
     }
-
+    /**
+     * Get the value of senderId
+     */
+    public function getSenderId()
+    {
+        return $this->senderId;
+    }
     /**
      * Set the value of commands
      *
