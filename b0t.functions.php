@@ -69,8 +69,7 @@ function bilgiadFunc(){
 		if (!array_value_recursive('extract', $response)) {
 		  $husnab0t->sendMessage("hojam boj yabmayın",1);
 		} else {
-		  $husnab0t->sendMessage("*".array_value_recursive('title', $response)."*");
-		  $husnab0t->sendMessage(array_value_recursive('extract', $response));
+		  $husnab0t->sendMessage("*".array_value_recursive('title', $response)."*"."\n".array_value_recursive('extract', $response));
 		}
 	}
 
