@@ -25,12 +25,13 @@ function bilgiadFunc(){
         $ch = curl_init();
         $caller=$husnab0t->getFirstWord();
         $thread=trim($husnab0t->getOtherWords());
+	$lang = ($caller == "bilgiad") ? "tr" : str_replace("bilgiadl","",$caller);
+	
         if(strlen($thread) > 0) {
-          $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=".urlencode($thread)."&redirects=1";
-	  $url = "https://tr.wikipedia0.org/w/api.php?action=opensearch&search=".urlencode($thread)."&limit=7&namespace=0&format=json";
-        }
+          $url = "https://$lang.wikipedi0.org/w/api.php?action=opensearch&search=".urlencode($thread)."&limit=7&namespace=0&format=json";
+        } 
         else {
-          $url = "https://tr.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
+          $url = "https://$lang.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
         }
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
