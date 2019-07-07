@@ -40,6 +40,8 @@ class husna extends settings
         $this->whoamI = "ben hüsna b0t\n
  · *bilgiad* yazarsan sana harika rastgele bilgiler getiririm\n
  · *bilgiad* {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi bulurum _örn: bilgiad odtü_\n
+ · *bilgiad_l{dil}_* yazarsan sana attığın {dil} koduna sahip dilde harika rastgele bilgiler getiririm _örn: bilgiadlen_\n
+ · *bilgiad_l{dil}_* {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi {dil} koduna sahip dilde bulurum _örn: bilgiadlen Deaths in 2019_\n
  · *getirhoca* {id} | {ad-soyad} yazarsan senin için okulda o öğrenciyi ararım _örn: getirhoca 2337046 ya da getirhoca ali yılmaz_ (numaranın veya ad soyad bilgisinin tamamını yazmasan da yardımcı olurum _örn: getirhoca ayşe ha_ )\n
  · *mizahyab* yazarsan senin için birbirinden eĞLenCeLi fıkralarımdan birisini anlatırım\n
  · *fotoad* yazarsan senin için internetin derinliklerinden elde ettiğim görsellerimden birisini paylaşırım\n
