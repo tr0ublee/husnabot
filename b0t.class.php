@@ -9,7 +9,6 @@ class husna extends settings
     private $message;
     private $firstWord;
     private $otherWords;
-    private $queryTokens;
     private $messageId;
     private $chatId;
     private $userEnter;
@@ -29,8 +28,7 @@ class husna extends settings
         $this->message = ($data["message"]["text"]) ? mb_strtolower($data["message"]["text"]) : "";
         $this->firstWord = explode(" ",$this->message,2)[0];
         $this->otherWords = (isset(explode(" ",$this->message,2)[1])) ? explode(" ",$this->message,2)[1] : "";
-        $this->$queryTokens = explode(" ", $this->message);
-        $this->messageId = @$data["message"]["message_id"];
+	$this->messageId = @$data["message"]["message_id"];
         $this->chatId = @$data["message"]["chat"]["id"];
 	if(isset($data["message"]["new_chat_member"])){
         $this->userEnter = (isset($data["message"]["new_chat_member"]["username"])) ? "@".$data["message"]["new_chat_member"]["username"] : $data["message"]["new_chat_member"]["first_name"]. " ".$data["message"]["new_chat_member"]["last_name"];}
@@ -340,14 +338,6 @@ for hugs and bugs @z4r4r
     public function getOtherWords()
     {
         return $this->otherWords;
-    }
-
-    /**
-     * Get the value of queryTokens
-     */
-    public function getQueryTokens()
-    {
-        return $this->queryTokens;
     }
 
 	/**

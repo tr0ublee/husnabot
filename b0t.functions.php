@@ -170,24 +170,9 @@ function yemekteNeVar() {
 /* dolarad Function STARTS */
 function dolaradFunc() {
           global $husnab0t;
-          $index = array_search("dolarad", $husnab0t->getQueryTokens());
-          if($index > 0) {
-            //TODO convert money
-            $prevToken = ($husnab0t->getQueryTokens()[$index-1];
-
-            if(is_numeric($prevToken))) {
-              $amountToConvert = (float) $prevToken;
-            }
-          }
           $response = husnaCurl("https://www.bloomberght.com/doviz");
           preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"USDTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
-
-          if(isset($amountToConvert)) {
-            $message = "\xF0\x9F\x92\xB5 ".$amountToConvert." dolar şu an *".($resultRegex[1][0] * $amountToConvert) ."* ₺ hojam. \xF0\x9F\x92\xB8";
-          } else {
-            $message = "\xF0\x9F\x92\xB5 dolar şu an *".$resultRegex[1][0]."* ₺ hojam. \xF0\x9F\x92\xB8";
-          }
-
+          $message = "\xF0\x9F\x92\xB5 dolar şu an *".$resultRegex[1][0]."* ₺ hojam. \xF0\x9F\x92\xB8";
           $husnab0t->sendMessage($message);
 }
 /* dolarad Function ENDS */
@@ -195,55 +180,12 @@ function dolaradFunc() {
 /* avroad Function STARTS */
 function avroadFunc() {
           global $husnab0t;
-          $index = array_search("avroad", $husnab0t->getQueryTokens());
-          $index = $index ? $index : array_search("euroad", $husnab0t->getQueryTokens());
-          if($index > 0) {
-            //TODO convert money
-            $prevToken = ($husnab0t->getQueryTokens()[$index-1];
-
-            if(is_numeric($prevToken))) {
-              $amountToConvert = (float) $prevToken;
-            }
-          }
           $response = husnaCurl("https://www.bloomberght.com/doviz");
           preg_match_all("/<span data-type=\"son_fiyat\" class=\"LastPrice\" data-secid=\"EURTRY Curncy\">(.*?)<\/span>/msi", $response, $resultRegex);
-          if(isset($amountToConvert)) {
-            $message = "\xF0\x9F\x92\xB6 ".$amountToConvert." avro şu an *".($resultRegex[1][0] * $amountToConvert)."* ₺ hojam. \xF0\x9F\x92\xB6";
-          }
-          else {
-            $message = "\xF0\x9F\x92\xB6 avro şu an *".$resultRegex[1][0]."* ₺ hojam. \xF0\x9F\x92\xB6";
-          }
-
+          $message = "\xF0\x9F\x92\xB6 avro şu an *".$resultRegex[1][0]."* ₺ hojam. \xF0\x9F\x92\xB6";
           $husnab0t->sendMessage($message);
 }
 /* avroad Function ENDS */
-
-/*zlotyad starts*/
-
-function zlotyadFunc() {
-          global $husnab0t;
-          $index = array_search("zlotiad", $husnab0t->getQueryTokens());
-          if(index > 0) {
-            //TODO convert money
-            $prevToken = ($husnab0t->getQueryTokens()[$index-1];
-
-            if(is_numeric($prevToken))) {
-              $amountToConvert = (float) $prevToken;
-            }
-          }
-          $response = husnaCurl("https://m.tr.investing.com/currencies/pln-try");
-          preg_match_all('/<span class=\"lastInst pid.*?\">\s*?(\S*?)\s*?<\/span>/msi', $response, $resultRegex);
-          if(isset($amountToConvert)) {
-            $message = "\xF0\x9F\x87\xB5\xF0\x9F\x87\xB1 ".$amountToConvert." zloty şu an **".($resultRegex[1][0] * $amountToConvert)."** ₺ hojam. \xF0\x9F\x87\xB9\xF0\x9F\x87\xB7";
-          }
-          else {
-            $message = "\xF0\x9F\x87\xB5\xF0\x9F\x87\xB1 zloty şu an **".$resultRegex[1][0]."** ₺ hojam. \xF0\x9F\x87\xB9\xF0\x9F\x87\xB7";
-          }
-
-          $husnab0t->sendMessage($message);
-}
-
-/*zlotyad ends*/
 
 /* egonomiad Function STARTS */
 function egonomiadFunc() {
@@ -600,6 +542,19 @@ function iyiGeceler() {
 }
 
 /*iyi geceler ends*/
+
+/*zlotyad starts*/
+
+function zlotyadFunc() {
+  global $husnab0t;
+  $response = husnaCurl("https://m.tr.investing.com/currencies/pln-try");
+  preg_match_all('/<span class=\"lastInst pid.*?\">\s*?(\S*?)\s*?<\/span>/msi', $response, $resultRegex);
+  $message = "\xF0\x9F\x87\xB5\xF0\x9F\x87\xB1 zloty şu an **".$resultRegex[1][0]."** ₺ hojam. \xF0\x9F\x87\xB9\xF0\x9F\x87\xB7";
+  $husnab0t->sendMessage($message);
+}
+
+/*zlotyad ends*/
+
 
 /*secimAd starts*/
 
