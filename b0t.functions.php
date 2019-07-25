@@ -220,24 +220,24 @@ function havadurumuadFunc() {
 
           if(count($obj) == 1 && $obj[0] == "") {
             $city = "cankaya";
-            $response = husnaCurl("http://api.openweathermap.org/data/2.5/weather?q=cankaya&units=metric&appid=ba5f09dae8faa0fc1545ce998d86a0ed");
+            $response = husnaCurl("http://api.openweathermap.org/data/2.5/weather?q=cankaya&units=metric&appid=ba5f09dae8faa0fc1545ce998d86a0ed&lang=tr");
           }
           else {
             $city = $obj[0];
-            $response = husnaCurl("http://api.openweathermap.org/data/2.5/weather?q=".$city."&units=metric&appid=ba5f09dae8faa0fc1545ce998d86a0ed");
+            $response = husnaCurl("http://api.openweathermap.org/data/2.5/weather?q=".$city."&units=metric&appid=ba5f09dae8faa0fc1545ce998d86a0ed&lang=tr");
           }
-
-          $havadurumu = $response["weather"][0]["main"];
-          $sicaklik = $response["main"]["temp"];
-
-          if(strlen($city) > 1) {
-            $message = $city." konumunda hava * ".$havadurumu." * ve sıcaklık * ".$sicaklik." *.";
-            $message = $message."\n\n"."hava çoh iyi hojam.";
+          $response = json_decode($response,TRUE);
+          if(@$response["cod"] == "404"){
+              $message = "$city diye bi yer yok hojam.";
+          } else {
+              $havadurumu = $response["weather"][0]["description"];
+              $sicaklik = $response["main"]["temp"];
+    
+              if(strlen($city) > 1) {
+                $message = $city." konumunda hava durumu *".$havadurumu."* ve sıcaklık *".$sicaklik."* derece gözüküyor.";
+                $message = $message."\n"."hava çoh iyi hojam.";
+              }    
           }
-          else {
-            $message = "$city diye bi yer yok hojam.";
-          }
-
           $husnab0t->sendMessage($message);
       }
 /* havadurumuad Function ENDS*/
