@@ -214,39 +214,30 @@ function egonomiadFunc() {
 function havadurumuadFunc() {
 
           global $husnab0t;
-	        include('libs/turkeyweather.php');
-          $weather = new TurkeyWeather();
-
+	        
           $obj1 = trim($husnab0t->getOtherWords());
           $obj = explode(" ", $obj1);
 
           if(count($obj) == 1 && $obj[0] == "") {
-            $city = "Ankara";
-            $district = "Çankaya";
-          }
-          else if (count($obj) == 1 && $obj[0] != "") {
-            $city = $obj[0];
-            $district = null;
+            $city = "cankaya";
+            $response = husnaCurl("http://api.openweathermap.org/data/2.5/weather?q=cankaya&units=metric&appid=ba5f09dae8faa0fc1545ce998d86a0ed");
           }
           else {
             $city = $obj[0];
-            $district = $obj[1];
-          }
-          $weather->province($city);
-          $weather->district($district);
-          $weather->getData();
-          $durum=$weather->event()["turkish"];
-          if($durum == "-9999") {
-            $durum="bi tuhaf";
+            $response = husnaCurl("http://api.openweathermap.org/data/2.5/weather?q=".$city."&units=metric&appid=ba5f09dae8faa0fc1545ce998d86a0ed");
           }
 
-          if(strlen($weather->province()) > 1) {
-            $message = $weather->province()." ".$weather->district()." konumunda hava *".$durum."* ve sıcaklık *".$weather->temperature()."°*.";
+          $havadurumu = $response["weather"][0]["main"];
+          $sicaklik = $response["main"]["temp"];
+
+          if(strlen($city) > 1) {
+            $message = $city." konumunda hava * ".$havadurumu." * ve sıcaklık * ".$sicaklik." *.";
             $message = $message."\n\n"."hava çoh iyi hojam.";
           }
           else {
-            $message = "$obj1 diye bi yer yok hojam.";
+            $message = "$city diye bi yer yok hojam.";
           }
+
           $husnab0t->sendMessage($message);
       }
 /* havadurumuad Function ENDS*/
