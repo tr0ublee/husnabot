@@ -25,7 +25,7 @@ class husna extends settings
         $this->senderFirstName = $data["message"]["from"]["first_name"];
         $this->senderLastName = @$data["message"]["from"]["last_name"];
 	$this->senderId = @$data["message"]["from"]["id"];
-        $this->message = ($data["message"]["text"]) ? mb_strtolower($data["message"]["text"]) : "";
+        $this->message = (@$data["message"]["text"]) ? mb_strtolower(@$data["message"]["text"]) : "";
         $this->firstWord = explode(" ",$this->message,2)[0];
         $this->otherWords = (isset(explode(" ",$this->message,2)[1])) ? explode(" ",$this->message,2)[1] : "";
 	$this->messageId = @$data["message"]["message_id"];
