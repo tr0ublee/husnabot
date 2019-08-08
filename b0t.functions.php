@@ -216,12 +216,11 @@ function havadurumuadFunc() {
 function hesabyab(){
 	global $husnab0t;
 	$expression=$husnab0t->getOtherWords());
-	$expression=$expression.";";
-	if(eval($expression)){
-		$husnab0t->sendMessage(eval($expression));
+	try{
+		eval("$husnab0t->sendMessage(".$expression.");");
 	}
-	else{
-		$errorMsg="Duzgun islem yap hojaa";
+	catch(ParseError $e){
+		$errorMsg="duzgun isler yap hojaa";
 		$husnab0t->sendMessage($errorMsg);
 	}
 }
