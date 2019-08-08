@@ -212,6 +212,21 @@ function havadurumuadFunc() {
       }
 /* havadurumuad Function ENDS*/
 
+/* hesabyab Function BEGINS*/
+function hesabyab(){
+	global $husnab0t;
+	$expression=$husnab0t->getOtherWords());
+	$expression=$expression.";";
+	if(eval($expression)){
+		$husnab0t->sendMessage(eval($expression));
+	}
+	else{
+		$errorMsg="Duzgun islem yap hojaa";
+		$husnab0t->sendMessage($errorMsg);
+	}
+}
+
+/* hesabyab Function ENDS*/
 /* yemeksepeti function BEGINS*/
 
 function yemeksepeti() {
