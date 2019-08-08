@@ -212,20 +212,6 @@ function havadurumuadFunc() {
       }
 /* havadurumuad Function ENDS*/
 
-/* hesabyab Function BEGINS*/
-function hesabyab(){
-	global $husnab0t;
-	$expression=$husnab0t->getOtherWords());
-	try{
-		eval("$husnab0t->sendMessage(".$expression.");");
-	}
-	catch(ParseError $e){
-		$errorMsg="duzgun isler yap hojaa";
-		$husnab0t->sendMessage($errorMsg);
-	}
-}
-
-/* hesabyab Function ENDS*/
 /* yemeksepeti function BEGINS*/
 
 function yemeksepeti() {
