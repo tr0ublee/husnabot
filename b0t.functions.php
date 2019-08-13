@@ -491,21 +491,21 @@ function oyunadFunc(){
 /*despacito */
 function despacito() {
   global $husnab0t;
-  $husnab0t->sendVoiceMessage("http://ozanalpay.com/husna/despacito.ogg","",1);
+  $husnab0t->sendVoiceMessage("http://husnabot.mozan.xyz/despacito.ogg","",1);
 }
 /* despacito ends */
 
 /*nani */
 function nani() {
   global $husnab0t;
-  $husnab0t->sendVoiceMessage("http://ozanalpay.com/husna/nanii.ogg","",1);
+  $husnab0t->sendVoiceMessage("http://husnabot.mozan.xyz/nanii.ogg","",1);
 }
 /* nani ends */
 
 /*omae */
 function omae() {
   global $husnab0t;
-  $husnab0t->sendVoiceMessage("http://ozanalpay.com/husna/shi.ogg","",1);
+  $husnab0t->sendVoiceMessage("http://husnabot.mozan.xyz/shi.ogg","",1);
 }
 /* omae ends */
 /*yaprak */
