@@ -21,7 +21,7 @@ $data = json_decode($data, TRUE);
 
 $husnab0t = new husna($data);
 require_once("b0t.functions.php");
-require_once("priv8.php");
+
 
 $husnab0t->addCommand("husnacim","husnacimFunc");
 $husnab0t->addCommand("hüsnacım","husnacimFunc");
