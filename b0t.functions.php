@@ -26,10 +26,10 @@ function bilgiadFunc(){
         $caller=$husnab0t->getFirstWord();
         $thread=trim($husnab0t->getOtherWords());
 	$lang = ($caller == "bilgiad") ? "tr" : str_replace("bilgiadl","",$caller);
-	
+
         if(strlen($thread) > 0) {
           $url = "https://$lang.wikipedi0.org/w/api.php?action=opensearch&search=".urlencode($thread)."&limit=7&namespace=0&format=json";
-        } 
+        }
         else {
           $url = "https://$lang.wikipedi0.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&generator=random&grnnamespace=0&exlimit=max&exintro";
         }
@@ -40,23 +40,23 @@ function bilgiadFunc(){
         $response = curl_exec($ch);
         $response = json_decode($response, TRUE);
         curl_close($ch);
-	
+
 	if(strlen($thread) > 0){
 		$result_count= count($response[1]);
 		if(!$result_count) {$husnab0t->sendMessage("hojam boj yabmayın",1); return;}
-		
+
 		$husnab0t->sendMessage($response[0]." sorgusu için $result_count sonuç bulundu:",1);
 		$yanit = "";
 		for($i = 0; $i < $result_count; $i++){
-			
-			
+
+
 			$yanit .= "<b>".$response[1][$i]."</b>\n".
 			$response[2][$i]."\n".
 			"Daha fazla bilgi için:\n".
 			$response[3][$i]."\n----------------\n";
 
 		}
-		
+
 		if (strlen($yanit) > 3500) {
 			$messageparts = str_split($yanit, 3500);
 			foreach($messageparts as $parts){
@@ -64,7 +64,7 @@ function bilgiadFunc(){
 			}
 		}
 		else {$husnab0t->sendMessage_html($yanit); }
-		
+
 	} else {
 		if (!$response || !array_value_recursive('extract', $response)) {
 		  $husnab0t->sendMessage("hojam boj yabmayın",1);
@@ -116,52 +116,32 @@ function fotoadFunc(){
 /* yemekad Function STARTS */
 function yemekteNeVar() {
         global $husnab0t;
-        $others=trim($husnab0t->getOtherWords());
-        date_default_timezone_set('Europe/Istanbul');
-        $bak=date("N");
-        $tomo=0;
-        $others=explode(" ",$others);
-        if(in_array("yarın", $others) || in_array("yarin", $others) || in_array("geceler", $others)) {
-          $bak=(date("N")+1) % 7;
-          $tomo=1;
+        $others = trim($husnab0t->getOtherWords());
+        $response = husnaCurl("https://kafeterya.metu.edu.tr/service.php");
+        $yemekler = "\xF0\x9F\x8D\xB4 Y";
+        $responseDecode = json_decode($response, true);
+        $ogle = $responseDecode["ogle"];
+        $aksam = $responseDecode["aksam"];
+        $yemekler .= "emekte şunlar varmış hojam: \n\n *Öğle yemeği*\n ";
+        for($i=0; $i<4; $i++) {
+            $yemekler .= " · ".$ogle[$i]["name"]."\n ";
         }
-        if($tomo) {
-          $response = husnaCurl("http://kafeterya.metu.edu.tr/tarih/".date("d-m-Y", strtotime('tomorrow')));
+        $yemekler .= "*Akşam yemeği*\n ";
+        for($i=0; $i<4; $i++) {
+            $yemekler .= " · ".$aksam[$i]["name"]."\n ";
         }
-        else {
-          $response = husnaCurl("http://kafeterya.metu.edu.tr/");
-        }
-        preg_match_all("/<div class=\"yemek\">(.*?)<span>(.*?)<img src=\"(.*?)\" alt=\"(.*?)\"\/><\/span>(.*?)<p>(.*?)<\/p>(.*?)<\/div><!--end yemek-->/msi", $response, $output);
-        if($bak > 5) {
-          $yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
-        }
-        else {
-          $yemekler = "\xF0\x9F\x8D\xB4 Y";
-          preg_match_all('/<!--end yemek-->(.*?)<p>(.*?)<\/p>/msi', $response, $vej);
-          if($tomo) {
-            $yemekler .="arın y";
-          }
-          $yemekler .= "emekte şunlar varmış hojam: \n\n*Öğle yemeği*\n · ".$output[4][0]."\n · ".$output[4][1]."\n · ".$output[4][2]."\n · ".$output[4][3]."\n\n";
-          if(strlen($output[4][4]) > 2) {
-          $yemekler .= "*Akşam yemeği*\n · ".$output[4][4]."\n · ".$output[4][5]."\n · ".$output[4][6]."\n · ".$output[4][7]."\n\n";
-          }
-
-          if(strlen($vej[2][3]) > 2 || strlen($vej[2][7]) > 2) {
-            $yemekler .= "\xF0\x9F\xA5\xAC *Vejetaryen* alternatifler de şunlarmış hojam: \n\n";
-            if(strlen($vej[2][0]) > 2) {
-
-              $yemekler .= "*Öğle yemeği*\n · ".explode('(',$vej[2][3])[0]."\n";
-            }
-            if(strlen($vej[2][1]) > 2 && strlen($output[4][4]) > 2) {
-              $yemekler .= "*Akşam yemeği*\n · ".explode('(',$vej[2][7])[0]."\n";
-            }
-            $yemekler .="\n";
-          }
-
-          $yemekler .= "Afiyet olsun hojam!";
-        }
+        $yemekler .= "\xF0\x9F\xA5\xAC *Vejetaryen* alternatifler de şunlarmış hojam: \n\n";
+        $yemekler .= "*Öğle yemeği*\n · ".$ogle[4]["name"]."\n";
+        $yemekler .= "*Akşam yemeği*\n · ".$aksam[4]["name"]."\n";
+        $yemekler .="\n";
+        $yemekler .= "Afiyet olsun hojam!";
         $husnab0t->sendMessage($yemekler);
-        if(contains("BORONA",$output[4])) {
+        $yemekler_array = array();
+        for($i=0; $i<5; $i++) {
+            $yemekler_array[$i] = $ogle[$i]["name"];
+            $yemekler_array[$i + 5] = $aksam[$i]["name"];
+        }
+        if(contains("BORONA", $yemekler_array)) {
           $husnab0t->sendMessage("Aaa bi dk hojam borona varmış menüde? \xf0\x9f\xa5\x95 \n BORONA BORONA \n AL BENI BORONA \n YAKISIRIZ AMA \n COK COK");
         }
 }
@@ -214,7 +194,7 @@ function egonomiadFunc() {
 function havadurumuadFunc() {
 
           global $husnab0t;
-	        
+
           $obj1 = trim($husnab0t->getOtherWords());
           $obj = explode(" ", $obj1);
 
@@ -232,11 +212,11 @@ function havadurumuadFunc() {
           } else {
               $havadurumu = $response["weather"][0]["description"];
               $sicaklik = $response["main"]["temp"];
-    
+
               if(strlen($city) > 1) {
                 $message = $city." konumunda hava durumu *".$havadurumu."* ve sıcaklık *".$sicaklik."* derece gözüküyor.";
                 $message = $message."\n"."hava çoh iyi hojam.";
-              }    
+              }
           }
           $husnab0t->sendMessage($message);
       }
@@ -580,7 +560,7 @@ function secimAd() {
       preg_match_all('/.data\("qtipData","İstanbul - (Zey|Beş).*?<br \/>.*? (\S{5})%"/', $istanbulFile, $resultRegex);
       $rizaPercentage = $resultRegex[2][0];
       $omerPercentage = $resultRegex[2][1];
-    
+
 
       $message = "İSTANBUL BB BAŞKANLIĞI\n"
         ."Açılan Sandık: %".$sandikPercentage."\n"
@@ -590,7 +570,7 @@ function secimAd() {
         ."Beşiktaş Belediye Başkanlığı: Rıza Akpolat - CHP - %".$rizaPercentage."\n"
         ."Zeytinburnu Belediye Başkanlığı: Ömer Arısoy - AKP - %".$omerPercentage."\n"
         ."alamanyadan sevgiler hojajım.";
-        
+
         $husnab0t->sendMessage($message);
         $husnab0t->sendPhoto("https://s1.eksiup.com/4e8333a0a939.jpeg","",1);
     }
@@ -615,7 +595,7 @@ function secimAd() {
         ."Çankaya Belediye Başkanlığı: Alper Taşdelen - CHP - %".$alperPercentage."\n"
         ."Yenimahalle Belediye Başkanlığı: Fethi Yaşar - CHP - %".$fethiPercentage."\n"
         ."alamanyadan sevgiler hojajım.";
-        
+
         $husnab0t->sendMessage($message);
         $husnab0t->sendPhoto("https://s1.eksiup.com/4e8333a0a939.jpeg","",1);
     }
