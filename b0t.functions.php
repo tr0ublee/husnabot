@@ -130,7 +130,7 @@ function yemekteNeVar() {
         for($i=0; $i<4; $i++) {
             $yemekler .= " · ".$aksam[$i]["name"]."\n ";
         }
-        $yemekler .= "\xF0\x9F\xA5\xAC *Vejetaryen* alternatifler de şunlarmış hojam: \n\n";
+        $yemekler .= "\n\xF0\x9F\xA5\xAC *Vejetaryen* alternatifler de şunlarmış hojam: \n\n";
         $yemekler .= "*Öğle yemeği*\n · ".$ogle[4]["name"]."\n";
         $yemekler .= "*Akşam yemeği*\n · ".$aksam[4]["name"]."\n";
         $yemekler .="\n";
