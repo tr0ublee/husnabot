@@ -117,31 +117,50 @@ function fotoadFunc(){
 function yemekteNeVar() {
         global $husnab0t;
         $others = trim($husnab0t->getOtherWords());
-        $response = husnaCurl("https://kafeterya.metu.edu.tr/service.php");
-        $yemekler = "\xF0\x9F\x8D\xB4 Y";
-        $responseDecode = json_decode($response, true);
-        $ogle = $responseDecode["ogle"];
-        $aksam = $responseDecode["aksam"];
-        $yemekler .= "emekte şunlar varmış hojam: \n\n *Öğle yemeği*\n ";
-        for($i=0; $i<4; $i++) {
-            $yemekler .= " · ".$ogle[$i]["name"]."\n ";
+        date_default_timezone_set('Europe/Istanbul');
+        $bak = date("N");
+        $tomo = 0;
+        $others = explode(" ",$others);
+        if (in_array("yarın", $others) || in_array("yarin", $others) || in_array("geceler", $others)) {
+          $bak = (date("N")+1) % 7;
+          $tomo = 1;
         }
-        $yemekler .= "*Akşam yemeği*\n ";
-        for($i=0; $i<4; $i++) {
-            $yemekler .= " · ".$aksam[$i]["name"]."\n ";
+        $yemekURL = "https://kafeterya.metu.edu.tr/service.php";
+        if($tomo) {
+          $yemekURL .= "?tarih=".date("d-m-Y", strtotime('tomorrow'));
         }
-        $yemekler .= "\n\xF0\x9F\xA5\xAC *Vejetaryen* alternatifler de şunlarmış hojam: \n\n";
-        $yemekler .= "*Öğle yemeği*\n · ".$ogle[4]["name"]."\n";
-        $yemekler .= "*Akşam yemeği*\n · ".$aksam[4]["name"]."\n";
-        $yemekler .="\n";
-        $yemekler .= "Afiyet olsun hojam!";
+        $response = husnaCurl($yemekURL);
+        if ($bak > 5) {
+          $yemekler = "Haftasonu yemek yok hojam \xF0\x9F\x98\x94";
+        } else {
+          $yemekler = "\xF0\x9F\x8D\xB4 Y";
+          if ($tomo) {
+            $yemekler .= "arın y";
+          }
+          $responseDecode = json_decode($response, true);
+          $ogle = $responseDecode["ogle"];
+          $aksam = $responseDecode["aksam"];
+          $yemekler .= "emekte şunlar varmış hojam: \n\n *Öğle yemeği*\n ";
+          for($i=0; $i<4; $i++) {
+              $yemekler .= " · ".$ogle[$i]["name"]."\n ";
+          }
+          $yemekler .= "*Akşam yemeği*\n ";
+          for($i=0; $i<4; $i++) {
+              $yemekler .= " · ".$aksam[$i]["name"]."\n ";
+          }
+          $yemekler .= "\n\xF0\x9F\xA5\xAC *Vejetaryen* alternatifler de şunlarmış hojam: \n\n";
+          $yemekler .= "*Öğle yemeği*\n · ".$ogle[4]["name"]."\n";
+          $yemekler .= "*Akşam yemeği*\n · ".$aksam[4]["name"]."\n";
+          $yemekler .="\n";
+          $yemekler .= "Afiyet olsun hojam!";
+        }
         $husnab0t->sendMessage($yemekler);
         $yemekler_array = array();
-        for($i=0; $i<5; $i++) {
+        for ($i=0; $i<5; $i++) {
             $yemekler_array[$i] = $ogle[$i]["name"];
             $yemekler_array[$i + 5] = $aksam[$i]["name"];
         }
-        if(contains("BORONA", $yemekler_array)) {
+        if (contains("BORONA", $yemekler_array)) {
           $husnab0t->sendMessage("Aaa bi dk hojam borona varmış menüde? \xf0\x9f\xa5\x95 \n BORONA BORONA \n AL BENI BORONA \n YAKISIRIZ AMA \n COK COK");
         }
 }
