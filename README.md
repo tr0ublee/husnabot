@@ -1,6 +1,6 @@
 # husnabot
 ### A very simple Telegram bot that made just for fun. All credits go to [Hüsna Yılmaz](https://github.com/arfias)
-
+[Say /start to @husnabot](https://telegram.me/husnabot)
 ---
 **b0t.php** and **b0t.functions.php** are the files developed and customized for contributors to easily add new features to the bot.
 

@@ -2,6 +2,7 @@
 require_once("settings.php");
 class husna extends settings
 {
+    private $senderId;
     private $senderUsername;
     private $senderFirstName;
     private $senderLastName;
@@ -20,23 +21,27 @@ class husna extends settings
 	private $groupName;
     public function __construct($data)
     {
-        $this->senderUsername = $data["message"]["from"]["username"];
+        $this->senderUsername = @$data["message"]["from"]["username"];
         $this->senderFirstName = $data["message"]["from"]["first_name"];
-        $this->senderLastName = $data["message"]["from"]["last_name"];
-        $this->message = mb_strtolower($data["message"]["text"]);
+        $this->senderLastName = @$data["message"]["from"]["last_name"];
+	$this->senderId = @$data["message"]["from"]["id"];
+        $this->message = (@$data["message"]["text"]) ? mb_strtolower(@$data["message"]["text"]) : "";
         $this->firstWord = explode(" ",$this->message,2)[0];
-        $this->otherWords = explode(" ",$this->message,2)[1];
-	$this->messageId = $data["message"]["message_id"];
-        $this->chatId = $data["message"]["chat"]["id"];
-        $this->userEnter = ($data["message"]["new_chat_member"]["username"]) ? $data["message"]["new_chat_member"]["username"] : 0;
-        $this->userExit = ($data["message"]["left_chat_participant"]["username"]) ? $data["message"]["left_chat_participant"]["username"] : 0;
+        $this->otherWords = (isset(explode(" ",$this->message,2)[1])) ? explode(" ",$this->message,2)[1] : "";
+	$this->messageId = @$data["message"]["message_id"];
+        $this->chatId = @$data["message"]["chat"]["id"];
+	if(isset($data["message"]["new_chat_member"])){
+        $this->userEnter = (isset($data["message"]["new_chat_member"]["username"])) ? "@".$data["message"]["new_chat_member"]["username"] : $data["message"]["new_chat_member"]["first_name"]. " ".$data["message"]["new_chat_member"]["last_name"];}
+	if(isset($data["message"]["left_chat_participant"])){
+        $this->userExit = (isset($data["message"]["left_chat_participant"]["username"])) ? "@". $data["message"]["left_chat_participant"]["username"] : $data["message"]["left_chat_participant"]["first_name"]." ".$data["message"]["left_chat_participant"]["last_name"];}
         $this->groupOrPrivate = ($data["message"]["chat"]["type"] == "private") ? 0 : 1; // 0 = private message, 1 = group message
 		$this->groupName = ($this->groupOrPrivate === 1) ? $data["message"]["chat"]["title"] : $this->senderUsername;
         $this->reqUrl = "https://api.telegram.org/bot".$this->getBotToken() . "/";
         $this->whoamI = "ben hüsna b0t\n
- · *bilgiad* yazarsan sana harika bilgiler getiririm\n
- · *allambilgiad* {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi bulurum\n
- · *getirhoca* {id}|{ad-soyad} yazarsan senin için okulda o öğrenciyi ararım\n
+ · *bilgiad* yazarsan sana harika rastgele bilgiler getiririm\n
+ · *bilgiad* {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi bulurum _örn: bilgiad odtü_\n
+ · *bilgiadl{dil}* yazarsan sana attığın {dil} koduna sahip dilde harika rastgele bilgiler getiririm _örn: bilgiadlen_\n
+ · *bilgiadl{dil}* {söz öbeği} formatında şeyler söylersen de arar tarar senin için o şeyi {dil} koduna sahip dilde bulurum _örn: bilgiadlen Deaths in 2019_\n
  · *mizahyab* yazarsan senin için birbirinden eĞLenCeLi fıkralarımdan birisini anlatırım\n
  · *fotoad* yazarsan senin için internetin derinliklerinden elde ettiğim görsellerimden birisini paylaşırım\n
  · *yemekad* yazarsan senin için yemekhanede bugün ne olduğunu söylerim\n
@@ -44,20 +49,21 @@ class husna extends settings
  · *avroad* veya *euroad* yazarsan 1 avro kaç tl imiş onu söyler ve seninle üzülürüm\n
  · *egonomiad* yazarsan senin için en güncel iktisadi verileri bir araya getirir güçlü egonomimizin ne kadar iyi olduğundan dem vururum\n
  · *havadurumuad* {şehir} {ilçe} yazarsan senin için en güncel hava durumu verilerini getiririm\n
- · *neyesem* {popi} {minimum sipariş tutarı} dersen sana yemeksepeti'nden yemek öneririm, *popi* ve *minimum sipariş tutarı* zorunlu değil, ama yardımcı oluyor bence\n
  · *gunaydin* yazarsan seni güne sıcacık başlatmaya çalışırım, çok korkuyorum, selam\n
  · *komutad* yazarsan sana komutlara daha hızlı erişebilmen için menü hazırlarım\n
-henüz yeni sayılırım mazur gör hoja!";
+henüz yeni sayılırım mazur gör hoja!\n
+for hugs and bugs @z4r4r
+";
 
     }
 
-    public function proccess(){
-        if($this->getUserEnter() !== 0)
+    public function process(){
+        if(trim($this->getUserEnter()) != "")
         {
             $this->sayHi();
             return;
         }
-        else if($this->getUserExit() !== 0)
+        else if(trim($this->getUserExit()) != "")
         {
             $this->sayBye();
             return;
@@ -81,6 +87,13 @@ henüz yeni sayılırım mazur gör hoja!";
     public function sendMessage($message,$reply_to_message = 0) {
         $reply = ($reply_to_message != 0) ? "&reply_to_message_id=".$this->getMessageId(): "";
         $url = "sendMessage?chat_id=".$this->getChatId()."&text=".urlencode($message).$reply."&parse_mode=markdown";
+        $this->requEst($url);
+        return;
+    }
+	
+	public function sendMessage_html($message,$reply_to_message = 0) {
+        $reply = ($reply_to_message != 0) ? "&reply_to_message_id=".$this->getMessageId(): "";
+        $url = "sendMessage?chat_id=".$this->getChatId()."&text=".urlencode($message).$reply."&parse_mode=html";		
         $this->requEst($url);
         return;
     }
@@ -132,14 +145,15 @@ henüz yeni sayılırım mazur gör hoja!";
 
     private function sayHi(){
             if($this->getUserEnter() == "HusnaBot" ){
-                $this->sendVoiceMessage("https://kursat.blog/b0t/audio/selam.ogg","hey bitchezzz");
+                $this->sendVoiceMessage("https://kursat.space/b0t/audio/selam.ogg","hey bitchezzz");
                 $this->sendMessage($this->getWhoamI());
             }else{
-                $this->sendVoiceMessage("https://kursat.blog/b0t/audio/selam.ogg","@".$this->getUserEnter());
+		
+                $this->sendVoiceMessage("https://kursat.space/b0t/audio/selam.ogg",$this->getUserEnter(). " gelmiş hoj gelmiş");
             }
     }
     private function sayBye(){
-        $this->sendVoiceMessage("https://kursat.blog/b0t/audio/seriuzgunad.ogg","@".$this->getUserExit(). " gitti. artık bir eksiğiz...");
+        $this->sendVoiceMessage("https://kursat.space/b0t/audio/seriuzgunad.ogg",$this->getUserExit(). " gitti. artık bir eksiğiz...");
     }
     public function requEst($url){
 
@@ -154,7 +168,8 @@ henüz yeni sayılırım mazur gör hoja!";
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $this->getReqUrl() . $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch,CURLOPT_TIMEOUT,1000);
 		curl_exec($ch);
 		curl_close($ch);
     }
@@ -167,6 +182,7 @@ henüz yeni sayılırım mazur gör hoja!";
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($content));
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch,CURLOPT_TIMEOUT,1000);
 
 		// receive server response ...
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -256,7 +272,13 @@ henüz yeni sayılırım mazur gör hoja!";
     {
         return $this->messageId;
     }
-
+    /**
+     * Get the value of senderId
+     */
+    public function getSenderId()
+    {
+        return $this->senderId;
+    }
     /**
      * Set the value of commands
      *
